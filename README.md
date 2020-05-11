@@ -1,2 +1,2 @@
-# Gamble Prototype
-A Java card game prototype using console IO. Includes Docker + HTML for a websockets front end.
+# Gamble Proof of Concept
+A Java card game proof of concept using console IO. Includes Docker + HTML for a websockets front end and automated tests using Mockito.
