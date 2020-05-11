@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+</style>
+<body>
+<pre id="output" style="height: 35em; white-space: pre-wrap;"></pre>
+<script>
+  // helper function: log message to screen
+  function log(msg) {
+    var output = document.getElementById('output').textContent;
+    output += msg + "\n";
+    var reduced = output.substring(output.length - 650, output.length);
+    document.getElementById('output').textContent = reduced;
+  }
+
+  // setup websocket with callbacks
+  var ws = new WebSocket('ws://' + location.host + '/');
+  ws.onopen = function() {
+    log('CONNECT');
+  };
+  ws.onclose = function() {
+    log('DISCONNECT');
+  };
+  ws.onmessage = function(event) {
+    log(event.data);
+  };
+</script>
+
+<div id="footerContainer">
+<form action="#" onsubmit="ws.send(document.getElementById('input').value); document.getElementById('input').value = '';">
+    <input type="textbox" id="input" autocomplete="off" />
+    <button type=submit>Submit</button>
+</form>
+</div>
+</body>
+</html>

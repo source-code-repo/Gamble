@@ -1,0 +1,6 @@
+/target/
+.classpath
+.project
+.settings/
+websocketd-0.3.1_amd64.deb
+dependency-reduced-pom.xml
