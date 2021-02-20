@@ -20,7 +20,7 @@ public interface RoundEventListener {
   /**
    * Notify that the player is choosing their next card
    */
-  void playerChoosingCard();
+  void playerChoosingCard(List<Card> cards);
 
   /**
    * Notify that the player has chosen an empty card
@@ -33,11 +33,6 @@ public interface RoundEventListener {
    * @param value
    */
   void playerPlayingCard(int value);
-
-  /**
-   * Player won a round with an exact match
-   */
-  void exactHit();
 
   /**
    * Notify that a round is over

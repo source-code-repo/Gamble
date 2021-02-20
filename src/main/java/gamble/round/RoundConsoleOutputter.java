@@ -50,31 +50,25 @@ public class RoundConsoleOutputter implements RoundEventListener {
     Util.pause(Config.DELAY * 2);
   }
 
-  @Override
-  public void exactHit() {
-    print("Spot on! Precise hit!");
-  }
-
   /* (non-Javadoc)
    * @see gamble.service.output.RoundOutputter#cardUsedUp()
    */
   @Override
   public void chosenEmptyCard() {
-    print("Card has reached max uses, please select another card");
+    print("\nCard has reached max uses, please select another card");
   }
 
   @Override
   public void opponentShowingCard(int target, int totalPlayed, List<Card> cards) {
-    String str = String.format("\nYour opponent's card has %01d/%01d points.\n",
+    String str = String.format("\nYour opponent's card has %01d/%01d points.",
       target - totalPlayed, target);
     print(str);
     Util.pause(Config.DELAY * 2);
-
-    cardOut.showPlayerCards(cards);
   }
 
   @Override
-  public void playerChoosingCard() {
+  public void playerChoosingCard(List<Card> cards) {
+    cardOut.showPlayerCards(cards);
     print("Choose a card to play: ");
   }
 }

@@ -10,7 +10,7 @@ public class CardConsoleOutputter implements CardEventListener {
    * @param cards
    */
   public void showPlayerCards(List<Card> cards) {
-    String str = String.format("You have %d cards", cards.size());
+    String str = String.format("\nYou have %d cards", cards.size());
     Util.print(str);
 
     int cardCount = 1;

@@ -49,7 +49,7 @@ public class RoundService {
       eventListeners.forEach(e ->
         e.opponentShowingCard(r.opponentCardTarget, r.playerTotal, p.cards));
 
-      Card pc = chooseCard(p);
+      Card pc = chooseCard(p.cards);
       pc.uses--;
       int value = pc.getValue();
 
@@ -58,7 +58,6 @@ public class RoundService {
       r.playerTotal += value;
 
       if (r.playerTotal == r.opponentCardTarget) {
-        eventListeners.forEach(e -> e.exactHit());
         eventListeners.forEach(e -> e.roundOver());
         return new RoundResult(true, true);
       }
@@ -70,13 +69,13 @@ public class RoundService {
     }
   }
 
-  private Card chooseCard(Player p) {
+  private Card chooseCard(List<Card> cards) {
     Card card = null;
     boolean cardChosen = false;
     while (!cardChosen) {
-      eventListeners.forEach(e -> e.playerChoosingCard());
+      eventListeners.forEach(e -> e.playerChoosingCard(cards));
 
-      card = cardInputter.selectCard(p.cards);
+      card = cardInputter.selectCard(cards);
 
       if (card.uses == 0) {
         eventListeners.forEach(e -> e.chosenEmptyCard());
