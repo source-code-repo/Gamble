@@ -8,12 +8,12 @@ import gamble.service.RoundService;
 import gamble.service.VillageService;
 import gamble.service.io.CardOutputter;
 import gamble.service.io.ConsoleCardOutputter;
-import gamble.service.io.ConsoleGameOutputter;
+import gamble.service.io.ConsoleGameEventListener;
 import gamble.service.io.ConsoleInputter;
 import gamble.service.io.ConsoleMatchOutputter;
 import gamble.service.io.ConsoleRoundOutputter;
 import gamble.service.io.ConsoleVillageOutputter;
-import gamble.service.io.GameOutputter;
+import gamble.service.io.GameEventListener;
 import gamble.service.io.Inputter;
 import gamble.service.io.MatchOutputter;
 import gamble.service.io.RoundOutputter;
@@ -24,7 +24,7 @@ public class GameFactory {
 
         Inputter in = new ConsoleInputter();
         
-        GameOutputter out = new ConsoleGameOutputter();
+        GameEventListener out = new ConsoleGameEventListener();
         CardOutputter co = new ConsoleCardOutputter();
         VillageOutputter vos = new ConsoleVillageOutputter();
         RoundOutputter ro = new ConsoleRoundOutputter();
