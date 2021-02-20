@@ -12,7 +12,6 @@ import gamble.match.MatchConsoleOutputter;
 import gamble.village.VillageConsoleOutputter;
 import gamble.game.GameEventListener;
 import gamble.village.VillageInputter;
-import gamble.match.MatchOutputter;
 import gamble.village.VillageOutputter;
 
 public class GameFactory {
@@ -20,18 +19,19 @@ public class GameFactory {
 
         GameEventListener out = new GameConsoleOutputter();
 
-        CardOutputter co = new CardConsoleOutputter();
-        CardInputter ci = new CardConsoleInputter(co);
-        CardService cs = new CardService(ci, co);
+        CardConsoleOutputter cco = new CardConsoleOutputter();
+        CardInputter ci = new CardConsoleInputter(cco);
+        CardService cs = new CardService(ci, cco);
 
         RoundOutputter ro = new RoundConsoleOutputter();
         RoundInputter ri = new RoundConsoleInputter(ro, ci);
-        RoundService rs = new RoundService(co, ro, ri, cs);
+        RoundService rs = new RoundService(cco, ro, ri, cs);
 
         PlayerService ps = new PlayerService();
 
-        MatchOutputter mo = new MatchConsoleOutputter(cs);
-        MatchService ms = new MatchService(rs, cs, mo, co);
+        MatchConsoleOutputter mco = new MatchConsoleOutputter(cs, cco);
+        MatchService ms = new MatchService(rs);
+        ms.addMatchEventListener(mco);
 
         VillageOutputter vos = new VillageConsoleOutputter();
         VillageInputter in = new VillageConsoleInputter(ro);

@@ -1,7 +1,5 @@
 package gamble;
 
-import gamble.config.Config;
-
 public class Util {
 
 	public static void pause(long waitTime) {

@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import gamble.config.Config;
+import gamble.Config;
 import gamble.player.Player;
 import gamble.player.PlayerService;
 import gamble.village.VillageInputter;

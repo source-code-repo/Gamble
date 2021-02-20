@@ -2,15 +2,15 @@ package gamble.card;
 
 import java.util.List;
 
-import gamble.config.Config;
+import gamble.Config;
 import gamble.player.Player;
 
 public class CardService {
     
     private CardInputter in;
-    private CardOutputter co;
+    private CardEventListener co;
 
-	public CardService(CardInputter cardInputter, CardOutputter co) {
+	public CardService(CardInputter cardInputter, CardEventListener co) {
         super();
         this.in = cardInputter;
         this.co = co;
@@ -38,7 +38,7 @@ public class CardService {
 	 * Allows the player to recharge a single card
 	 */
     public void rechargeCard(Player p) {
-        co.chooseCardToRecharge();
+        co.rechargingCards();
         Card card = in.selectCard(p.cards);
         card.uses = card.maxUses;
     }

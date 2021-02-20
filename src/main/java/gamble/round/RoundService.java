@@ -1,24 +1,27 @@
 package gamble.round;
 
-import gamble.card.CardOutputter;
+import gamble.card.CardEventListener;
 import gamble.card.CardService;
-import gamble.config.Config;
+import gamble.Config;
 import gamble.player.Player;
 import gamble.card.Card;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * Plays a round - the player has to beat one CPU card.
  */
 public class RoundService {
+
+	final CardEventListener cardOut;
+	final RoundOutputter roundOut;
+	final RoundInputter in;
+	final CardService cs;
+	final List<RoundEventListener> roundEventListeners = new ArrayList<RoundEventListener>();
 	
-    CardOutputter cardOut;
-	RoundOutputter roundOut;
-	RoundInputter in;
-	CardService cs;
-	
-	public RoundService(CardOutputter cardOut, RoundOutputter roundOut, RoundInputter in, CardService cs) {
+	public RoundService(CardEventListener cardOut, RoundOutputter roundOut, RoundInputter in, CardService cs) {
         super();
         this.cardOut = cardOut;
         this.roundOut = roundOut;
@@ -72,5 +75,9 @@ public class RoundService {
 				return new RoundResult(false, true);
 			}
 		}
+	}
+
+	public void addRoundEventListener(RoundEventListener roundEventListener) {
+		roundEventListeners.add(roundEventListener);
 	}
 }

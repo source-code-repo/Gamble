@@ -1,12 +1,12 @@
 package gamble.round;
 
-import gamble.config.Config;
+import gamble.Config;
 import gamble.Util;
 
 /**
  * UI for round output
  */
-public class RoundConsoleOutputter implements RoundOutputter {
+public class RoundConsoleOutputter implements RoundOutputter, RoundEventListener {
 
 	/* (non-Javadoc)
      * @see gamble.service.output.RoundOutputter#showCpuCards(int, int)

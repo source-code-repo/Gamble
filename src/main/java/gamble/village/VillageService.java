@@ -1,6 +1,6 @@
 package gamble.village;
 
-import gamble.config.Config;
+import gamble.Config;
 import gamble.player.Player;
 import gamble.player.PlayerService;
 

@@ -1,6 +1,6 @@
 package gamble.game;
 
-import gamble.config.Config;
+import gamble.Config;
 import gamble.Util;
 
 public class GameConsoleOutputter implements GameEventListener {
