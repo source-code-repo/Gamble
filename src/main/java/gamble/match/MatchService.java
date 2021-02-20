@@ -2,10 +2,10 @@ package gamble.match;
 
 import gamble.Config;
 import gamble.card.CardService;
+import gamble.fight.FightService;
+import gamble.fight.Fighter;
+import gamble.fight.FightResult;
 import gamble.player.Player;
-import gamble.round.Round;
-import gamble.round.RoundResult;
-import gamble.round.RoundService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,12 @@ import java.util.List;
  */
 public class MatchService {
   private final List<MatchEventListener> matchEventListeners = new ArrayList<MatchEventListener>();
-  private final RoundService rs;
-  private final CardService cs;
+  private final FightService fightService;
+  private final CardService cardService;
 
-  public MatchService(RoundService rs, CardService cs) {
-    this.rs = rs;
-    this.cs = cs;
+  public MatchService(FightService fightService, CardService cardService) {
+    this.fightService = fightService;
+    this.cardService = cardService;
   }
 
   public MatchResult play(Player p, int cpuCards) {
@@ -31,11 +31,11 @@ public class MatchService {
       int finalRoundNum = roundNum;
       int finalCpuCards = cpuCards;
       matchEventListeners.forEach(mel -> mel.roundStarted(finalRoundNum, finalCpuCards));
-      Round r = rs.createRound(
+      Fighter fighter = fightService.createFighter(
         Config.MIN_CPU_CARD_VALUE,
         Config.MAX_CPU_CARD_VALUE);
 
-      RoundResult rr = rs.play(r, p);
+      FightResult rr = fightService.fight(fighter, p);
 
       if (!rr.won) {
         matchEventListeners.forEach(mel -> mel.matchLost());
@@ -46,7 +46,7 @@ public class MatchService {
 
       if (rr.exactHit) {
         matchEventListeners.forEach(mel -> mel.exactHit(p));
-        cs.rechargeCard(p);
+        cardService.rechargeCard(p);
       }
     }
     return new MatchResult(true);

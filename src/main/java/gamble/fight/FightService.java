@@ -1,7 +1,9 @@
-package gamble.round;
+package gamble.fight;
 
 import gamble.Config;
-import gamble.card.*;
+import gamble.card.Card;
+import gamble.card.CardInputter;
+import gamble.card.CardService;
 import gamble.player.Player;
 
 import java.util.ArrayList;
@@ -11,36 +13,36 @@ import java.util.Random;
 /**
  * Plays a round - the player has to beat one CPU card.
  */
-public class RoundService {
+public class FightService {
   final CardService cs;
-  final List<RoundEventListener> eventListeners = new ArrayList<RoundEventListener>();
+  final List<FightEventListener> eventListeners = new ArrayList<>();
   private final CardInputter cardInputter;
 
-  public RoundService(CardService cs, CardInputter cardInputter) {
+  public FightService(CardService cs, CardInputter cardInputter) {
     this.cs = cs;
     this.cardInputter = cardInputter;
   }
 
   /**
-   * Creates a round of the game
-   * @param min CPU's minimum card value
-   * @param max CPU's maximum card value
+   * Creates a fighter with a random HP
+   * @param min Fighter's minimum possible HP
+   * @param max Fighter's maximum possible HP
    * @return
    */
-  public Round createRound(int min, int max) {
-    Round r = new Round();
-    r.opponentCardTarget =randomCardValue(min, max);
-    r.playerTotal = 0;
+  public Fighter createFighter(int min, int max) {
+    Fighter r = new Fighter();
+    r.maxHp = randomBetween(min, max);
+    r.damageTaken = 0;
     return r;
   }
 
   /**
-   * Produces a random card value somewhere between
+   * Produces a random value between two values
    * @param min Minimum value
    * @param max Maximum value
    * @return
    */
-  private int randomCardValue(int min, int max) {
+  private int randomBetween(int min, int max) {
     Random r = new Random();
     int random = r.nextInt(max - min) + 1;
     return Config.MIN_CPU_CARD_VALUE + random;
@@ -49,18 +51,18 @@ public class RoundService {
   /**
    * Play a round, 1 CPU card
    *
-   * @param r Round context
+   * @param fighter Round context
    * @param p Player context
    * @return Result, did the player win + get exact match?
    */
-  public RoundResult play(Round r, Player p) {
+  public FightResult fight(Fighter fighter, Player p) {
     while (true) {
       if (!cs.movesLeft(p.cards)) {
-        return new RoundResult(false, false);
+        return new FightResult(false, false);
       }
 
       eventListeners.forEach(e ->
-        e.opponentShowingCard(r.opponentCardTarget, r.playerTotal, p.cards));
+        e.fighterShowingHp(fighter.maxHp, fighter.damageTaken, p.cards));
 
       Card pc = chooseCard(p.cards);
       pc.uses--;
@@ -68,16 +70,16 @@ public class RoundService {
 
       eventListeners.forEach(e -> e.playerPlayingCard(value));
 
-      r.playerTotal += value;
+      fighter.damageTaken += value;
 
-      if (r.playerTotal == r.opponentCardTarget) {
+      if (fighter.damageTaken == fighter.maxHp) {
         eventListeners.forEach(e -> e.roundOver());
-        return new RoundResult(true, true);
+        return new FightResult(true, true);
       }
 
-      if (r.playerTotal >= r.opponentCardTarget) {
+      if (fighter.damageTaken >= fighter.maxHp) {
         eventListeners.forEach(e -> e.roundOver());
-        return new RoundResult(false, true);
+        return new FightResult(false, true);
       }
     }
   }
@@ -100,7 +102,7 @@ public class RoundService {
     return card;
   }
 
-  public void addRoundEventListener(RoundEventListener roundEventListener) {
-    eventListeners.add(roundEventListener);
+  public void addRoundEventListener(FightEventListener fightEventListener) {
+    eventListeners.add(fightEventListener);
   }
 }

@@ -31,10 +31,11 @@ public class MatchConsoleOutputter implements MatchEventListener {
   }
 
   @Override
-  public void roundStarted(int roundNum, int opponentCardsLeft) {
-    String str = String.format("Your opponent shows their %s card. "
-        + "They have %d other card(s).", Util.numToName(roundNum),
-      opponentCardsLeft - 1);
+  public void roundStarted(int roundNum, int fightersLeft) {
+    String str = String.format("The clan send out the %s fighter. "
+        + "They have %d other fighter(s) left.",
+      Util.numToName(roundNum),
+      fightersLeft - 1);
     Util.print(str);
     Util.pause(Config.DELAY);
   }

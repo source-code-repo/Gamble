@@ -1,4 +1,4 @@
-package gamble.round;
+package gamble.fight;
 
 import gamble.card.Card;
 
@@ -7,15 +7,15 @@ import java.util.List;
 /**
  * Events that occur during a round
  */
-public interface RoundEventListener {
+public interface FightEventListener {
   /**
-   * Notify that opponent is showing their current card
+   * Notify that fighter is showing their HP
    *
-   * @param target Opponent's card total value
-   * @param playerTotal Total the player has scored so far (player total needs to equal opponent total to win)
+   * @param target Fighter's total HP
+   * @param playerTotal Figher's damage taken
    * @param cards All cards the player has
    */
-  void opponentShowingCard(int target, int playerTotal, List<Card> cards);
+  void fighterShowingHp(int target, int playerTotal, List<Card> cards);
 
   /**
    * Notify that the player is choosing their next card
