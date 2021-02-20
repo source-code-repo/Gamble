@@ -1,23 +1,23 @@
 package gamble;
 
-import gamble.service.CardService;
-import gamble.service.GameService;
-import gamble.service.MatchService;
-import gamble.service.PlayerService;
-import gamble.service.RoundService;
-import gamble.service.VillageService;
-import gamble.service.io.CardOutputter;
-import gamble.service.io.ConsoleCardOutputter;
-import gamble.service.io.ConsoleGameEventListener;
-import gamble.service.io.ConsoleInputter;
-import gamble.service.io.ConsoleMatchOutputter;
-import gamble.service.io.ConsoleRoundOutputter;
-import gamble.service.io.ConsoleVillageOutputter;
-import gamble.service.io.GameEventListener;
-import gamble.service.io.Inputter;
-import gamble.service.io.MatchOutputter;
-import gamble.service.io.RoundOutputter;
-import gamble.service.io.VillageOutputter;
+import gamble.card.CardService;
+import gamble.game.GameService;
+import gamble.match.MatchService;
+import gamble.player.PlayerService;
+import gamble.round.RoundService;
+import gamble.village.VillageService;
+import gamble.card.CardOutputter;
+import gamble.card.ConsoleCardOutputter;
+import gamble.game.ConsoleGameEventListener;
+import gamble.service.input.ConsoleInputter;
+import gamble.match.ConsoleMatchOutputter;
+import gamble.round.ConsoleRoundOutputter;
+import gamble.village.ConsoleVillageOutputter;
+import gamble.game.GameEventListener;
+import gamble.service.input.Inputter;
+import gamble.match.MatchOutputter;
+import gamble.round.RoundOutputter;
+import gamble.village.VillageOutputter;
 
 public class GameFactory {
     public static GameService create() {

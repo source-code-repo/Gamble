@@ -1,4 +1,4 @@
-package gamble.service;
+package gamble.player;
 
 import java.util.List;
 

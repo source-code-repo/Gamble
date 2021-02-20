@@ -1,4 +1,4 @@
-package gamble.service.io;
+package gamble.game;
 
 public interface GameEventListener {
 

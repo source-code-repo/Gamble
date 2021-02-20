@@ -1,11 +1,12 @@
-package gamble.service;
+package gamble.match;
 
 import gamble.entities.MatchResult;
 import gamble.entities.Player;
 import gamble.entities.Round;
 import gamble.entities.RoundResult;
-import gamble.service.io.CardOutputter;
-import gamble.service.io.MatchOutputter;
+import gamble.round.RoundService;
+import gamble.card.CardService;
+import gamble.card.CardOutputter;
 
 /**
  * Plays a match against the CPU. A match has many rounds, one for each CPU card.

@@ -1,12 +1,11 @@
-package gamble.service;
+package gamble.card;
 
 import java.util.List;
 
 import gamble.config.Config;
 import gamble.entities.Player;
 import gamble.entities.PlayerCard;
-import gamble.service.io.CardOutputter;
-import gamble.service.io.Inputter;
+import gamble.service.input.Inputter;
 
 public class CardService {
     

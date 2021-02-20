@@ -1,8 +1,9 @@
-package gamble.service.io;
+package gamble.card;
 
 import java.util.List;
 
 import gamble.entities.PlayerCard;
+import gamble.Util;
 
 public class ConsoleCardOutputter implements CardOutputter {
 

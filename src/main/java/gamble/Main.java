@@ -4,7 +4,7 @@ import com.beust.jcommander.JCommander;
 
 import gamble.config.Config;
 import gamble.entities.Player;
-import gamble.service.PlayerService;
+import gamble.player.PlayerService;
 
 /**
  * Overview
