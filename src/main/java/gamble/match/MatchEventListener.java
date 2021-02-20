@@ -13,9 +13,9 @@ public interface MatchEventListener {
   /**
    * A new round of this match has started
    * @param roundNum Round Number
-   * @param opponentCardsLeft Number of cards the opponent has left
+   * @param fightersLeft Number of fighters left in the clan
    */
-  void roundStarted(int roundNum, int opponentCardsLeft);
+  void roundStarted(int roundNum, int fightersLeft);
 
   /**
    * Player lost the match

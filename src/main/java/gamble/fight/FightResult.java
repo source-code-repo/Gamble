@@ -1,10 +1,10 @@
-package gamble.round;
+package gamble.fight;
 
-public class RoundResult {
+public class FightResult {
   public boolean exactHit = false;
   public boolean won = false;
 
-  public RoundResult(boolean exactHit, boolean won) {
+  public FightResult(boolean exactHit, boolean won) {
     super();
     this.exactHit = exactHit;
     this.won = won;

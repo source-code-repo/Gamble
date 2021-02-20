@@ -30,6 +30,8 @@ public class GameFactory {
     MatchService matchService = new MatchService(roundService, cardService);
     matchService.addMatchEventListener(matchOut);
 
+    PlayerService playerService = new PlayerService();
+
     VillageEventListener villageOut = new VillageConsoleOutputter();
     VillageInputter villageIn = new VillageConsoleInputter();
     VillageService villageService = new VillageService(villageIn, cardService);

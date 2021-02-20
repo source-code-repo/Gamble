@@ -22,17 +22,18 @@ public class RoundService {
   }
 
   /**
-   * Creates a round of the game
-   * @param min CPU's minimum card value
-   * @param max CPU's maximum card value
+   * Creates a fighter with a random HP
+   * @param min Fighter's minimum possible HP
+   * @param max Fighter's maximum possible HP
    * @return
    */
-  public Round createRound(int min, int max) {
-    Round r = new Round();
-    r.opponentCardTarget = Util.randomBetween(min, max);
-    r.playerTotal = 0;
+  public Fighter createFighter(int min, int max) {
+    Fighter r = new Fighter();
+    r.maxHp = Util.randomBetween(min, max);
+    r.damageTaken = 0;
     return r;
   }
+
 
   /**
    * Play a round, 1 CPU card
