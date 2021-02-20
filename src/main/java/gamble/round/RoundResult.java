@@ -1,12 +1,12 @@
 package gamble.round;
 
 public class RoundResult {
-	public boolean exactMatch = false;
-	public boolean won = false;
-	
-	public RoundResult(boolean exactMatch, boolean won) {
-		super();
-		this.exactMatch = exactMatch;
-		this.won = won;
-	}
+  public boolean exactHit = false;
+  public boolean won = false;
+
+  public RoundResult(boolean exactHit, boolean won) {
+    super();
+    this.exactHit = exactHit;
+    this.won = won;
+  }
 }

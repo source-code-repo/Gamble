@@ -1,12 +1,13 @@
 package gamble.card;
 
-import java.util.List;
-
 public interface CardEventListener {
+  /**
+   * Called when a player's cards are being recharged
+   */
+  void rechargingCards();
 
-    void showPlayerCards(List<Card> cards);
-
-    void rechargingCards();
-
-    void dontUnderstand();
+  /**
+   * Called when the player gives a bad response to the card service
+   */
+  void badResponse();
 }
