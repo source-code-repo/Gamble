@@ -21,16 +21,29 @@ public class RoundService {
     this.cardInputter = cardInputter;
   }
 
-  public Round createRound() {
+  /**
+   * Creates a round of the game
+   * @param min CPU's minimum card value
+   * @param max CPU's maximum card value
+   * @return
+   */
+  public Round createRound(int min, int max) {
     Round r = new Round();
-    r.opponentCardTarget = randomCardValue();
+    r.opponentCardTarget =randomCardValue(min, max);
     r.playerTotal = 0;
     return r;
   }
 
-  private int randomCardValue() {
+  /**
+   * Produces a random card value somewhere between
+   * @param min Minimum value
+   * @param max Maximum value
+   * @return
+   */
+  private int randomCardValue(int min, int max) {
     Random r = new Random();
-    return r.nextInt(Config.MAX_CPU_CARD_VALUE) + 1;
+    int random = r.nextInt(max - min) + 1;
+    return Config.MIN_CPU_CARD_VALUE + random;
   }
 
   /**

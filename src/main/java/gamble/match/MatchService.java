@@ -1,5 +1,6 @@
 package gamble.match;
 
+import gamble.Config;
 import gamble.card.CardService;
 import gamble.player.Player;
 import gamble.round.Round;
@@ -30,7 +31,9 @@ public class MatchService {
       int finalRoundNum = roundNum;
       int finalCpuCards = cpuCards;
       matchEventListeners.forEach(mel -> mel.roundStarted(finalRoundNum, finalCpuCards));
-      Round r = rs.createRound();
+      Round r = rs.createRound(
+        Config.MIN_CPU_CARD_VALUE,
+        Config.MAX_CPU_CARD_VALUE);
 
       RoundResult rr = rs.play(r, p);
 
