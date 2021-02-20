@@ -1,4 +1,4 @@
-package gamble.service;
+package gamble.card;
 
 import gamble.card.Card;
 import gamble.card.CardEventListener;

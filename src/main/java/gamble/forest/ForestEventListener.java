@@ -32,4 +32,11 @@ public interface ForestEventListener {
    * Notify that a new game was started
    */
   void gameStarted();
+
+  /**
+   * Player lost gold
+   * @param lost Amount of gold lost
+   * @param gold Total gold held
+   */
+  void goldLost(int lost, int gold);
 }

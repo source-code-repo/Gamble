@@ -63,4 +63,11 @@ public class ForestConsoleOutputter implements ForestEventListener {
     Util.print(str);
     Util.pause(5000);
   }
+
+  @Override
+  public void goldLost(int lost, int gold) {
+    String str = String.format("You have lost %d gold, you now have %d\n",
+      lost, gold);
+    Util.print(str);
+  }
 }

@@ -1,9 +1,8 @@
-package gamble.service;
+package gamble.village;
 
 import gamble.Config;
 import gamble.card.CardService;
 import gamble.player.Player;
-import gamble.player.PlayerService;
 import gamble.village.VillageEventListener;
 import gamble.village.VillageInputter;
 import gamble.village.VillageService;

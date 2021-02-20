@@ -1,22 +1,23 @@
-package gamble.round;
+package gamble.fight;
 
 import gamble.Util;
-import gamble.card.*;
+import gamble.card.Card;
+import gamble.card.CardInputter;
+import gamble.card.CardService;
 import gamble.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Plays a round - the player has to beat one CPU card.
  */
-public class RoundService {
+public class FightService {
   final CardService cs;
-  final List<RoundEventListener> eventListeners = new ArrayList<RoundEventListener>();
+  final List<FightEventListener> eventListeners = new ArrayList<>();
   private final CardInputter cardInputter;
 
-  public RoundService(CardService cs, CardInputter cardInputter) {
+  public FightService(CardService cs, CardInputter cardInputter) {
     this.cs = cs;
     this.cardInputter = cardInputter;
   }
@@ -36,20 +37,20 @@ public class RoundService {
 
 
   /**
-   * Play a round, 1 CPU card
+   * Fight one fighter
    *
-   * @param r Round context
-   * @param p Player context
+   * @param fighter The fighter to fight
+   * @param p Player
    * @return Result, did the player win + get exact match?
    */
-  public RoundResult play(Round r, Player p) {
+  public FightResult fight(Fighter fighter, Player p) {
     while (true) {
       if (!cs.movesLeft(p.cards)) {
-        return new RoundResult(false, false);
+        return new FightResult(false, false);
       }
 
       eventListeners.forEach(e ->
-        e.opponentShowingCard(r.opponentCardTarget, r.playerTotal, p.cards));
+        e.fighterShowingHp(fighter.maxHp, fighter.damageTaken, p.cards));
 
       Card pc = chooseCard(p.cards);
       pc.uses--;
@@ -57,16 +58,16 @@ public class RoundService {
 
       eventListeners.forEach(e -> e.playerPlayingCard(value));
 
-      r.playerTotal += value;
+      fighter.damageTaken += value;
 
-      if (r.playerTotal == r.opponentCardTarget) {
+      if (fighter.damageTaken == fighter.maxHp) {
         eventListeners.forEach(e -> e.roundOver());
-        return new RoundResult(true, true);
+        return new FightResult(true, true);
       }
 
-      if (r.playerTotal >= r.opponentCardTarget) {
+      if (fighter.damageTaken >= fighter.maxHp) {
         eventListeners.forEach(e -> e.roundOver());
-        return new RoundResult(false, true);
+        return new FightResult(false, true);
       }
     }
   }
@@ -89,7 +90,7 @@ public class RoundService {
     return card;
   }
 
-  public void addRoundEventListener(RoundEventListener roundEventListener) {
-    eventListeners.add(roundEventListener);
+  public void addRoundEventListener(FightEventListener fightEventListener) {
+    eventListeners.add(fightEventListener);
   }
 }

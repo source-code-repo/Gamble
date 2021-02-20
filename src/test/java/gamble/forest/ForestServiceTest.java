@@ -1,7 +1,5 @@
-package gamble.service;
+package gamble.forest;
 
-import gamble.forest.ForestEventListener;
-import gamble.forest.ForestService;
 import gamble.match.MatchResult;
 import gamble.match.MatchService;
 import gamble.player.Player;
@@ -14,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ForestServiceTest {
@@ -23,10 +21,10 @@ public class ForestServiceTest {
   private ForestService forestService;
 
   @Mock
-  private ForestEventListener outMock;
+  private ForestEventListener forestEventListener;
 
   @Mock
-  private MatchService msMock;
+  private MatchService matchServiceMock;
 
   @Mock
   private VillageService vs;
@@ -42,7 +40,7 @@ public class ForestServiceTest {
     // Given
     Player p = new Player();
     p.multiplier = 1;
-    when(msMock.play(p, 1)).thenReturn(new MatchResult(true));
+    when(matchServiceMock.play(p, 1)).thenReturn(new MatchResult(true));
 
     // When
     forestService.play(p, new int[]{1});
@@ -57,12 +55,50 @@ public class ForestServiceTest {
     // 10 Matches
     Player p = new Player();
     p.multiplier = 1;
-    when(msMock.play(p, 1)).thenReturn(new MatchResult(true));
+    when(matchServiceMock.play(p, 1)).thenReturn(new MatchResult(true));
 
     // When
     forestService.play(p, new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
 
     // Then
     assertEquals(11, p.multiplier);
+  }
+
+  /**
+   * Lose a match with more than 10 gold = 10 gold lost
+   */
+  @Test
+  public void loseMatchLoseGold() {
+    // Given
+    Player p = new Player();
+    p.multiplier = 1;
+    p.gold = 11;
+    when(matchServiceMock.play(p, 1)).thenReturn(new MatchResult(false));
+
+    // When
+    forestService.play(p, new int[]{1});
+
+    // Then
+    assertEquals(1, p.gold);
+    verify(forestEventListener, times(1)).goldLost(10, 1);
+  }
+
+  /**
+   * Lose a match with less than 10 gold = no gold lost
+   */
+  @Test
+  public void loseMatchNoGoldLost() {
+    // Given
+    Player p = new Player();
+    p.multiplier = 1;
+    p.gold = 5;
+    when(matchServiceMock.play(p, 1)).thenReturn(new MatchResult(false));
+
+    // When
+    forestService.play(p, new int[]{1});
+
+    // Then
+    assertEquals(5, p.gold);
+    verify(forestEventListener, times(0)).goldLost(10, 1);
   }
 }
