@@ -4,9 +4,21 @@ import gamble.player.Player;
 
 public interface MatchEventListener {
 
-    void exactMatch(Player p);
+  /**
+   * Player got an exact hit during this match
+   * @param p
+   */
+  void exactHit(Player p);
 
-    void roundStarted(int roundNum, int cpuCards);
+  /**
+   * A new round of this match has started
+   * @param roundNum Round Number
+   * @param opponentCardsLeft Number of cards the opponent has left
+   */
+  void roundStarted(int roundNum, int opponentCardsLeft);
 
-    void matchLost();
+  /**
+   * Player lost the match
+   */
+  void matchLost();
 }

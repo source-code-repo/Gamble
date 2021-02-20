@@ -8,34 +8,34 @@ import java.util.List;
  * Events that occur during a round
  */
 public interface RoundEventListener {
-    /**
-     * Player is choosing a card
-     */
-    //void choosingCard();
+  /**
+   * Notify that the player has chosen an empty card
+   */
+  void chosenEmptyCard();
 
-    /**
-     * Player has chosen an empty card
-     */
-    void chosenEmptyCard();
+  /**
+   * Notify that the player needs to select the next card
+   *
+   * @param target
+   * @param playerTotal
+   * @param cards
+   */
+  void selectNextCard(int target, int playerTotal, List<Card> cards);
 
-    /**
-     * The player needs to select the next card
-     * @param target
-     * @param playerTotal
-     * @param cards
-     */
-    void selectNextCard(int target, int playerTotal, List<Card> cards);
+  /**
+   * Notify that the player is playing their next card
+   *
+   * @param value
+   */
+  void playerPlayingCard(int value);
 
-    /**
-     * Player is playing their next card
-     * @param value
-     */
-    void playerPlayingCard(int value);
+  /**
+   * Player won a round with an exact match
+   */
+  void exactHit();
 
-    /**
-     * Player won a round with an exact match
-     */
-    void exactMatch();
-
-    void roundOver();
+  /**
+   * Notify that a round is over
+   */
+  void roundOver();
 }

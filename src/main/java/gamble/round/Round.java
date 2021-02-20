@@ -1,6 +1,6 @@
 package gamble.round;
 
 public class Round {
-	public int playerTotal;
-	public int opponentCardTarget;
+  public int playerTotal;
+  public int opponentCardTarget;
 }
