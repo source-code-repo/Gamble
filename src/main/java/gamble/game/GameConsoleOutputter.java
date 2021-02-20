@@ -3,7 +3,7 @@ package gamble.game;
 import gamble.config.Config;
 import gamble.Util;
 
-public class ConsoleGameEventListener implements GameEventListener {
+public class GameConsoleOutputter implements GameEventListener {
 
     @Override
     public void matchStarted(int matchNum, int reward) {

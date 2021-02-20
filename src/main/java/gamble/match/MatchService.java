@@ -1,9 +1,8 @@
 package gamble.match;
 
-import gamble.entities.MatchResult;
-import gamble.entities.Player;
-import gamble.entities.Round;
-import gamble.entities.RoundResult;
+import gamble.player.Player;
+import gamble.round.Round;
+import gamble.round.RoundResult;
 import gamble.round.RoundService;
 import gamble.card.CardService;
 import gamble.card.CardOutputter;
@@ -16,14 +15,14 @@ public class MatchService {
 	private RoundService rs;
 	private CardService cs;
 	private MatchOutputter mos;
-	private CardOutputter cardOut;
+	private CardOutputter co;
 	
-    public MatchService(RoundService rs, CardService cs, MatchOutputter mos, CardOutputter cardOut) {
+    public MatchService(RoundService rs, CardService cs, MatchOutputter mos, CardOutputter co) {
         super();
         this.rs = rs;
         this.cs = cs;
         this.mos = mos;
-        this.cardOut = cardOut;
+        this.co = co;
     }
 
     public MatchResult play(Player p, int cpuCards) {
@@ -45,7 +44,7 @@ public class MatchService {
 			
 			if(rr.exactMatch) {
 			    mos.rechargeChard();
-			    cardOut.showPlayerCards(p.cards);
+			    co.showPlayerCards(p.cards);
 			    cs.rechargeCard(p);
 			}
 		}

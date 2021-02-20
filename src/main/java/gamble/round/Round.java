@@ -1,4 +1,4 @@
-package gamble.entities;
+package gamble.round;
 
 public class Round {
 	public int playerTotal;

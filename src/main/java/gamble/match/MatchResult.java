@@ -1,4 +1,4 @@
-package gamble.entities;
+package gamble.match;
 
 public class MatchResult {
 	public boolean won = false;

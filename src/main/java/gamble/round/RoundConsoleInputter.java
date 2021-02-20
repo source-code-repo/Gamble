@@ -1,26 +1,26 @@
 package gamble.round;
 
 import gamble.card.CardInputter;
-import gamble.entities.PlayerCard;
+import gamble.card.Card;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class ConsoleRoundInputter implements RoundInputter {
+public class RoundConsoleInputter implements RoundInputter {
 
     private final RoundOutputter roundOut;
     private final CardInputter cardInputter;
 
     Scanner reader = new Scanner(System.in);
 
-    public ConsoleRoundInputter(RoundOutputter roundOut, CardInputter cardInputter) {
+    public RoundConsoleInputter(RoundOutputter roundOut, CardInputter cardInputter) {
         this.roundOut = roundOut;
         this.cardInputter = cardInputter;
     }
 
     @Override
-    public PlayerCard selectAvailableCard(List<PlayerCard> cards) {
-        PlayerCard pc = null;
+    public Card selectAvailableCard(List<Card> cards) {
+        Card pc = null;
         boolean cardChosen = false;
         while(!cardChosen) {
             roundOut.chooseCard();

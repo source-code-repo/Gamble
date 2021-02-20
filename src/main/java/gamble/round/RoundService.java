@@ -3,10 +3,8 @@ package gamble.round;
 import gamble.card.CardOutputter;
 import gamble.card.CardService;
 import gamble.config.Config;
-import gamble.entities.Player;
-import gamble.entities.PlayerCard;
-import gamble.entities.Round;
-import gamble.entities.RoundResult;
+import gamble.player.Player;
+import gamble.card.Card;
 
 import java.util.Random;
 
@@ -55,7 +53,7 @@ public class RoundService {
 			roundOut.showCpuCards(r.target, r.playerTotal);
 			cardOut.showPlayerCards(p.cards);
 			
-			PlayerCard pc = in.selectAvailableCard(p.cards);
+			Card pc = in.selectAvailableCard(p.cards);
 			pc.uses--;
 			int value = pc.getValue();
 			

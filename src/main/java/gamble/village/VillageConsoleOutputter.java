@@ -2,7 +2,7 @@ package gamble.village;
 
 import gamble.Util;
 
-public class ConsoleVillageOutputter implements VillageOutputter {
+public class VillageConsoleOutputter implements VillageOutputter {
 
 	/* (non-Javadoc)
      * @see gamble.service.output.VillageOutputter#shouldVisit()

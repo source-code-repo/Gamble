@@ -1,17 +1,16 @@
 package gamble.village;
 
 import gamble.config.Config;
-import gamble.entities.Player;
+import gamble.player.Player;
 import gamble.player.PlayerService;
-import gamble.service.input.Inputter;
 
 public class VillageService {
 	
 	VillageOutputter vos;
-	Inputter input;
+	VillageInputter input;
 	PlayerService ps;
 	
-	public VillageService(VillageOutputter vos, Inputter input, PlayerService ps) {
+	public VillageService(VillageOutputter vos, VillageInputter input, PlayerService ps) {
         super();
         this.vos = vos;
         this.input = input;

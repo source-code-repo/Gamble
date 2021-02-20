@@ -1,8 +1,8 @@
 package gamble.game;
 
 import gamble.config.Config;
-import gamble.entities.MatchResult;
-import gamble.entities.Player;
+import gamble.match.MatchResult;
+import gamble.player.Player;
 import gamble.match.MatchService;
 import gamble.village.VillageService;
 

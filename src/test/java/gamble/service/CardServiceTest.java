@@ -13,11 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import gamble.entities.Player;
-import gamble.entities.PlayerCard;
+import gamble.player.Player;
+import gamble.card.Card;
 import gamble.card.CardService;
 import gamble.card.CardOutputter;
-import gamble.service.input.Inputter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CardServiceTest {
@@ -38,8 +37,8 @@ public class CardServiceTest {
     public void setup() {
         
         // Set up test data
-        PlayerCard card1 = new PlayerCard(1, 3, 3);
-        PlayerCard card2 = new PlayerCard(2, 10, 3);
+        Card card1 = new Card(1, 3, 3);
+        Card card2 = new Card(2, 10, 3);
         
         p.cards = new ArrayList<>();
         

@@ -1,10 +1,12 @@
-package gamble.entities;
+package gamble.player;
+
+import gamble.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-	public List<PlayerCard> cards = new ArrayList<>();
+	public List<Card> cards = new ArrayList<>();
 	public int gold = 0;
 	public int multiplier = 1;
 }

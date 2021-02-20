@@ -3,9 +3,7 @@ package gamble.card;
 import java.util.List;
 
 import gamble.config.Config;
-import gamble.entities.Player;
-import gamble.entities.PlayerCard;
-import gamble.service.input.Inputter;
+import gamble.player.Player;
 
 public class CardService {
     
@@ -18,8 +16,8 @@ public class CardService {
         this.co = co;
     }
 
-    public boolean movesLeft(List<PlayerCard> cards) {
-		for(PlayerCard pc : cards) {
+    public boolean movesLeft(List<Card> cards) {
+		for(Card pc : cards) {
 			if(pc.uses > 0) {
 				return true;
 			}
@@ -41,7 +39,7 @@ public class CardService {
 	 */
     public void rechargeCard(Player p) {
         co.chooseCardToRecharge();
-        PlayerCard card = in.selectCard(p.cards);
+        Card card = in.selectCard(p.cards);
         card.uses = card.maxUses;
     }
 
