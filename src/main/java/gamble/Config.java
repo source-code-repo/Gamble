@@ -1,4 +1,4 @@
-package gamble.config;
+package gamble;
 
 public class Config {
 

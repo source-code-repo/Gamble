@@ -6,10 +6,10 @@ import java.util.Scanner;
 public class CardConsoleInputter implements CardInputter {
 
     private final Scanner reader = new Scanner(System.in);
-    private final CardOutputter cardOutputter;
+    private final CardEventListener cardEventListener;
 
-    public CardConsoleInputter(CardOutputter cardOutputter) {
-        this.cardOutputter = cardOutputter;
+    public CardConsoleInputter(CardEventListener cardEventListener) {
+        this.cardEventListener = cardEventListener;
     }
 
     @Override
@@ -19,13 +19,13 @@ public class CardConsoleInputter implements CardInputter {
             try {
                 if(!reader.hasNextInt()) {
                     reader.nextLine();
-                    cardOutputter.dontUnderstand();
+                    cardEventListener.dontUnderstand();
                     continue;
                 }
                 int n = reader.nextInt();
                 pc = cards.get(n - 1);
             } catch(Exception e) {
-                cardOutputter.dontUnderstand();
+                cardEventListener.dontUnderstand();
             }
         }
         return pc;

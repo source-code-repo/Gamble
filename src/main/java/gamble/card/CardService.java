@@ -1,19 +1,18 @@
 package gamble.card;
 
-import java.util.List;
-
-import gamble.config.Config;
+import gamble.Config;
 import gamble.player.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CardService {
     
     private CardInputter in;
-    private CardOutputter co;
+    private List<CardEventListener> eventListeners = new ArrayList<>();
 
-	public CardService(CardInputter cardInputter, CardOutputter co) {
-        super();
+	public CardService(CardInputter cardInputter) {
         this.in = cardInputter;
-        this.co = co;
     }
 
     public boolean movesLeft(List<Card> cards) {
@@ -38,9 +37,12 @@ public class CardService {
 	 * Allows the player to recharge a single card
 	 */
     public void rechargeCard(Player p) {
-        co.chooseCardToRecharge();
+        eventListeners.forEach(e -> e.rechargingCards());
         Card card = in.selectCard(p.cards);
         card.uses = card.maxUses;
     }
 
+    public void addCardEventListener(CardEventListener cardEventListener) {
+    	eventListeners.add(cardEventListener);
+	}
 }

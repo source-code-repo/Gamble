@@ -4,7 +4,7 @@ import java.util.List;
 
 import gamble.Util;
 
-public class CardConsoleOutputter implements CardOutputter {
+public class CardConsoleOutputter implements CardEventListener {
 
     @Override
     public void showPlayerCards(List<Card> cards) {
@@ -25,7 +25,7 @@ public class CardConsoleOutputter implements CardOutputter {
     }
 
     @Override
-    public void chooseCardToRecharge() {
+    public void rechargingCards() {
         Util.print("Choose a card to recharge: ");
         
     }

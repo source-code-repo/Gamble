@@ -2,7 +2,6 @@ package gamble;
 
 import com.beust.jcommander.JCommander;
 
-import gamble.config.Config;
 import gamble.player.Player;
 import gamble.player.PlayerService;
 

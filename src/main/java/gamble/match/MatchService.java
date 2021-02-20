@@ -4,50 +4,50 @@ import gamble.player.Player;
 import gamble.round.Round;
 import gamble.round.RoundResult;
 import gamble.round.RoundService;
-import gamble.card.CardService;
-import gamble.card.CardOutputter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Plays a match against the CPU. A match has many rounds, one for each CPU card.
  */
 public class MatchService {
-    
-	private RoundService rs;
-	private CardService cs;
-	private MatchOutputter mos;
-	private CardOutputter co;
+
+	private final List<MatchEventListener> matchEventListeners = new ArrayList<MatchEventListener>();
+	private final RoundService rs;
 	
-    public MatchService(RoundService rs, CardService cs, MatchOutputter mos, CardOutputter co) {
+    public MatchService(RoundService rs) {
         super();
         this.rs = rs;
-        this.cs = cs;
-        this.mos = mos;
-        this.co = co;
     }
 
     public MatchResult play(Player p, int cpuCards) {
 		int roundNum = 1;
 		
 		for(; cpuCards > 0; cpuCards--) {
-			
+
+			int finalRoundNum = roundNum;
+			int finalCpuCards = cpuCards;
+			matchEventListeners.forEach(mel -> mel.roundStarted(finalRoundNum, finalCpuCards));
 			Round r = rs.createRound();
-			mos.nextRound(roundNum, cpuCards);
 			
 			RoundResult rr = rs.play(r,  p);
 			
 			if(!rr.won) {
-				mos.gameOver();
+				matchEventListeners.forEach(mel -> mel.matchLost());
 				return new MatchResult(false);
 			} else {
 				roundNum++;
 			}
 			
 			if(rr.exactMatch) {
-			    mos.rechargeChard();
-			    co.showPlayerCards(p.cards);
-			    cs.rechargeCard(p);
+				matchEventListeners.forEach(mel -> mel.exactMatch(p));
 			}
 		}
 		return new MatchResult(true);
+	}
+
+	public void addMatchEventListener(MatchEventListener matchEventListener) {
+    	matchEventListeners.add(matchEventListener);
 	}
 }

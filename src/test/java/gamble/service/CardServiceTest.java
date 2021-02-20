@@ -16,7 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import gamble.player.Player;
 import gamble.card.Card;
 import gamble.card.CardService;
-import gamble.card.CardOutputter;
+import gamble.card.CardEventListener;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CardServiceTest {
@@ -25,7 +25,7 @@ public class CardServiceTest {
     private CardInputter inMock;
     
     @Mock
-    private CardOutputter co;
+    private CardEventListener co;
     
     @InjectMocks
     CardService cs;

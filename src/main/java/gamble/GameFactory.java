@@ -9,34 +9,36 @@ import gamble.village.VillageService;
 import gamble.game.GameConsoleOutputter;
 import gamble.village.VillageConsoleInputter;
 import gamble.match.MatchConsoleOutputter;
-import gamble.village.VillageConsoleOutputter;
+import gamble.village.VillageConsoleEventListener;
 import gamble.game.GameEventListener;
 import gamble.village.VillageInputter;
-import gamble.match.MatchOutputter;
-import gamble.village.VillageOutputter;
+import gamble.village.VillageEventListener;
 
 public class GameFactory {
     public static GameService create() {
 
-        GameEventListener out = new GameConsoleOutputter();
+        CardConsoleOutputter cardOut = new CardConsoleOutputter();
+        CardInputter cardIn = new CardConsoleInputter(cardOut);
+        CardService cardService = new CardService(cardIn);
+        cardService.addCardEventListener(cardOut);
 
-        CardOutputter co = new CardConsoleOutputter();
-        CardInputter ci = new CardConsoleInputter(co);
-        CardService cs = new CardService(ci, co);
+        RoundConsoleOutputter roundOut = new RoundConsoleOutputter(cardOut);
+        RoundInputter roundIn = new RoundConsoleInputter(cardIn, roundOut);
+        RoundService roundService = new RoundService(cardOut, roundIn, cardService);
+        roundService.addRoundEventListener(roundOut);
 
-        RoundOutputter ro = new RoundConsoleOutputter();
-        RoundInputter ri = new RoundConsoleInputter(ro, ci);
-        RoundService rs = new RoundService(co, ro, ri, cs);
+        MatchConsoleOutputter matchOut = new MatchConsoleOutputter(cardService, cardOut);
+        MatchService matchService = new MatchService(roundService);
+        matchService.addMatchEventListener(matchOut);
 
-        PlayerService ps = new PlayerService();
+        PlayerService playerService = new PlayerService();
 
-        MatchOutputter mo = new MatchConsoleOutputter(cs);
-        MatchService ms = new MatchService(rs, cs, mo, co);
+        VillageEventListener villageOut = new VillageConsoleEventListener();
+        VillageInputter villageIn = new VillageConsoleInputter();
+        VillageService villageService = new VillageService(villageIn, playerService);
+        villageService.addEventListener(villageOut);
 
-        VillageOutputter vos = new VillageConsoleOutputter();
-        VillageInputter in = new VillageConsoleInputter(ro);
-        VillageService vs = new VillageService(vos, in, ps);
-
-        return new GameService(out, ms, vs);
+        GameEventListener gameOut = new GameConsoleOutputter();
+        return new GameService(gameOut, matchService, villageService);
     }
 }

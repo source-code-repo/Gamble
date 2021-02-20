@@ -1,6 +1,6 @@
 package gamble.game;
 
-import gamble.config.Config;
+import gamble.Config;
 import gamble.match.MatchResult;
 import gamble.player.Player;
 import gamble.match.MatchService;

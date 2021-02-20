@@ -1,34 +1,32 @@
 package gamble.round;
 
-import gamble.card.CardOutputter;
+import gamble.card.CardEventListener;
 import gamble.card.CardService;
-import gamble.config.Config;
+import gamble.Config;
 import gamble.player.Player;
 import gamble.card.Card;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * Plays a round - the player has to beat one CPU card.
  */
 public class RoundService {
+
+	final RoundInputter in;
+	final CardService cs;
+	final List<RoundEventListener> eventListeners = new ArrayList<RoundEventListener>();
 	
-    CardOutputter cardOut;
-	RoundOutputter roundOut;
-	RoundInputter in;
-	CardService cs;
-	
-	public RoundService(CardOutputter cardOut, RoundOutputter roundOut, RoundInputter in, CardService cs) {
-        super();
-        this.cardOut = cardOut;
-        this.roundOut = roundOut;
+	public RoundService(CardEventListener cardOut, RoundInputter in, CardService cs) {
         this.in = in;
         this.cs = cs;
     }
 
     public Round createRound() {
 		Round r = new Round();
-		r.target = randomCardValue();
+		r.opponentCardTarget = randomCardValue();
 		r.playerTotal = 0;
 		return r;
 	}
@@ -50,27 +48,32 @@ public class RoundService {
 				return new RoundResult(false, false);
 			}
 
-			roundOut.showCpuCards(r.target, r.playerTotal);
-			cardOut.showPlayerCards(p.cards);
-			
+			eventListeners.forEach(e ->
+					e.selectNextCard(r.opponentCardTarget, r.playerTotal, p.cards));
+
+			// TODO refactor input similar to output?
 			Card pc = in.selectAvailableCard(p.cards);
 			pc.uses--;
 			int value = pc.getValue();
-			
-			roundOut.playedCard(value);
+
+			eventListeners.forEach(e -> e.playerPlayingCard(value));
 			
 			r.playerTotal += value;
 			
-			if(r.playerTotal == r.target) {
-				roundOut.reward();
-				roundOut.roundOver();
+			if(r.playerTotal == r.opponentCardTarget) {
+				eventListeners.forEach(e -> e.exactMatch());
+				eventListeners.forEach(e -> e.roundOver());
 				return new RoundResult(true, true);
 			}
 			
-			if(r.playerTotal >= r.target) {
-				roundOut.roundOver();
+			if(r.playerTotal >= r.opponentCardTarget) {
+				eventListeners.forEach(e -> e.roundOver());
 				return new RoundResult(false, true);
 			}
 		}
+	}
+
+	public void addRoundEventListener(RoundEventListener roundEventListener) {
+		eventListeners.add(roundEventListener);
 	}
 }
