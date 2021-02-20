@@ -26,7 +26,7 @@ public class VillageConsoleInputter implements VillageInputter {
       if (input.matches(YES_OR_NO)) {
         response = true;
       } else {
-        Util.print("Sorry, what was that? Maybe you need to give it another try.");
+        Util.print("Sorry, what was that? Maybe give it another try.");
       }
     }
 

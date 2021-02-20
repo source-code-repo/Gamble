@@ -1,7 +1,8 @@
 package gamble;
 
 public class Config {
-  public static final int MAX_CPU_CARD_VALUE = 10;
+  public static final int MIN_CPU_CARD_VALUE = 15;
+  public static final int MAX_CPU_CARD_VALUE = 20;
   public static int DELAY = 50;
 
   // Rewards for each match
