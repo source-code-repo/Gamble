@@ -1,7 +1,7 @@
 package gamble.service;
 
-import gamble.game.GameEventListener;
-import gamble.game.GameService;
+import gamble.forest.ForestEventListener;
+import gamble.forest.ForestService;
 import gamble.match.MatchResult;
 import gamble.match.MatchService;
 import gamble.player.Player;
@@ -17,13 +17,13 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GameServiceTest {
+public class ForestServiceTest {
 
   @InjectMocks
-  private GameService gameService;
+  private ForestService forestService;
 
   @Mock
-  private GameEventListener outMock;
+  private ForestEventListener outMock;
 
   @Mock
   private MatchService msMock;
@@ -45,7 +45,7 @@ public class GameServiceTest {
     when(msMock.play(p, 1)).thenReturn(new MatchResult(true));
 
     // When
-    gameService.play(p, new int[]{1});
+    forestService.play(p, new int[]{1});
 
     // Then
     assertEquals(2, p.multiplier);
@@ -60,7 +60,7 @@ public class GameServiceTest {
     when(msMock.play(p, 1)).thenReturn(new MatchResult(true));
 
     // When
-    gameService.play(p, new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
+    forestService.play(p, new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
 
     // Then
     assertEquals(11, p.multiplier);

@@ -10,7 +10,7 @@ public class VillageConsoleOutputter implements VillageEventListener {
   public void decidingToVisit(int nextReward) {
     String str = String.format("Will you trek back to the village?\n"
       + "If you visit the village you'll lose your multiplier.\n"
-      + "Your next opponent has %d gold\n"
+      + "The next group of fighters have %d gold\n"
       + "Type yes or no: ", nextReward);
 
     Util.print(str);

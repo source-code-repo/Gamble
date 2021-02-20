@@ -1,4 +1,4 @@
-package gamble.round;
+package gamble.fight;
 
 import gamble.Config;
 import gamble.Util;
@@ -10,10 +10,10 @@ import java.util.List;
 /**
  * UI for round output
  */
-public class RoundConsoleOutputter implements RoundEventListener {
+public class FightConsoleOutputter implements FightEventListener {
   final CardConsoleOutputter cardOut;
 
-  public RoundConsoleOutputter(CardConsoleOutputter cardOut) {
+  public FightConsoleOutputter(CardConsoleOutputter cardOut) {
     this.cardOut = cardOut;
   }
 
@@ -26,7 +26,7 @@ public class RoundConsoleOutputter implements RoundEventListener {
    */
   @Override
   public void roundOver() {
-    String str = String.format("\n*** You beat your opponent's card! ***\n");
+    String str = String.format("\n*** You beat the fighter! ***\n");
     print(str);
     Util.pause(Config.DELAY * 3);
   }
@@ -59,9 +59,9 @@ public class RoundConsoleOutputter implements RoundEventListener {
   }
 
   @Override
-  public void opponentShowingCard(int target, int totalPlayed, List<Card> cards) {
-    String str = String.format("\nYour opponent's card has %01d/%01d points.",
-      target - totalPlayed, target);
+  public void fighterShowingHp(int totalHp, int hpLeft, List<Card> cards) {
+    String str = String.format("\nFighter Health: %01d/%01d.",
+      totalHp - hpLeft, totalHp);
     print(str);
     Util.pause(Config.DELAY * 2);
   }

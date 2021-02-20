@@ -1,6 +1,6 @@
-package gamble.game;
+package gamble.forest;
 
-public interface GameEventListener {
+public interface ForestEventListener {
   /**
    * Notify that a match has started
    * @param matchNum Match number
@@ -10,17 +10,17 @@ public interface GameEventListener {
 
   /**
    * Notify that a match was won
-   * @param opponentNum Opponent number
+   * @param fighterClanNumber Which fighting clan the player beat
    * @param reward Reward for winning
    * @param multiplier New multiplier following the win
    */
-  void matchWon(int opponentNum, int reward, int multiplier);
+  void matchWon(int fighterClanNumber, int reward, int multiplier);
 
   /**
    * Notify that a match was lost
-   * @param opponentNum Opponent number the match was lost to
+   * @param fighterClanNumber Fighting clan number that was just defeated
    */
-  void matchLost(int opponentNum);
+  void matchLost(int fighterClanNumber);
 
   /**
    * Notify that a reward was given to the player
