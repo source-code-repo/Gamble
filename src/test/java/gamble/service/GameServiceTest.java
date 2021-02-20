@@ -11,10 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import gamble.entities.MatchResult;
 import gamble.entities.Player;
-import gamble.service.GameService;
-import gamble.service.MatchService;
-import gamble.service.VillageService;
-import gamble.service.io.GameOutputter;
+import gamble.service.io.GameEventListener;
 import gamble.service.io.Inputter;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,7 +21,7 @@ public class GameServiceTest {
     private GameService gameService;
     
     @Mock
-    private GameOutputter outMock;
+    private GameEventListener outMock;
     
     @Mock
     private MatchService msMock;
