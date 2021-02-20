@@ -23,7 +23,7 @@ public class GameConsoleOutputter implements GameEventListener {
      */
 	@Override
     public void matchWon(int opponentNum, int reward, int multiplier) {
-		String str = String.format("Nice one! Opponent %d is defeated. "
+		String str = String.format("Well done! Opponent %d is defeated. "
 		        + "You get %d gold (%d for the win with a %d multiplier). "
 		        + "Your multiplier increased to %d.", 
 		        opponentNum, reward, reward / (multiplier - 1), multiplier - 1, 

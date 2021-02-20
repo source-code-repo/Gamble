@@ -15,23 +15,18 @@ import java.util.Random;
  */
 public class RoundService {
 
-	final CardEventListener cardOut;
-	final RoundOutputter roundOut;
 	final RoundInputter in;
 	final CardService cs;
-	final List<RoundEventListener> roundEventListeners = new ArrayList<RoundEventListener>();
+	final List<RoundEventListener> eventListeners = new ArrayList<RoundEventListener>();
 	
-	public RoundService(CardEventListener cardOut, RoundOutputter roundOut, RoundInputter in, CardService cs) {
-        super();
-        this.cardOut = cardOut;
-        this.roundOut = roundOut;
+	public RoundService(CardEventListener cardOut, RoundInputter in, CardService cs) {
         this.in = in;
         this.cs = cs;
     }
 
     public Round createRound() {
 		Round r = new Round();
-		r.target = randomCardValue();
+		r.opponentCardTarget = randomCardValue();
 		r.playerTotal = 0;
 		return r;
 	}
@@ -53,31 +48,32 @@ public class RoundService {
 				return new RoundResult(false, false);
 			}
 
-			roundOut.showCpuCards(r.target, r.playerTotal);
-			cardOut.showPlayerCards(p.cards);
-			
+			eventListeners.forEach(e ->
+					e.selectNextCard(r.opponentCardTarget, r.playerTotal, p.cards));
+
+			// TODO refactor input similar to output?
 			Card pc = in.selectAvailableCard(p.cards);
 			pc.uses--;
 			int value = pc.getValue();
-			
-			roundOut.playedCard(value);
+
+			eventListeners.forEach(e -> e.playerPlayingCard(value));
 			
 			r.playerTotal += value;
 			
-			if(r.playerTotal == r.target) {
-				roundOut.reward();
-				roundOut.roundOver();
+			if(r.playerTotal == r.opponentCardTarget) {
+				eventListeners.forEach(e -> e.exactMatch());
+				eventListeners.forEach(e -> e.roundOver());
 				return new RoundResult(true, true);
 			}
 			
-			if(r.playerTotal >= r.target) {
-				roundOut.roundOver();
+			if(r.playerTotal >= r.opponentCardTarget) {
+				eventListeners.forEach(e -> e.roundOver());
 				return new RoundResult(false, true);
 			}
 		}
 	}
 
 	public void addRoundEventListener(RoundEventListener roundEventListener) {
-		roundEventListeners.add(roundEventListener);
+		eventListeners.add(roundEventListener);
 	}
 }

@@ -3,8 +3,7 @@ package gamble.village;
 import java.util.Scanner;
 
 import gamble.Util;
-import gamble.round.RoundOutputter;
-import gamble.village.VillageInputter;
+import gamble.round.RoundConsoleOutputter;
 
 public class VillageConsoleInputter implements VillageInputter {
 
@@ -12,11 +11,6 @@ public class VillageConsoleInputter implements VillageInputter {
 	private static final String YES = "(yes|YES)";
 
 	Scanner reader = new Scanner(System.in);
-	RoundOutputter roundOut;
-
-	public VillageConsoleInputter(RoundOutputter roundOut) {
-		this.roundOut = roundOut;
-	}
 
 	/* (non-Javadoc)
      * @see gamble.service.Inputter#yesOrNo()

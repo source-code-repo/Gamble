@@ -4,29 +4,30 @@ import gamble.Config;
 import gamble.player.Player;
 import gamble.player.PlayerService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VillageService {
 	
-	VillageOutputter vos;
+	private final List<VillageEventListener> eventListeners = new ArrayList<>();
 	VillageInputter input;
-	PlayerService ps;
+	PlayerService playerService;
 	
-	public VillageService(VillageOutputter vos, VillageInputter input, PlayerService ps) {
-        super();
-        this.vos = vos;
+	public VillageService(VillageInputter input, PlayerService playerService) {
         this.input = input;
-        this.ps = ps;
+        this.playerService = playerService;
     }
 
     public void visit(int matchCount, Player p, int targetGold) {
 		if(villageJustUnlocked(matchCount)) {
-			vos.welcome();
+			eventListeners.forEach(e -> e.firstVillageVisit());
 		}
 		
 		if(!villageUnlocked(matchCount)) {
 			return; 
 		}
 
-		vos.shouldVisit(Config.REWARDS[matchCount]);
+		eventListeners.forEach(e -> e.decidingToVisit(Config.REWARDS[matchCount]));
 		boolean visit = input.yesOrNo();
 		if(!visit) {
 			return;
@@ -37,28 +38,27 @@ public class VillageService {
 
 	public void villageVisit(Player p, int targetGold) {
 		boolean finished = false;
-		
-		vos.trekToVillage();
-		ps.resetCardUses(p.cards);
-		vos.cardsRecharged();
+
+		eventListeners.forEach(e -> e.travellingToVillage());
+		playerService.resetCardUses(p.cards);
+		eventListeners.forEach(e -> e.cardsRecharged());
 		p.multiplier = 1;
-		
-		vos.idol();
+
+		eventListeners.forEach(e -> e.lookingAtIdol());
 		if(p.gold >= targetGold) {
-		    vos.win();
+			eventListeners.forEach(e -> e.gameWon());
 		    System.exit(0);
 		} else {
-		    vos.notEnoughGold(targetGold);
+			eventListeners.forEach(e -> e.notWon(targetGold));
 		}
 		
 		
 		while(!finished) {
-			vos.visiting();
-			vos.readyForBattle();
+			eventListeners.forEach(e -> e.visiting());
 			finished = input.yesOrNo();
 		}
 		
-		vos.backToBattle();
+		eventListeners.forEach(e -> e.backToBattle());
 	}
 
 	private boolean villageJustUnlocked(int matchCount) {
@@ -75,5 +75,9 @@ public class VillageService {
 		} else {
 			return false;
 		}
+	}
+
+	public void addEventListener(VillageEventListener villageEventListener) {
+		eventListeners.add(villageEventListener);
 	}
 }

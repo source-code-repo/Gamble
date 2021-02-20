@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
 import gamble.village.VillageService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,33 +16,39 @@ import gamble.Config;
 import gamble.player.Player;
 import gamble.player.PlayerService;
 import gamble.village.VillageInputter;
-import gamble.village.VillageOutputter;
+import gamble.village.VillageEventListener;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VillageServiceTest {
 
     @InjectMocks
-    private VillageService vs;
+    private VillageService villageService;
     
     @Mock
-    private VillageInputter inputterMock;
-    
+    private VillageInputter inputMock;
+
+    // Injected into VillageService
     @Mock
     private PlayerService playerServiceMock;
     
     @Mock
-    private VillageOutputter voMock;
-    
+    private VillageEventListener eventListenerMock;
+
+    @Before
+    public void injectEventListener() {
+        villageService.addEventListener(eventListenerMock);
+    }
+
     @Test
     public void multiplierReset() {
         
         // Given
         Player p = new Player();
         p.multiplier = 11;
-        when(inputterMock.yesOrNo()).thenReturn(true);
+        when(inputMock.yesOrNo()).thenReturn(true);
         
         // When
-        vs.villageVisit(p, Config.targetGold);
+        villageService.villageVisit(p, Config.targetGold);
         
         // Then
         assertEquals(1, p.multiplier);
@@ -52,13 +59,13 @@ public class VillageServiceTest {
         // Given
         Player p = new Player();
         p.gold = 1;
-        when(inputterMock.yesOrNo()).thenReturn(true);
+        when(inputMock.yesOrNo()).thenReturn(true);
         
         // When
-        vs.villageVisit(p, 5);
+        villageService.villageVisit(p, 5);
         
         // Then
-        verify(voMock).backToBattle();
+        verify(eventListenerMock).notWon(5);
     }
     
     // Tricky to test winning as it exits the JVM by design
