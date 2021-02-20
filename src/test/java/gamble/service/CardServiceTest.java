@@ -14,9 +14,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import gamble.entities.Player;
 import gamble.entities.PlayerCard;
-import gamble.service.CardService;
-import gamble.service.io.CardOutputter;
-import gamble.service.io.Inputter;
+import gamble.card.CardService;
+import gamble.card.CardOutputter;
+import gamble.service.input.Inputter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CardServiceTest {

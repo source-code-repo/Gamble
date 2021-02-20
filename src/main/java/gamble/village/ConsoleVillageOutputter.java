@@ -1,4 +1,6 @@
-package gamble.service.io;
+package gamble.village;
+
+import gamble.Util;
 
 public class ConsoleVillageOutputter implements VillageOutputter {
 

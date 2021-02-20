@@ -1,9 +1,10 @@
-package gamble.service;
+package gamble.game;
 
 import gamble.config.Config;
 import gamble.entities.MatchResult;
 import gamble.entities.Player;
-import gamble.service.io.GameEventListener;
+import gamble.match.MatchService;
+import gamble.village.VillageService;
 
 public class GameService {
     

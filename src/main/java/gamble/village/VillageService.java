@@ -1,9 +1,9 @@
-package gamble.service;
+package gamble.village;
 
 import gamble.config.Config;
 import gamble.entities.Player;
-import gamble.service.io.Inputter;
-import gamble.service.io.VillageOutputter;
+import gamble.player.PlayerService;
+import gamble.service.input.Inputter;
 
 public class VillageService {
 	

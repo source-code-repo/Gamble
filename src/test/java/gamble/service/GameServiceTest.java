@@ -3,6 +3,9 @@ package gamble.service;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import gamble.game.GameService;
+import gamble.match.MatchService;
+import gamble.village.VillageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -11,8 +14,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import gamble.entities.MatchResult;
 import gamble.entities.Player;
-import gamble.service.io.GameEventListener;
-import gamble.service.io.Inputter;
+import gamble.game.GameEventListener;
+import gamble.service.input.Inputter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GameServiceTest {

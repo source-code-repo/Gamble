@@ -1,6 +1,7 @@
-package gamble.service.io;
+package gamble.game;
 
 import gamble.config.Config;
+import gamble.Util;
 
 public class ConsoleGameEventListener implements GameEventListener {
 

@@ -1,7 +1,8 @@
-package gamble.service.io;
+package gamble.match;
 
 import gamble.config.Config;
-import gamble.service.CardService;
+import gamble.card.CardService;
+import gamble.Util;
 
 public class ConsoleMatchOutputter implements MatchOutputter {
 	

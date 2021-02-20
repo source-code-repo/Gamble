@@ -1,4 +1,4 @@
-package gamble.service.io;
+package gamble.match;
 
 public interface MatchOutputter {
 

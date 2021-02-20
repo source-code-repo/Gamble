@@ -1,4 +1,4 @@
-package gamble.service.io;
+package gamble.service.input;
 
 import java.util.List;
 
