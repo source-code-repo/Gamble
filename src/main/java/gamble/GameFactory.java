@@ -1,41 +1,49 @@
 package gamble;
 
+import gamble.card.CardInputter;
 import gamble.card.CardService;
 import gamble.game.GameService;
 import gamble.match.MatchService;
 import gamble.player.PlayerService;
-import gamble.round.RoundService;
+import gamble.round.*;
 import gamble.village.VillageService;
 import gamble.card.CardOutputter;
 import gamble.card.ConsoleCardOutputter;
 import gamble.game.ConsoleGameEventListener;
 import gamble.service.input.ConsoleInputter;
 import gamble.match.ConsoleMatchOutputter;
-import gamble.round.ConsoleRoundOutputter;
 import gamble.village.ConsoleVillageOutputter;
 import gamble.game.GameEventListener;
 import gamble.service.input.Inputter;
 import gamble.match.MatchOutputter;
-import gamble.round.RoundOutputter;
 import gamble.village.VillageOutputter;
 
 public class GameFactory {
     public static GameService create() {
 
-        Inputter in = new ConsoleInputter();
-        
+
+
         GameEventListener out = new ConsoleGameEventListener();
         CardOutputter co = new ConsoleCardOutputter();
-        VillageOutputter vos = new ConsoleVillageOutputter();
+
+        CardInputter ci = new ConsoleCardInputter();
+        CardService cs = new CardService(ci, co);
+
         RoundOutputter ro = new ConsoleRoundOutputter();
-        
+        RoundInputter ri = new ConsoleRoundInputter(ro, ci);
+        RoundService rs = new RoundService(co, ro, ri, cs);
+
+        Inputter in = new ConsoleInputter(ro);
+
         PlayerService ps = new PlayerService();
-        CardService cs = new CardService(in, co);
+
         MatchOutputter mo = new ConsoleMatchOutputter(cs);
-        RoundService rs = new RoundService(co, ro, in, cs);
-        MatchService ms = new MatchService(rs, cs, mo, co);        
+        MatchService ms = new MatchService(rs, cs, mo, co);
+
+        VillageOutputter vos = new ConsoleVillageOutputter();
         VillageService vs = new VillageService(vos, in, ps);
-        
+
+
         return new GameService(out, ms, vs);
     }
 }

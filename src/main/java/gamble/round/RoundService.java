@@ -18,10 +18,10 @@ public class RoundService {
 	
     CardOutputter cardOut;
 	RoundOutputter roundOut;
-	Inputter in;
+	RoundInputter in;
 	CardService cs;
 	
-	public RoundService(CardOutputter cardOut, RoundOutputter roundOut, Inputter in, CardService cs) {
+	public RoundService(CardOutputter cardOut, RoundOutputter roundOut, RoundInputter in, CardService cs) {
         super();
         this.cardOut = cardOut;
         this.roundOut = roundOut;

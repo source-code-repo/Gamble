@@ -9,12 +9,12 @@ import gamble.service.input.Inputter;
 
 public class CardService {
     
-    private Inputter in;
+    private CardInputter in;
     private CardOutputter co;
 
-	public CardService(Inputter consoleInputter, CardOutputter co) {
+	public CardService(CardInputter cardInputter, CardOutputter co) {
         super();
-        this.in = consoleInputter;
+        this.in = cardInputter;
         this.co = co;
     }
 
