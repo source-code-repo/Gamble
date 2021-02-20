@@ -1,6 +1,6 @@
 package gamble.round;
 
-import gamble.Config;
+import gamble.Util;
 import gamble.card.*;
 import gamble.player.Player;
 
@@ -29,21 +29,9 @@ public class RoundService {
    */
   public Round createRound(int min, int max) {
     Round r = new Round();
-    r.opponentCardTarget =randomCardValue(min, max);
+    r.opponentCardTarget = Util.randomBetween(min, max);
     r.playerTotal = 0;
     return r;
-  }
-
-  /**
-   * Produces a random card value somewhere between
-   * @param min Minimum value
-   * @param max Maximum value
-   * @return
-   */
-  private int randomCardValue(int min, int max) {
-    Random r = new Random();
-    int random = r.nextInt(max - min) + 1;
-    return Config.MIN_CPU_CARD_VALUE + random;
   }
 
   /**

@@ -1,6 +1,7 @@
 package gamble.service;
 
 import gamble.Config;
+import gamble.card.CardService;
 import gamble.player.Player;
 import gamble.player.PlayerService;
 import gamble.village.VillageEventListener;
@@ -28,7 +29,7 @@ public class VillageServiceTest {
 
   // Injected into VillageService
   @Mock
-  private PlayerService playerServiceMock;
+  private CardService cardServiceMock;
 
   @Mock
   private VillageEventListener eventListenerMock;

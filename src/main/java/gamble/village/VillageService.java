@@ -1,8 +1,8 @@
 package gamble.village;
 
 import gamble.Config;
+import gamble.card.CardService;
 import gamble.player.Player;
-import gamble.player.PlayerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.List;
 public class VillageService {
   private final List<VillageEventListener> eventListeners = new ArrayList<>();
   private final VillageInputter input;
-  private final PlayerService playerService;
+  private final CardService cardService;
 
-  public VillageService(VillageInputter input, PlayerService playerService) {
+  public VillageService(VillageInputter input, CardService cardService) {
     this.input = input;
-    this.playerService = playerService;
+    this.cardService = cardService;
   }
 
   public void visit(int matchCount, Player p, int targetGold) {
@@ -39,7 +39,7 @@ public class VillageService {
     boolean finished = false;
 
     eventListeners.forEach(e -> e.travellingToVillage());
-    playerService.resetCardUses(p.cards);
+    cardService.resetCardUses(p.cards);
     eventListeners.forEach(e -> e.cardsRecharged());
     p.multiplier = 1;
 

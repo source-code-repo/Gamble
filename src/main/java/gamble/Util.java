@@ -1,5 +1,7 @@
 package gamble;
 
+import java.util.Random;
+
 public class Util {
   public static void pause(long waitTime) {
     try {
@@ -27,5 +29,17 @@ public class Util {
    */
   public static String numToName(int num) {
     return Config.NUM_TO_NAME[num - 1];
+  }
+
+  /**
+   * Produces a random value between min and max
+   * @param min Minimum value
+   * @param max Maximum value
+   * @return
+   */
+  public static int randomBetween(int min, int max) {
+    Random r = new Random();
+    int random = r.nextInt(max - min) + 1;
+    return min + random;
   }
 }

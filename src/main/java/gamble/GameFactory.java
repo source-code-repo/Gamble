@@ -1,9 +1,6 @@
 package gamble;
 
-import gamble.card.CardConsoleInputter;
-import gamble.card.CardConsoleOutputter;
-import gamble.card.CardInputter;
-import gamble.card.CardService;
+import gamble.card.*;
 import gamble.game.GameConsoleOutputter;
 import gamble.game.GameEventListener;
 import gamble.game.GameService;
@@ -33,11 +30,9 @@ public class GameFactory {
     MatchService matchService = new MatchService(roundService, cardService);
     matchService.addMatchEventListener(matchOut);
 
-    PlayerService playerService = new PlayerService();
-
     VillageEventListener villageOut = new VillageConsoleOutputter();
     VillageInputter villageIn = new VillageConsoleInputter();
-    VillageService villageService = new VillageService(villageIn, playerService);
+    VillageService villageService = new VillageService(villageIn, cardService);
     villageService.addEventListener(villageOut);
 
     GameEventListener gameOut = new GameConsoleOutputter();
