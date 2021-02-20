@@ -14,52 +14,11 @@ public class ConsoleInputter implements Inputter {
 	private static final String YES = "(yes|YES)";
 
 	Scanner reader = new Scanner(System.in);
-	RoundOutputter roundOut = new ConsoleRoundOutputter();
-	
-	/* (non-Javadoc)
-     * @see gamble.service.Inputter#selectAvailableCard(java.util.List)
-     */
-	@Override
-    public PlayerCard selectAvailableCard(List<PlayerCard> cards) {
-		PlayerCard pc = null;
-		boolean cardChosen = false;
-		while(!cardChosen) {
-			roundOut.chooseCard();
-			
-			pc = selectCard(cards);
-			
-			if(pc.uses == 0) {
-				roundOut.cardUsedUp();
-				cardChosen = false;
-				pc = null;
-			} else {
-				cardChosen = true;
-			}
-		}
-		return pc;
-	}
+	RoundOutputter roundOut;
 
-	/* (non-Javadoc)
-     * @see gamble.service.Inputter#selectCard(java.util.List)
-     */
-    @Override
-    public PlayerCard selectCard(List<PlayerCard> cards) {
-        PlayerCard pc = null;
-        while(pc == null) {
-        	try {
-        		if(!reader.hasNextInt()) {
-        			reader.nextLine();
-        			roundOut.print("Sorry I don't understand :( Try again.");
-        			continue;
-        		}
-        		int n = reader.nextInt();
-        		pc = cards.get(n - 1);
-        	} catch(Exception e) {
-        		roundOut.print("Sorry I don't understand :( Try again.");
-        	}
-        }
-        return pc;
-    }
+	public ConsoleInputter(RoundOutputter roundOut) {
+		this.roundOut = roundOut;
+	}
 
 	/* (non-Javadoc)
      * @see gamble.service.Inputter#pause()

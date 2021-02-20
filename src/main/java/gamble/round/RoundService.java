@@ -1,15 +1,14 @@
 package gamble.round;
 
-import java.util.Random;
-
+import gamble.card.CardOutputter;
+import gamble.card.CardService;
 import gamble.config.Config;
 import gamble.entities.Player;
 import gamble.entities.PlayerCard;
 import gamble.entities.Round;
 import gamble.entities.RoundResult;
-import gamble.card.CardService;
-import gamble.card.CardOutputter;
-import gamble.service.input.Inputter;
+
+import java.util.Random;
 
 /**
  * Plays a round - the player has to beat one CPU card.
@@ -18,10 +17,10 @@ public class RoundService {
 	
     CardOutputter cardOut;
 	RoundOutputter roundOut;
-	Inputter in;
+	RoundInputter in;
 	CardService cs;
 	
-	public RoundService(CardOutputter cardOut, RoundOutputter roundOut, Inputter in, CardService cs) {
+	public RoundService(CardOutputter cardOut, RoundOutputter roundOut, RoundInputter in, CardService cs) {
         super();
         this.cardOut = cardOut;
         this.roundOut = roundOut;

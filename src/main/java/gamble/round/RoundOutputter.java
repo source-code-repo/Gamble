@@ -12,8 +12,6 @@ public interface RoundOutputter {
 
     void playedCard(int value);
 
-    void nextRound();
-
     void chooseCard();
 
     void cardUsedUp();

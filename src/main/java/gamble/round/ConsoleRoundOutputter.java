@@ -66,14 +66,6 @@ public class ConsoleRoundOutputter implements RoundOutputter {
 	}
 
 	/* (non-Javadoc)
-     * @see gamble.service.output.RoundOutputter#nextRound()
-     */
-	@Override
-    public void nextRound() {
-		print("\n");
-	}
-
-	/* (non-Javadoc)
      * @see gamble.service.output.RoundOutputter#chooseCard()
      */
 	@Override
