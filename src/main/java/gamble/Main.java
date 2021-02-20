@@ -1,6 +1,7 @@
 package gamble;
 
 import com.beust.jcommander.JCommander;
+import gamble.card.CardCreator;
 import gamble.player.Player;
 import gamble.player.PlayerService;
 
@@ -27,7 +28,7 @@ public class Main {
       Config.targetGold = arguments.targetGold;
     }
 
-    Player p = new PlayerService().setup();
+    Player p = new PlayerService(new CardCreator()).setup();
     GameFactory.create().play(p, Config.CARDS_PER_MATCH);
   }
 }

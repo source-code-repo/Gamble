@@ -1,24 +1,17 @@
 package gamble.player;
 
-import gamble.card.Card;
-
-import java.util.List;
+import gamble.card.CardCreator;
 
 public class PlayerService {
-  public Player setup() {
-    Player p = new Player();
+  private final CardCreator cardCreator;
 
-    p.cards.add(new Card(1, 3, 3));
-    p.cards.add(new Card(1, 5, 3));
-    p.cards.add(new Card(3, 4, 3));
-    p.cards.add(new Card(4, 9, 3));
-
-    return p;
+  public PlayerService(CardCreator cardCreator) {
+    this.cardCreator = cardCreator;
   }
 
-  public void resetCardUses(List<Card> cards) {
-    for (Card c : cards) {
-      c.uses = c.maxUses;
-    }
+  public Player setup() {
+    Player p = new Player();
+    p.cards = cardCreator.createCards();
+    return p;
   }
 }

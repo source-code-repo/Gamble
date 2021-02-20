@@ -1,6 +1,6 @@
 package gamble.fight;
 
-import gamble.Config;
+import gamble.Util;
 import gamble.card.Card;
 import gamble.card.CardInputter;
 import gamble.card.CardService;
@@ -8,7 +8,6 @@ import gamble.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Plays a round - the player has to beat one CPU card.
@@ -31,28 +30,17 @@ public class FightService {
    */
   public Fighter createFighter(int min, int max) {
     Fighter r = new Fighter();
-    r.maxHp = randomBetween(min, max);
+    r.maxHp = Util.randomBetween(min, max);
     r.damageTaken = 0;
     return r;
   }
 
-  /**
-   * Produces a random value between two values
-   * @param min Minimum value
-   * @param max Maximum value
-   * @return
-   */
-  private int randomBetween(int min, int max) {
-    Random r = new Random();
-    int random = r.nextInt(max - min) + 1;
-    return Config.MIN_CPU_CARD_VALUE + random;
-  }
 
   /**
-   * Play a round, 1 CPU card
+   * Fight one fighter
    *
-   * @param fighter Round context
-   * @param p Player context
+   * @param fighter The fighter to fight
+   * @param p Player
    * @return Result, did the player win + get exact match?
    */
   public FightResult fight(Fighter fighter, Player p) {

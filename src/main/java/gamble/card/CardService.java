@@ -31,6 +31,12 @@ public class CardService {
     card.uses = card.maxUses;
   }
 
+  public void resetCardUses(List<Card> cards) {
+    for (Card c : cards) {
+      c.uses = c.maxUses;
+    }
+  }
+
   public void addCardEventListener(CardEventListener cardEventListener) {
     eventListeners.add(cardEventListener);
   }

@@ -7,6 +7,7 @@ import gamble.player.Player;
 import gamble.village.VillageService;
 
 public class ForestService {
+  public static final int LOSE_PENALTY = 10;
   ForestEventListener listener;
   MatchService ms;
   VillageService vs;
@@ -32,12 +33,16 @@ public class ForestService {
         p.multiplier++;
         listener.matchWon(clanNumber, reward, p.multiplier);
         p.gold += reward;
+        clanNumber++;
       } else {
         listener.matchLost(clanNumber);
+        if(p.gold > LOSE_PENALTY) {
+          p.gold -= LOSE_PENALTY;
+          listener.goldLost(LOSE_PENALTY, p.gold);
+        }
       }
       listener.rewardGiven(p.gold);
       vs.visit(clanNumber, p, Config.targetGold);
-      clanNumber++;
     }
   }
 }
