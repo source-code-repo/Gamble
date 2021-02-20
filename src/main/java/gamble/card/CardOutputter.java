@@ -9,4 +9,6 @@ public interface CardOutputter {
     public void showPlayerCards(List<PlayerCard> cards);
 
     public void chooseCardToRecharge();
+
+    void dontUnderstand();
 }

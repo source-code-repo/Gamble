@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
+import gamble.card.CardInputter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +23,7 @@ import gamble.service.input.Inputter;
 public class CardServiceTest {
     
     @Mock
-    private Inputter inMock;
+    private CardInputter inMock;
     
     @Mock
     private CardOutputter co;

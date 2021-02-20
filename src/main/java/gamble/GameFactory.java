@@ -1,14 +1,11 @@
 package gamble;
 
-import gamble.card.CardInputter;
-import gamble.card.CardService;
+import gamble.card.*;
 import gamble.game.GameService;
 import gamble.match.MatchService;
 import gamble.player.PlayerService;
 import gamble.round.*;
 import gamble.village.VillageService;
-import gamble.card.CardOutputter;
-import gamble.card.ConsoleCardOutputter;
 import gamble.game.ConsoleGameEventListener;
 import gamble.service.input.ConsoleInputter;
 import gamble.match.ConsoleMatchOutputter;
@@ -21,12 +18,10 @@ import gamble.village.VillageOutputter;
 public class GameFactory {
     public static GameService create() {
 
-
-
         GameEventListener out = new ConsoleGameEventListener();
-        CardOutputter co = new ConsoleCardOutputter();
 
-        CardInputter ci = new ConsoleCardInputter();
+        CardOutputter co = new ConsoleCardOutputter();
+        CardInputter ci = new ConsoleCardInputter(co);
         CardService cs = new CardService(ci, co);
 
         RoundOutputter ro = new ConsoleRoundOutputter();
@@ -42,7 +37,6 @@ public class GameFactory {
 
         VillageOutputter vos = new ConsoleVillageOutputter();
         VillageService vs = new VillageService(vos, in, ps);
-
 
         return new GameService(out, ms, vs);
     }

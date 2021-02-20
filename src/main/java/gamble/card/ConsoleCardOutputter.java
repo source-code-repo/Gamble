@@ -30,4 +30,9 @@ public class ConsoleCardOutputter implements CardOutputter {
         Util.print("Choose a card to recharge: ");
         
     }
+
+    @Override
+    public void dontUnderstand() {
+        Util.printNoDelay("Sorry I don't understand :( Try again.");
+    }
 }

@@ -17,4 +17,8 @@ public class Util {
 		System.out.println(str);
 		pause(Config.DELAY);
 	}
+
+	public static void printNoDelay(String s) {
+		System.out.println(s);
+	}
 }
