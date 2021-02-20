@@ -10,9 +10,7 @@ import gamble.game.GameService;
 import gamble.match.MatchConsoleOutputter;
 import gamble.match.MatchService;
 import gamble.player.PlayerService;
-import gamble.round.RoundConsoleInputter;
 import gamble.round.RoundConsoleOutputter;
-import gamble.round.RoundInputter;
 import gamble.round.RoundService;
 import gamble.village.*;
 
@@ -28,10 +26,8 @@ public class GameFactory {
     cardService.addCardEventListener(cardOut);
 
     RoundConsoleOutputter roundOut = new RoundConsoleOutputter(cardOut);
-    RoundConsoleInputter roundIn = new RoundConsoleInputter(cardIn, roundOut);
-    RoundService roundService = new RoundService(cardOut, roundIn, cardService);
+    RoundService roundService = new RoundService(cardService, cardIn);
     roundService.addRoundEventListener(roundOut);
-    roundIn.addRoundEventListener(roundOut);
 
     MatchConsoleOutputter matchOut = new MatchConsoleOutputter(cardService, cardOut);
     MatchService matchService = new MatchService(roundService, cardService);

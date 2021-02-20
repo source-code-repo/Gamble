@@ -55,10 +55,6 @@ public class RoundConsoleOutputter implements RoundEventListener {
     print("Spot on! Precise hit!");
   }
 
-  public void printChooseCardText() {
-    System.out.println("Choose a card to play: ");
-  }
-
   /* (non-Javadoc)
    * @see gamble.service.output.RoundOutputter#cardUsedUp()
    */
@@ -68,12 +64,17 @@ public class RoundConsoleOutputter implements RoundEventListener {
   }
 
   @Override
-  public void selectNextCard(int target, int totalPlayed, List<Card> cards) {
+  public void opponentShowingCard(int target, int totalPlayed, List<Card> cards) {
     String str = String.format("\nYour opponent's card has %01d/%01d points.\n",
       target - totalPlayed, target);
     print(str);
     Util.pause(Config.DELAY * 2);
 
     cardOut.showPlayerCards(cards);
+  }
+
+  @Override
+  public void playerChoosingCard() {
+    print("Choose a card to play: ");
   }
 }
