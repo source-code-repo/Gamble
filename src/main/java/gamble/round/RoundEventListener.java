@@ -9,18 +9,23 @@ import java.util.List;
  */
 public interface RoundEventListener {
   /**
+   * Notify that opponent is showing their current card
+   *
+   * @param target Opponent's card total value
+   * @param playerTotal Total the player has scored so far (player total needs to equal opponent total to win)
+   * @param cards All cards the player has
+   */
+  void opponentShowingCard(int target, int playerTotal, List<Card> cards);
+
+  /**
+   * Notify that the player is choosing their next card
+   */
+  void playerChoosingCard(List<Card> cards);
+
+  /**
    * Notify that the player has chosen an empty card
    */
   void chosenEmptyCard();
-
-  /**
-   * Notify that the player needs to select the next card
-   *
-   * @param target
-   * @param playerTotal
-   * @param cards
-   */
-  void selectNextCard(int target, int playerTotal, List<Card> cards);
 
   /**
    * Notify that the player is playing their next card
@@ -28,11 +33,6 @@ public interface RoundEventListener {
    * @param value
    */
   void playerPlayingCard(int value);
-
-  /**
-   * Player won a round with an exact match
-   */
-  void exactHit();
 
   /**
    * Notify that a round is over

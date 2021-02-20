@@ -1,9 +1,7 @@
 package gamble.round;
 
 import gamble.Config;
-import gamble.card.Card;
-import gamble.card.CardEventListener;
-import gamble.card.CardService;
+import gamble.card.*;
 import gamble.player.Player;
 
 import java.util.ArrayList;
@@ -14,13 +12,13 @@ import java.util.Random;
  * Plays a round - the player has to beat one CPU card.
  */
 public class RoundService {
-  final RoundInputter in;
   final CardService cs;
   final List<RoundEventListener> eventListeners = new ArrayList<RoundEventListener>();
+  private final CardInputter cardInputter;
 
-  public RoundService(CardEventListener cardOut, RoundInputter in, CardService cs) {
-    this.in = in;
+  public RoundService(CardService cs, CardInputter cardInputter) {
     this.cs = cs;
+    this.cardInputter = cardInputter;
   }
 
   public Round createRound() {
@@ -49,10 +47,9 @@ public class RoundService {
       }
 
       eventListeners.forEach(e ->
-        e.selectNextCard(r.opponentCardTarget, r.playerTotal, p.cards));
+        e.opponentShowingCard(r.opponentCardTarget, r.playerTotal, p.cards));
 
-      // TODO refactor input similar to output?
-      Card pc = in.selectAvailableCard(p.cards);
+      Card pc = chooseCard(p.cards);
       pc.uses--;
       int value = pc.getValue();
 
@@ -61,7 +58,6 @@ public class RoundService {
       r.playerTotal += value;
 
       if (r.playerTotal == r.opponentCardTarget) {
-        eventListeners.forEach(e -> e.exactHit());
         eventListeners.forEach(e -> e.roundOver());
         return new RoundResult(true, true);
       }
@@ -71,6 +67,24 @@ public class RoundService {
         return new RoundResult(false, true);
       }
     }
+  }
+
+  private Card chooseCard(List<Card> cards) {
+    Card card = null;
+    boolean cardChosen = false;
+    while (!cardChosen) {
+      eventListeners.forEach(e -> e.playerChoosingCard(cards));
+
+      card = cardInputter.selectCard(cards);
+
+      if (card.uses == 0) {
+        eventListeners.forEach(e -> e.chosenEmptyCard());
+        cardChosen = false;
+      } else {
+        cardChosen = true;
+      }
+    }
+    return card;
   }
 
   public void addRoundEventListener(RoundEventListener roundEventListener) {

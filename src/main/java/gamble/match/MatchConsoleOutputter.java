@@ -25,9 +25,8 @@ public class MatchConsoleOutputter implements MatchEventListener {
 
   @Override
   public void exactHit(Player p) {
-    String str = "A precise hit lets you recharge a card: ";
+    String str = "You got a precise hit! Choose a card to recharge: ";
     Util.print(str);
-
     co.showPlayerCards(p.cards);
   }
 
