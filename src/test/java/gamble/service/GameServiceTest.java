@@ -12,10 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import gamble.entities.MatchResult;
-import gamble.entities.Player;
+import gamble.match.MatchResult;
+import gamble.player.Player;
 import gamble.game.GameEventListener;
-import gamble.service.input.Inputter;
+import gamble.village.VillageInputter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GameServiceTest {
@@ -33,7 +33,7 @@ public class GameServiceTest {
     private VillageService vs;
 
     @Mock
-    private Inputter inputter;
+    private VillageInputter inputter;
     
     /**
      * Multiplier increases after every match won

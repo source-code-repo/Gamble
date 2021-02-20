@@ -1,15 +1,15 @@
-package gamble.entities;
+package gamble.card;
 
 import java.util.Random;
 
-public class PlayerCard {
+public class Card {
 	
 	public int minValue;
 	public int maxValue;
 	public int maxUses;
 	public int uses;
 	
-	public PlayerCard(int minValue, int maxValue, int maxUses) {
+	public Card(int minValue, int maxValue, int maxUses) {
 		super();
 		this.minValue = minValue;
 		this.maxValue = maxValue;

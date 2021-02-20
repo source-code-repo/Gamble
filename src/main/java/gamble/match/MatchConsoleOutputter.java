@@ -4,11 +4,11 @@ import gamble.config.Config;
 import gamble.card.CardService;
 import gamble.Util;
 
-public class ConsoleMatchOutputter implements MatchOutputter {
+public class MatchConsoleOutputter implements MatchOutputter {
 	
 	private CardService cs;
 
-	public ConsoleMatchOutputter(CardService cs) {
+	public MatchConsoleOutputter(CardService cs) {
         super();
         this.cs = cs;
     }

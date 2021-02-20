@@ -12,9 +12,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import gamble.config.Config;
-import gamble.entities.Player;
+import gamble.player.Player;
 import gamble.player.PlayerService;
-import gamble.service.input.Inputter;
+import gamble.village.VillageInputter;
 import gamble.village.VillageOutputter;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,7 +24,7 @@ public class VillageServiceTest {
     private VillageService vs;
     
     @Mock
-    private Inputter inputterMock;
+    private VillageInputter inputterMock;
     
     @Mock
     private PlayerService playerServiceMock;

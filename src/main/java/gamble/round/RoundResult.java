@@ -1,4 +1,4 @@
-package gamble.entities;
+package gamble.round;
 
 public class RoundResult {
 	public boolean exactMatch = false;

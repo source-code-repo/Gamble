@@ -1,14 +1,12 @@
-package gamble.service.input;
+package gamble.village;
 
-import java.util.List;
 import java.util.Scanner;
 
 import gamble.Util;
-import gamble.entities.PlayerCard;
-import gamble.round.ConsoleRoundOutputter;
 import gamble.round.RoundOutputter;
+import gamble.village.VillageInputter;
 
-public class ConsoleInputter implements Inputter {
+public class VillageConsoleInputter implements VillageInputter {
 
 	private static final String YES_OR_NO = "(yes|no|YES|NO)";
 	private static final String YES = "(yes|YES)";
@@ -16,18 +14,8 @@ public class ConsoleInputter implements Inputter {
 	Scanner reader = new Scanner(System.in);
 	RoundOutputter roundOut;
 
-	public ConsoleInputter(RoundOutputter roundOut) {
+	public VillageConsoleInputter(RoundOutputter roundOut) {
 		this.roundOut = roundOut;
-	}
-
-	/* (non-Javadoc)
-     * @see gamble.service.Inputter#pause()
-     */
-	@Override
-    public void pause() {
-		roundOut.print("Press enter to continue ");
-		reader.nextLine();
-		
 	}
 
 	/* (non-Javadoc)

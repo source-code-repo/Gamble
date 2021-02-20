@@ -6,7 +6,7 @@ import gamble.Util;
 /**
  * UI for round output
  */
-public class ConsoleRoundOutputter implements RoundOutputter {
+public class RoundConsoleOutputter implements RoundOutputter {
 
 	/* (non-Javadoc)
      * @see gamble.service.output.RoundOutputter#showCpuCards(int, int)

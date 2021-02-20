@@ -1,24 +1,20 @@
 package gamble.card;
 
-import gamble.Util;
-import gamble.entities.PlayerCard;
-import gamble.round.RoundOutputter;
-
 import java.util.List;
 import java.util.Scanner;
 
-public class ConsoleCardInputter implements CardInputter {
+public class CardConsoleInputter implements CardInputter {
 
     private final Scanner reader = new Scanner(System.in);
     private final CardOutputter cardOutputter;
 
-    public ConsoleCardInputter(CardOutputter cardOutputter) {
+    public CardConsoleInputter(CardOutputter cardOutputter) {
         this.cardOutputter = cardOutputter;
     }
 
     @Override
-    public PlayerCard selectCard(List<PlayerCard> cards) {
-        PlayerCard pc = null;
+    public Card selectCard(List<Card> cards) {
+        Card pc = null;
         while(pc == null) {
             try {
                 if(!reader.hasNextInt()) {
