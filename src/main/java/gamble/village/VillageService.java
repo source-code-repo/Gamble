@@ -4,62 +4,59 @@ import gamble.Config;
 import gamble.Inputter;
 import gamble.card.CardService;
 import gamble.player.Player;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class VillageService {
-  private final List<VillageEventListener> eventListeners = new ArrayList<>();
+  private final List<VillageEventListener> listeners = new ArrayList<>();
   private final Inputter input;
   private final CardService cardService;
 
-  public VillageService(Inputter input, CardService cardService) {
-    this.input = input;
-    this.cardService = cardService;
+  /**
+   * Will a player visit the village?
+   * Player may not yet be allowed or may choose not to
+   * @param clanNumber Most recently beaten by the player
+   * @return Decision
+   */
+  public boolean willVisit(int clanNumber) {
+    if (!villageUnlocked(clanNumber)) {
+      return false;
+    }
+
+    if (villageJustUnlocked(clanNumber)) {
+      listeners.forEach(VillageEventListener::firstVillageVisit);
+    }
+
+    listeners.forEach(e -> e.decidingToVisit(Config.FIGHTERS_PER_CLAN[clanNumber]));
+    return input.yesOrNo();
   }
 
-  public void visit(int matchCount, Player p, int targetGold) {
-    if (villageJustUnlocked(matchCount)) {
-      eventListeners.forEach(VillageEventListener::firstVillageVisit);
-    }
+  public void villageVisit(int clansBeaten, Player player, int targetGold) {
+    listeners.forEach(VillageEventListener::travellingToVillage);
 
-    if (!villageUnlocked(matchCount)) {
-      return;
-    }
+    cardService.resetCardUses(player.getCards());
+    listeners.forEach(VillageEventListener::cardsRecharged);
+    player.setMultiplier(1);
 
-    eventListeners.forEach(e -> e.decidingToVisit(Config.REWARDS[matchCount]));
-    boolean visit = input.yesOrNo();
-    if (!visit) {
-      return;
-    }
-
-    eventListeners.forEach(VillageEventListener::travellingToVillage);
-    villageVisit(matchCount, p, targetGold);
-  }
-
-  public void villageVisit(int matchCount, Player p, int targetGold) {
-    boolean finished = false;
-
-    cardService.resetCardUses(p.cards);
-    eventListeners.forEach(VillageEventListener::cardsRecharged);
-    p.multiplier = 1;
-
-    eventListeners.forEach(VillageEventListener::lookingAtIdol);
-    if (p.gold >= targetGold) {
-      eventListeners.forEach(VillageEventListener::gameWon);
+    listeners.forEach(VillageEventListener::lookingAtIdol);
+    if (player.getGold() >= targetGold) {
+      listeners.forEach(VillageEventListener::gameWon);
       System.exit(0);
     } else {
-      eventListeners.forEach(e -> e.notWon(targetGold));
+      listeners.forEach(e -> e.notWon(targetGold));
     }
 
-
+    boolean finished = false;
     while (!finished) {
-      eventListeners.forEach(e -> e.visiting(matchCount));
-      eventListeners.forEach(VillageEventListener::optionToLeave);
+      listeners.forEach(e -> e.visiting(clansBeaten, player));
+      listeners.forEach(VillageEventListener::optionToLeave);
       finished = input.yesOrNo();
     }
 
-    eventListeners.forEach(VillageEventListener::backToBattle);
+    listeners.forEach(VillageEventListener::backToBattle);
   }
 
   private boolean villageJustUnlocked(int matchCount) {
@@ -71,6 +68,6 @@ public class VillageService {
   }
 
   public void addEventListener(VillageEventListener villageEventListener) {
-    eventListeners.add(villageEventListener);
+    listeners.add(villageEventListener);
   }
 }

@@ -1,6 +1,9 @@
-package gamble.shop;
+package gamble.shop.item;
 
 import gamble.Util;
+import gamble.card.CardInputter;
+import gamble.player.Player;
+import gamble.shop.Purchasable;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -8,16 +11,19 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class DamageBoost implements Purchasable {
-  private static final int MINIMUM_CLAN_NUMBER = 5;
+  private static final int MINIMUM_CLAN_NUMBER = 2;
+
+  private DamageBoostEventListener damageBoostEventListener;
+  private CardInputter cardInputter;
 
   @Override
-  public boolean isAvailable(int clanNumber) {
-    return clanNumber >= MINIMUM_CLAN_NUMBER;
+  public boolean isAvailable(int clansBeaten) {
+    return clansBeaten >= MINIMUM_CLAN_NUMBER;
   }
 
   @Override
-  public void purchase() {
-    Util.print("Implementing damage boost");
+  public void purchase(Player player) {
+    Util.print("Choose a card to upgrade:");
   }
 
   @Override

@@ -13,9 +13,11 @@ public class ShopConsoleOutputter implements ShopEventListener {
   }
 
   @Override
-  public void visiting() {
-    Util.print("The salesman pulls back a ragged cloth doubling as a curtain\n" +
-      "on the back of his wagon and beckons you in to take a closer look.\n");
+  public void visiting(int playersGold) {
+    Util.print(String.format(
+      "The salesman pulls back a ragged cloth doubling as a curtain%n" +
+      "on the back of his wagon and beckons you in to take a closer look.%n" +
+      "You have %d gold.%n", playersGold));
   }
 
   @Override
@@ -25,9 +27,18 @@ public class ShopConsoleOutputter implements ShopEventListener {
     int count = 0;
     for (Purchasable item : items) {
       count++;
-      System.out.printf("%d %s %n%n",count, item.description());
+      Util.printNoDelay(String.format(
+        "%d [%d Gold] %s %n", count, item.cost(), item.description()
+      ));
     }
     Util.print("Make your choice (enter 0 to exit): ");
+  }
+
+  @Override
+  public void cantAffordItem(Purchasable item) {
+    Util.print(String.format(
+      "The salesman pulls the item away. \"You don't have %d gold\"", item.cost()
+    ));
   }
 
   public void incorrectSelection() {

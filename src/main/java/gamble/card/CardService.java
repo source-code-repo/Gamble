@@ -1,17 +1,15 @@
 package gamble.card;
 
 import gamble.player.Player;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class CardService {
-  private CardInputter in;
-  private List<CardEventListener> eventListeners = new ArrayList<>();
-
-  public CardService(CardInputter cardInputter) {
-    this.in = cardInputter;
-  }
+  private final CardInputter in;
+  private final List<CardEventListener> eventListeners = new ArrayList<>();
 
   public boolean movesLeft(List<Card> cards) {
     for (Card pc : cards) {
@@ -26,8 +24,8 @@ public class CardService {
    * Allows the player to recharge a single card
    */
   public void rechargeCard(Player p) {
-    eventListeners.forEach(e -> e.rechargingCards());
-    Card card = in.selectCard(p.cards);
+    eventListeners.forEach(CardEventListener::rechargingCards);
+    Card card = in.selectCard(p.getCards());
     card.uses = card.maxUses;
   }
 

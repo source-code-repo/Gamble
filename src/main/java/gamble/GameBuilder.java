@@ -12,8 +12,12 @@ import gamble.forest.ForestService;
 import gamble.match.MatchConsoleOutputter;
 import gamble.match.MatchService;
 import gamble.shop.*;
+import gamble.shop.item.DamageBoost;
+import gamble.shop.item.RangeReducer;
 import gamble.village.VillageConsoleOutputter;
 import gamble.village.VillageService;
+
+import java.util.List;
 
 /**
  * Possible improvement: DI framework/library
@@ -37,7 +41,7 @@ public class GameBuilder {
     fightService.addRoundEventListener(roundOut);
 
     MatchService matchService = new MatchService(fightService, cardService);
-    matchService.addMatchEventListener(new MatchConsoleOutputter(cardService, cardOut));
+    matchService.addMatchEventListener(new MatchConsoleOutputter(cardOut));
 
     VillageService villageService = new VillageService(inputter, cardService);
     villageService.addEventListener(new VillageConsoleOutputter());
@@ -46,6 +50,7 @@ public class GameBuilder {
     ShopInputter shopInputter = new ShopConsoleInputter(inputter, shopConsoleOutputter);
     ShopService shopService = new ShopService(shopInputter);
     shopService.addEventListener(shopConsoleOutputter);
+    shopService.setItems(List.of(new DamageBoost(), new RangeReducer()));
 
     // Triggers a shop visit through the village visit event
     ShopVillageTrigger shopVillageTrigger = new ShopVillageTrigger(shopService);

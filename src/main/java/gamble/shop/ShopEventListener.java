@@ -10,12 +10,19 @@ public interface ShopEventListener {
 
   /**
    * Player is visiting the shops
+   * @param playersGold
    */
-  void visiting();
+  void visiting(int playersGold);
 
   /**
-   * Player is offered items
-   * @param items
+   * Player is being offered items to purchase
+   * @param items Item details
    */
   void offerItems(List<Purchasable> items);
+
+  /**
+   * Player tried to buy an item they can't afford
+   * @param item The item the player tried to buy
+   */
+  void cantAffordItem(Purchasable item);
 }

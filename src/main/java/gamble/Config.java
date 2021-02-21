@@ -3,15 +3,15 @@ package gamble;
 public class Config {
   public static final int MIN_CPU_CARD_VALUE = 15;
   public static final int MAX_CPU_CARD_VALUE = 20;
-  public static int DELAY = 50;
+  public static final int DELAY = 50;
 
   // Rewards for each match
-  public static final int[] REWARDS = {1, 2, 3, 1, 3, 2, 2, 4, 1, 2,
-    4, 1, 2, 3, 2};
+  public static final int[] REWARDS = {1, 2, 3, 3, 3, 3, 4, 5, 6, 7,
+    7, 7, 8, 9, 9};
 
-  // Number of CPU cards in each match
-  public static final int[] CARDS_PER_MATCH = {1, 2, 3, 1, 3, 2, 2, 4, 1, 2,
-    4, 1, 2, 3, 2};
+  // Number of fighters in each clan
+  public static final int[] FIGHTERS_PER_CLAN = {1, 2, 2, 2, 3, 2, 2, 4, 3, 2,
+    3, 4, 4, 4, 4};
 
   public static final String[] NUM_TO_NAME = {"first", "second", "third", "fourth", "fifth",
     "sixth", "seventh", "eigth", "ninth", "tenth",

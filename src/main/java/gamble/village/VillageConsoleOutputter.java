@@ -1,37 +1,29 @@
 package gamble.village;
 
 import gamble.Util;
+import gamble.player.Player;
 
 public class VillageConsoleOutputter implements VillageEventListener {
-  /* (non-Javadoc)
-   * @see gamble.service.output.VillageOutputter#shouldVisit()
-   */
   @Override
-  public void decidingToVisit(int nextReward) {
-    String str = String.format("Will you trek back to the village?\n"
-      + "If you visit the village you'll lose your multiplier.\n"
-      + "The next group of fighters have %d gold\n"
-      + "Type yes or no: ", nextReward);
+  public void decidingToVisit(int fightersInNextClan) {
+    String str = String.format("A nearby village has a place you can rest and recharge your cards.\n" +
+      "If you visit the village you'll lose your multiplier.\n" +
+      "There are %d fighters in the next clan\n" +
+      "Will you trek back to the village?\n" +
+      "Type yes or no: ", fightersInNextClan);
 
     Util.print(str);
   }
 
-  /* (non-Javadoc)
-   * @see gamble.service.output.VillageOutputter#welcome()
-   */
   @Override
   public void firstVillageVisit() {
     Util.print("A nearby village has a place you can rest and recharge your cards.");
   }
 
-  /* (non-Javadoc)
-   * @see gamble.service.output.VillageOutputter#visiting(int)
-   */
   @Override
-  public void visiting(int matchCount) {
-    String str = String.format("The tranquil village is a welcome break from the harsh forest. "
+  public void visiting(int clanNumber, Player player) {
+    Util.print("The tranquil village is a welcome break from the harsh forest. "
       + "You are having a good time.\n");
-    Util.print(str);
   }
 
   @Override
@@ -39,26 +31,17 @@ public class VillageConsoleOutputter implements VillageEventListener {
     Util.print("Are you ready to return to battle?");
   }
 
-  /* (non-Javadoc)
-   * @see gamble.service.output.VillageOutputter#cardsRecharged()
-   */
   @Override
   public void cardsRecharged() {
     Util.print("You arrive in the village and find a mysterious old man who\n"
       + "passes his hand over your cards, replenishing them.\n");
   }
 
-  /* (non-Javadoc)
-   * @see gamble.service.output.VillageOutputter#backToBattle()
-   */
   @Override
   public void backToBattle() {
     Util.print("You leave the village and trek through the dense forest.\n");
   }
 
-  /* (non-Javadoc)
-   * @see gamble.service.output.VillageOutputter#trekToVillage()
-   */
   @Override
   public void travellingToVillage() {
     Util.print("You trek through a dark, dense forest. On the other side you find the village.");

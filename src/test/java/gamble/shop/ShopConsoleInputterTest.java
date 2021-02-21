@@ -1,22 +1,24 @@
 package gamble.shop;
 
 import gamble.Inputter;
-import junit.framework.TestCase;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import gamble.shop.item.DamageBoost;
+import gamble.shop.item.RangeReducer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ShopConsoleInputterTest {
   @InjectMocks
   ShopConsoleInputter shopConsoleInputter;
@@ -38,7 +40,7 @@ public class ShopConsoleInputterTest {
     // When
     Optional<Purchasable> purchasable = shopConsoleInputter.selectItem(items);
     // Then
-    assertTrue(purchasable.isPresent());
+    assertThat(purchasable.isPresent(), equalTo(true));
     assertThat(purchasable.get(), is(damageBoost));
   }
 

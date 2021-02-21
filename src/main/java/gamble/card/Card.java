@@ -1,7 +1,12 @@
 package gamble.card;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Random;
 
+@Getter
+@Setter
 public class Card {
   public int minValue;
   public int maxValue;
@@ -16,8 +21,7 @@ public class Card {
   }
 
   public int getValue() {
-    Random r = new Random();
-    int value = r.nextInt(maxValue - minValue + 1);
+    int value = new Random().nextInt(maxValue - minValue + 1);
     value = value + minValue;
     return value;
   }

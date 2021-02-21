@@ -15,7 +15,7 @@ public class ForestConsoleOutputter implements ForestEventListener {
     Util.print(str);
     str = String.format("Reward: %d gold", reward);
     Util.print(str);
-    Util.pause(Config.DELAY * 3);
+    Util.pause(Config.DELAY * 3L);
   }
 
   @Override
@@ -28,7 +28,7 @@ public class ForestConsoleOutputter implements ForestEventListener {
       reward, reward / (multiplier - 1), multiplier - 1,
       multiplier);
     Util.print(str);
-    Util.pause(Config.DELAY * 2);
+    Util.pause(Config.DELAY * 2L);
   }
 
   /* (non-Javadoc)
@@ -40,7 +40,7 @@ public class ForestConsoleOutputter implements ForestEventListener {
       "Uh oh. You've been beaten by the fighting clan #%d",
       fighterClanNumber);
     Util.print(str);
-    Util.pause(Config.DELAY * 2);
+    Util.pause(Config.DELAY * 2L);
   }
 
   /* (non-Javadoc)
@@ -48,7 +48,7 @@ public class ForestConsoleOutputter implements ForestEventListener {
    */
   @Override
   public void rewardGiven(int gold) {
-    String str = String.format("You have %d gold\n", gold);
+    String str = String.format("You have %d gold%n", gold);
     Util.print(str);
   }
 
@@ -66,7 +66,7 @@ public class ForestConsoleOutputter implements ForestEventListener {
 
   @Override
   public void goldLost(int lost, int gold) {
-    String str = String.format("You have lost %d gold, you now have %d\n",
+    String str = String.format("You have lost %d gold, you now have %d%n",
       lost, gold);
     Util.print(str);
   }

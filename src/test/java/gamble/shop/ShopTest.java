@@ -1,11 +1,14 @@
 package gamble.shop;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import gamble.player.Player;
+import gamble.shop.item.DamageBoost;
+import gamble.shop.item.RangeReducer;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,98 +16,137 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ShopTest {
+@ExtendWith(MockitoExtension.class)
+class ShopTest {
   @InjectMocks
-  private ShopService shopService;
+  ShopService shopService;
 
   @Mock
-  private ShopEventListener shopEventListener;
+  ShopEventListener shopEventListener;
 
   @Mock
-  private ShopInputter inputter;
+  ShopInputter inputter;
 
   @Mock
-  private Purchasable item;
+  Purchasable item;
 
-  List<Purchasable> items = List.of(
-    new DamageBoost(), new RangeReducer()
-  );
+  @Mock
+  Purchasable item2;
 
-  @Before
+  @Mock
+  Player player;
+
+  private final DamageBoost damageBoost = new DamageBoost();
+  private final RangeReducer rangeReducer = new RangeReducer();
+  List<Purchasable> items = List.of(damageBoost, rangeReducer);
+
+  @BeforeEach
   public void setup() {
     shopService.addEventListener(shopEventListener);
   }
 
   @Test
-  public void shopClosedIfNoAvailableItems() {
+  void shopClosedIfNoAvailableItems() {
     // Given
     // One item that isn't available
     shopService.setItems(List.of(item));
     when(item.isAvailable(1)).thenReturn(false);
     // When
-    shopService.visit(1);
+    shopService.visit(1, player);
     // Then
     verify(shopEventListener, times(0)).optionToVisit();
   }
 
   @Test
-  public void shopOpenIfItemsAvailable() {
+  void shopOpenIfItemsAvailable() {
     // Given
     openShop();
+    when(item.isAvailable(1)).thenReturn(true);
     // When
-    shopService.visit(1);
+    shopService.visit(1, player);
     // Then
     verify(shopEventListener, times(1)).optionToVisit();
   }
 
   @Test
-  public void declineShopVisit() {
+  void declineShopVisit() {
     // Given
     openShop();
+    when(item.isAvailable(1)).thenReturn(true);
     when(inputter.shouldVisitShop()).thenReturn(false);
     // When
-    shopService.visit(1);
+    shopService.visit(1, player);
     // Then
-    verify(shopEventListener, times(0)).visiting();
+    verify(shopEventListener, times(0)).visiting(player.getGold());
   }
 
   @Test
-  public void shopCanBeVisited() {
+  void shopCanBeVisited() {
     // Given
     openShop();
+    when(item.isAvailable(1)).thenReturn(true);
     when(inputter.shouldVisitShop()).thenReturn(true);
     // When
-    shopService.visit(1);
+    shopService.visit(1, player);
     // Then
-    verify(shopEventListener, times(1)).visiting();
+    verify(shopEventListener, times(1)).visiting(player.getGold());
   }
 
   @Test
-  public void shopListsItems() {
+  void shopListsItems() {
     // Given
     openShop();
     when(inputter.shouldVisitShop()).thenReturn(true); // visit shop
     shopService.setItems(items);
     // When
-    shopService.visit(20);
+    shopService.visit(10, player);
     // Then
     verify(shopEventListener, times(1)).offerItems(items);
   }
 
   @Test
-  public void shopPurchaseItem() {
+  void purchaseItem() {
     // Given
     var itemsWithMock = new ArrayList<>(items);
     itemsWithMock.add(item);
     openShop();
     when(inputter.shouldVisitShop()).thenReturn(true); // visit shop
     when(inputter.selectItem(itemsWithMock)).thenReturn(Optional.of(item));
+    when(item.isAvailable(20)).thenReturn(true);
     shopService.setItems(itemsWithMock);
     // When
-    shopService.visit(20);
+    shopService.visit(20, player);
     // Then
-    verify(item, times(1)).purchase();
+    verify(item, times(1)).purchase(player);
+  }
+
+  @Test
+  void notEnoughGold() {
+    // Given
+    shopService.setItems(items);
+    when(inputter.shouldVisitShop()).thenReturn(true);
+    when(inputter.selectItem(items))
+      .thenReturn(Optional.of(damageBoost)) // first time request the damage boost we can't afford
+      .thenReturn(Optional.empty()); // second time, choose to exit
+    when(player.getGold()).thenReturn(1);
+    // When
+    shopService.visit(10, player);
+    // Then
+    verify(shopEventListener, times(1)).cantAffordItem(damageBoost);
+  }
+
+  @Test
+  void notOfferedUnavailableItem() {
+    // Given
+    shopService.setItems(List.of(item, item2));
+    when(item.isAvailable(10)).thenReturn(true);
+    when(item2.isAvailable(10)).thenReturn(false);
+    when(inputter.shouldVisitShop()).thenReturn(true);
+    when(inputter.selectItem(List.of(item))).thenReturn(Optional.empty());
+    // When
+    shopService.visit(10, player);
+    // Then
+    verify(shopEventListener, times(1)).offerItems(List.of(item));
   }
 
   /**
@@ -112,6 +154,5 @@ public class ShopTest {
    */
   private void openShop() {
     shopService.setItems(List.of(item));
-    when(item.isAvailable(1)).thenReturn(true);
   }
 }

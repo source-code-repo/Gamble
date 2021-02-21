@@ -1,5 +1,7 @@
 package gamble.village;
 
+import gamble.player.Player;
+
 /**
  * Notify of events that occur in the village
  * All methods have a blank default implementation
@@ -10,9 +12,9 @@ public interface VillageEventListener {
   /**
    * Notify that a player is deciding to visit the village
    *
-   * @param nextReward Reward the player would have
+   * @param fightersInNextClan Number of fighters in the next clan
    */
-  default void decidingToVisit(int nextReward) {}
+  default void decidingToVisit(int fightersInNextClan) {}
 
   /**
    * Notify that the player is travelling to the village
@@ -27,9 +29,10 @@ public interface VillageEventListener {
 
   /**
    * Notify that the player is visiting the village.
-   * @param matchCount
+   * @param clanNumber The clan number the player has beaten
+   * @param player The player
    */
-  default void visiting(int matchCount) {}
+  default void visiting(int clanNumber, Player player) {}
 
   /**
    * Notify that the player's cards have been recharged

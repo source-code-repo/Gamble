@@ -5,6 +5,7 @@ import gamble.card.Card;
 import gamble.card.CardInputter;
 import gamble.card.CardService;
 import gamble.player.Player;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,29 +13,24 @@ import java.util.List;
 /**
  * Plays a round - the player has to beat one CPU card.
  */
+@RequiredArgsConstructor
 public class FightService {
   final CardService cs;
   final List<FightEventListener> eventListeners = new ArrayList<>();
   private final CardInputter cardInputter;
 
-  public FightService(CardService cs, CardInputter cardInputter) {
-    this.cs = cs;
-    this.cardInputter = cardInputter;
-  }
-
   /**
    * Creates a fighter with a random HP
    * @param min Fighter's minimum possible HP
    * @param max Fighter's maximum possible HP
-   * @return
+   * @return Fighter
    */
   public Fighter createFighter(int min, int max) {
     Fighter r = new Fighter();
-    r.maxHp = Util.randomBetween(min, max);
-    r.damageTaken = 0;
+    r.setMaxHp(Util.randomBetween(min, max));
+    r.setDamageTaken(0);
     return r;
   }
-
 
   /**
    * Fight one fighter
@@ -45,28 +41,28 @@ public class FightService {
    */
   public FightResult fight(Fighter fighter, Player p) {
     while (true) {
-      if (!cs.movesLeft(p.cards)) {
+      if (!cs.movesLeft(p.getCards())) {
         return new FightResult(false, false);
       }
 
       eventListeners.forEach(e ->
-        e.fighterShowingHp(fighter.maxHp, fighter.damageTaken, p.cards));
+        e.fighterShowingHp(fighter.getMaxHp(), fighter.getDamageTaken(), p.getCards()));
 
-      Card pc = chooseCard(p.cards);
+      Card pc = chooseCard(p.getCards());
       pc.uses--;
       int value = pc.getValue();
 
       eventListeners.forEach(e -> e.playerPlayingCard(value));
 
-      fighter.damageTaken += value;
+      fighter.setDamageTaken(fighter.getDamageTaken() + value);
 
-      if (fighter.damageTaken == fighter.maxHp) {
-        eventListeners.forEach(e -> e.roundOver());
+      if (fighter.getDamageTaken() == fighter.getMaxHp()) {
+        eventListeners.forEach(FightEventListener::roundOver);
         return new FightResult(true, true);
       }
 
-      if (fighter.damageTaken >= fighter.maxHp) {
-        eventListeners.forEach(e -> e.roundOver());
+      if (fighter.getDamageTaken() >= fighter.getMaxHp()) {
+        eventListeners.forEach(FightEventListener::roundOver);
         return new FightResult(false, true);
       }
     }
@@ -81,7 +77,7 @@ public class FightService {
       card = cardInputter.selectCard(cards);
 
       if (card.uses == 0) {
-        eventListeners.forEach(e -> e.chosenEmptyCard());
+        eventListeners.forEach(FightEventListener::chosenEmptyCard);
         cardChosen = false;
       } else {
         cardChosen = true;

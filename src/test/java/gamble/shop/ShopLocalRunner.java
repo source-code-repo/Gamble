@@ -2,6 +2,9 @@ package gamble.shop;
 
 import gamble.ConsoleInputter;
 import gamble.Inputter;
+import gamble.player.Player;
+import gamble.shop.item.DamageBoost;
+import gamble.shop.item.RangeReducer;
 
 import java.util.List;
 
@@ -19,6 +22,9 @@ public class ShopLocalRunner {
         new DamageBoost(), new RangeReducer()
     ));
 
-    shopService.visit(15);
+    Player player = new Player();
+    player.setGold(10);
+
+    shopService.visit(2, player);
   }
 }
