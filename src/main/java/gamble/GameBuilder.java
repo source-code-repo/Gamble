@@ -13,6 +13,7 @@ import gamble.match.MatchConsoleOutputter;
 import gamble.match.MatchService;
 import gamble.shop.*;
 import gamble.shop.item.DamageBoost;
+import gamble.shop.item.DamageBoostConsoleOutputter;
 import gamble.shop.item.RangeReducer;
 import gamble.village.VillageConsoleOutputter;
 import gamble.village.VillageService;
@@ -50,7 +51,10 @@ public class GameBuilder {
     ShopInputter shopInputter = new ShopConsoleInputter(inputter, shopConsoleOutputter);
     ShopService shopService = new ShopService(shopInputter);
     shopService.addEventListener(shopConsoleOutputter);
-    shopService.setItems(List.of(new DamageBoost(), new RangeReducer()));
+
+    DamageBoostConsoleOutputter damageBoostConsoleOutputter = new DamageBoostConsoleOutputter();
+    DamageBoost damageBoost = new DamageBoost(damageBoostConsoleOutputter, cardIn);
+    shopService.setItems(List.of(damageBoost, new RangeReducer()));
 
     // Triggers a shop visit through the village visit event
     ShopVillageTrigger shopVillageTrigger = new ShopVillageTrigger(shopService);

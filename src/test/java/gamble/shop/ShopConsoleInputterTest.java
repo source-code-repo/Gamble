@@ -1,8 +1,7 @@
 package gamble.shop;
 
 import gamble.Inputter;
-import gamble.shop.item.DamageBoost;
-import gamble.shop.item.RangeReducer;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,9 +28,18 @@ public class ShopConsoleInputterTest {
   @Mock
   ShopConsoleOutputter shopConsoleOutputter;
 
-  private final DamageBoost damageBoost = new DamageBoost();
-  private final RangeReducer rangeReducer = new RangeReducer();
-  private final List<Purchasable> items = List.of(damageBoost, rangeReducer);
+  @Mock
+  Purchasable item1;
+
+  @Mock
+  Purchasable item2;
+
+  private List<Purchasable> items;
+
+  @BeforeEach
+  void before() {
+    items = List.of(item1, item2);
+  }
 
   @Test
   public void selectItem() {
@@ -41,7 +49,7 @@ public class ShopConsoleInputterTest {
     Optional<Purchasable> purchasable = shopConsoleInputter.selectItem(items);
     // Then
     assertThat(purchasable.isPresent(), equalTo(true));
-    assertThat(purchasable.get(), is(damageBoost));
+    assertThat(purchasable.get(), is(item1));
   }
 
   @Test
@@ -52,7 +60,7 @@ public class ShopConsoleInputterTest {
     Optional<Purchasable> purchasable = shopConsoleInputter.selectItem(items);
     // Then
     assertTrue(purchasable.isPresent());
-    assertThat(purchasable.get(), is(rangeReducer));
+    assertThat(purchasable.get(), is(item2));
   }
 
   @Test
@@ -75,7 +83,7 @@ public class ShopConsoleInputterTest {
     Optional<Purchasable> purchasable = shopConsoleInputter.selectItem(items);
     // Then
     assertTrue(purchasable.isPresent());
-    assertThat(purchasable.get(), is(damageBoost));
+    assertThat(purchasable.get(), is(item1));
     verify(inputter, times(2)).chooseNumber();
     verify(shopConsoleOutputter, times(1)).incorrectSelection();
   }

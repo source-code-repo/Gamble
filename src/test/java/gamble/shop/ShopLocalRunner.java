@@ -2,8 +2,12 @@ package gamble.shop;
 
 import gamble.ConsoleInputter;
 import gamble.Inputter;
+import gamble.card.CardConsoleInputter;
+import gamble.card.CardConsoleOutputter;
+import gamble.card.CardInputter;
 import gamble.player.Player;
 import gamble.shop.item.DamageBoost;
+import gamble.shop.item.DamageBoostConsoleOutputter;
 import gamble.shop.item.RangeReducer;
 
 import java.util.List;
@@ -18,8 +22,15 @@ public class ShopLocalRunner {
     ShopInputter shopInputter = new ShopConsoleInputter(inputter, shopConsoleOutputter);
     ShopService shopService = new ShopService(shopInputter);
     shopService.addEventListener(new ShopConsoleOutputter());
+
+    CardConsoleOutputter cardOut = new CardConsoleOutputter();
+    CardInputter cardIn = new CardConsoleInputter(cardOut);
+
+    DamageBoostConsoleOutputter damageBoostConsoleOutputter = new DamageBoostConsoleOutputter();
+    DamageBoost damageBoost = new DamageBoost(damageBoostConsoleOutputter, cardIn);
+
     shopService.setItems(List.of(
-        new DamageBoost(), new RangeReducer()
+      damageBoost, new RangeReducer()
     ));
 
     Player player = new Player();

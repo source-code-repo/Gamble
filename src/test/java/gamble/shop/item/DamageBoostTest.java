@@ -28,6 +28,9 @@ class DamageBoostTest {
   @Mock
   CardInputter cardInputter;
 
+  @Mock
+  DamageBoostEventListener damageBoostEventListener;
+
   Player player;
 
   @BeforeEach
@@ -45,6 +48,7 @@ class DamageBoostTest {
     // When
     damageBoost.purchase(player);
     // Then
+    verify(damageBoostEventListener, times(1)).selectingCard();
     verify(card, times(1)).setMinValue(5);
     verify(card, times(1)).setMaxValue(10);
   }
