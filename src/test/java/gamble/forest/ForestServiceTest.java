@@ -3,7 +3,7 @@ package gamble.forest;
 import gamble.match.MatchResult;
 import gamble.match.MatchService;
 import gamble.player.Player;
-import gamble.village.VillageInputter;
+import gamble.Inputter;
 import gamble.village.VillageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ public class ForestServiceTest {
   private VillageService vs;
 
   @Mock
-  private VillageInputter inputter;
+  private Inputter inputter;
 
   /**
    * Multiplier increases after every match won

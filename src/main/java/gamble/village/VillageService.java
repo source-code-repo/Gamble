@@ -1,6 +1,7 @@
 package gamble.village;
 
 import gamble.Config;
+import gamble.Inputter;
 import gamble.card.CardService;
 import gamble.player.Player;
 
@@ -9,17 +10,17 @@ import java.util.List;
 
 public class VillageService {
   private final List<VillageEventListener> eventListeners = new ArrayList<>();
-  private final VillageInputter input;
+  private final Inputter input;
   private final CardService cardService;
 
-  public VillageService(VillageInputter input, CardService cardService) {
+  public VillageService(Inputter input, CardService cardService) {
     this.input = input;
     this.cardService = cardService;
   }
 
   public void visit(int matchCount, Player p, int targetGold) {
     if (villageJustUnlocked(matchCount)) {
-      eventListeners.forEach(e -> e.firstVillageVisit());
+      eventListeners.forEach(VillageEventListener::firstVillageVisit);
     }
 
     if (!villageUnlocked(matchCount)) {
@@ -32,20 +33,20 @@ public class VillageService {
       return;
     }
 
-    villageVisit(p, targetGold);
+    eventListeners.forEach(VillageEventListener::travellingToVillage);
+    villageVisit(matchCount, p, targetGold);
   }
 
-  public void villageVisit(Player p, int targetGold) {
+  public void villageVisit(int matchCount, Player p, int targetGold) {
     boolean finished = false;
 
-    eventListeners.forEach(e -> e.travellingToVillage());
     cardService.resetCardUses(p.cards);
-    eventListeners.forEach(e -> e.cardsRecharged());
+    eventListeners.forEach(VillageEventListener::cardsRecharged);
     p.multiplier = 1;
 
-    eventListeners.forEach(e -> e.lookingAtIdol());
+    eventListeners.forEach(VillageEventListener::lookingAtIdol);
     if (p.gold >= targetGold) {
-      eventListeners.forEach(e -> e.gameWon());
+      eventListeners.forEach(VillageEventListener::gameWon);
       System.exit(0);
     } else {
       eventListeners.forEach(e -> e.notWon(targetGold));
@@ -53,11 +54,12 @@ public class VillageService {
 
 
     while (!finished) {
-      eventListeners.forEach(e -> e.visiting());
+      eventListeners.forEach(e -> e.visiting(matchCount));
+      eventListeners.forEach(VillageEventListener::optionToLeave);
       finished = input.yesOrNo();
     }
 
-    eventListeners.forEach(e -> e.backToBattle());
+    eventListeners.forEach(VillageEventListener::backToBattle);
   }
 
   private boolean villageJustUnlocked(int matchCount) {

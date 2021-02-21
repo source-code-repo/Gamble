@@ -28,10 +28,14 @@ public class VillageConsoleOutputter implements VillageEventListener {
    * @see gamble.service.output.VillageOutputter#visiting(int)
    */
   @Override
-  public void visiting() {
-    String str = String.format("The tranquil village is a welcome break from the forest. "
+  public void visiting(int matchCount) {
+    String str = String.format("The tranquil village is a welcome break from the harsh forest. "
       + "You are having a good time.\n");
     Util.print(str);
+  }
+
+  @Override
+  public void optionToLeave() {
     Util.print("Are you ready to return to battle?");
   }
 

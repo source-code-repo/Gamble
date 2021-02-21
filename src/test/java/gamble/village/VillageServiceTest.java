@@ -1,11 +1,9 @@
 package gamble.village;
 
 import gamble.Config;
+import gamble.Inputter;
 import gamble.card.CardService;
 import gamble.player.Player;
-import gamble.village.VillageEventListener;
-import gamble.village.VillageInputter;
-import gamble.village.VillageService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +22,7 @@ public class VillageServiceTest {
   private VillageService villageService;
 
   @Mock
-  private VillageInputter inputMock;
+  private Inputter inputMock;
 
   // Injected into VillageService
   @Mock
@@ -47,7 +45,7 @@ public class VillageServiceTest {
     when(inputMock.yesOrNo()).thenReturn(true);
 
     // When
-    villageService.villageVisit(p, Config.targetGold);
+    villageService.villageVisit(1, p, Config.targetGold);
 
     // Then
     assertEquals(1, p.multiplier);
@@ -61,10 +59,24 @@ public class VillageServiceTest {
     when(inputMock.yesOrNo()).thenReturn(true);
 
     // When
-    villageService.villageVisit(p, 5);
+    villageService.villageVisit(1, p, 5);
 
     // Then
     verify(eventListenerMock).notWon(5);
+  }
+
+  @Test
+  public void notifyOfVillageVisit() {
+    // Given
+    Player p = new Player();
+    p.gold = 1;
+    when(inputMock.yesOrNo()).thenReturn(true);
+
+    // When
+    villageService.villageVisit(1, p, 5);
+
+    // Then
+    verify(eventListenerMock).visiting(1);
   }
 
   // Tricky to test winning as it exits the JVM by design

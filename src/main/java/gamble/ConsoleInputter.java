@@ -1,12 +1,12 @@
-package gamble.village;
-
-import gamble.Util;
+package gamble;
 
 import java.util.Scanner;
+import java.util.function.Predicate;
 
-public class VillageConsoleInputter implements VillageInputter {
+public class ConsoleInputter implements Inputter {
   private static final String YES_OR_NO = "(yes|no|YES|NO)";
   private static final String YES = "(yes|YES)";
+  private static final String NUMBERS = "[0-9]+";
 
   Scanner reader = new Scanner(System.in);
 
@@ -15,25 +15,29 @@ public class VillageConsoleInputter implements VillageInputter {
    */
   @Override
   public boolean yesOrNo() {
-    boolean response = false;
+    var input = getInput(e -> e.matches(YES_OR_NO));
+    return input.matches(YES);
+  }
 
+  @Override
+  public int chooseNumber() {
+    return Integer.parseInt(
+      getInput(e -> e.matches(NUMBERS))
+    );
+  }
+
+  private String getInput(Predicate<String> validation) {
     String input = null;
     // Hack: without this, the reader next line fires without user input
     // in Eclipse's console
     reader = new Scanner(System.in);
-    while (!response) {
+    for(;;) {
       input = reader.nextLine();
-      if (input.matches(YES_OR_NO)) {
-        response = true;
+      if (validation.test(input)) {
+        return input;
       } else {
         Util.print("Sorry, what was that? Maybe give it another try.");
       }
-    }
-
-    if (input.matches(YES)) {
-      return true;
-    } else {
-      return false;
     }
   }
 }
