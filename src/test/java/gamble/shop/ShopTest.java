@@ -1,6 +1,5 @@
 package gamble.shop;
 
-import gamble.Inputter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -21,10 +22,14 @@ public class ShopTest {
   private ShopEventListener shopEventListener;
 
   @Mock
-  private Inputter inputter;
+  private ShopInputter inputter;
 
   @Mock
   private Purchasable item;
+
+  List<Purchasable> items = List.of(
+    new DamageBoost(), new RangeReducer()
+  );
 
   @Before
   public void setup() {
@@ -57,7 +62,7 @@ public class ShopTest {
   public void declineShopVisit() {
     // Given
     openShop();
-    when(inputter.yesOrNo()).thenReturn(false);
+    when(inputter.shouldVisitShop()).thenReturn(false);
     // When
     shopService.visit(1);
     // Then
@@ -68,7 +73,7 @@ public class ShopTest {
   public void shopCanBeVisited() {
     // Given
     openShop();
-    when(inputter.yesOrNo()).thenReturn(true);
+    when(inputter.shouldVisitShop()).thenReturn(true);
     // When
     shopService.visit(1);
     // Then
@@ -78,16 +83,28 @@ public class ShopTest {
   @Test
   public void shopListsItems() {
     // Given
-    List<Purchasable> items = List.of(
-      new DamageBoost(), new RangeReducer()
-    );
     openShop();
-    when(inputter.yesOrNo()).thenReturn(true); // visit shop
+    when(inputter.shouldVisitShop()).thenReturn(true); // visit shop
     shopService.setItems(items);
     // When
     shopService.visit(20);
     // Then
     verify(shopEventListener, times(1)).offerItems(items);
+  }
+
+  @Test
+  public void shopPurchaseItem() {
+    // Given
+    var itemsWithMock = new ArrayList<>(items);
+    itemsWithMock.add(item);
+    openShop();
+    when(inputter.shouldVisitShop()).thenReturn(true); // visit shop
+    when(inputter.selectItem(itemsWithMock)).thenReturn(Optional.of(item));
+    shopService.setItems(itemsWithMock);
+    // When
+    shopService.visit(20);
+    // Then
+    verify(item, times(1)).purchase();
   }
 
   /**

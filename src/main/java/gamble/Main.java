@@ -29,6 +29,6 @@ public class Main {
     }
 
     Player p = new PlayerService(new CardCreator()).setup();
-    GameFactory.create().play(p, Config.CARDS_PER_MATCH);
+    GameBuilder.create().play(p, Config.CARDS_PER_MATCH);
   }
 }

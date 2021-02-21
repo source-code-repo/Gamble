@@ -1,5 +1,6 @@
 package gamble.shop;
 
+import gamble.ConsoleInputter;
 import gamble.Util;
 
 import java.util.List;
@@ -19,15 +20,17 @@ public class ShopConsoleOutputter implements ShopEventListener {
 
   @Override
   public void offerItems(List<Purchasable> items) {
-    System.out.println("Items:");
+    Util.print("Items:");
 
     int count = 0;
     for (Purchasable item : items) {
       count++;
-      System.out.println(
-        String.format("%d %s \n",count, item.description())
-      );
+      System.out.printf("%d %s %n%n",count, item.description());
     }
     Util.print("Make your choice (enter 0 to exit): ");
+  }
+
+  public void incorrectSelection() {
+    Util.print(ConsoleInputter.BAD_INPUT);
   }
 }

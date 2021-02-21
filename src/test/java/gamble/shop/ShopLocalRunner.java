@@ -4,7 +4,6 @@ import gamble.ConsoleInputter;
 import gamble.Inputter;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class ShopLocalRunner {
   /**
@@ -12,7 +11,9 @@ public class ShopLocalRunner {
    */
   public static void main(String[] args) {
     Inputter inputter = new ConsoleInputter();
-    ShopService shopService = new ShopService(inputter);
+    ShopConsoleOutputter shopConsoleOutputter = new ShopConsoleOutputter();
+    ShopInputter shopInputter = new ShopConsoleInputter(inputter, shopConsoleOutputter);
+    ShopService shopService = new ShopService(shopInputter);
     shopService.addEventListener(new ShopConsoleOutputter());
     shopService.setItems(List.of(
         new DamageBoost(), new RangeReducer()

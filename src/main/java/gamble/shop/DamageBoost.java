@@ -1,5 +1,6 @@
 package gamble.shop;
 
+import gamble.Util;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -16,7 +17,7 @@ public class DamageBoost implements Purchasable {
 
   @Override
   public void purchase() {
-    System.out.println("Implementing damageboost");
+    Util.print("Implementing damage boost");
   }
 
   @Override

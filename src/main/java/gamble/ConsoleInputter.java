@@ -7,6 +7,7 @@ public class ConsoleInputter implements Inputter {
   private static final String YES_OR_NO = "(yes|no|YES|NO)";
   private static final String YES = "(yes|YES)";
   private static final String NUMBERS = "[0-9]+";
+  public static final String BAD_INPUT = "Sorry, what was that? Maybe give it another try.";
 
   Scanner reader = new Scanner(System.in);
 
@@ -27,7 +28,7 @@ public class ConsoleInputter implements Inputter {
   }
 
   private String getInput(Predicate<String> validation) {
-    String input = null;
+    String input;
     // Hack: without this, the reader next line fires without user input
     // in Eclipse's console
     reader = new Scanner(System.in);
@@ -36,7 +37,7 @@ public class ConsoleInputter implements Inputter {
       if (validation.test(input)) {
         return input;
       } else {
-        Util.print("Sorry, what was that? Maybe give it another try.");
+        Util.print(BAD_INPUT);
       }
     }
   }

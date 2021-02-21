@@ -11,16 +11,19 @@ import gamble.forest.ForestEventListener;
 import gamble.forest.ForestService;
 import gamble.match.MatchConsoleOutputter;
 import gamble.match.MatchService;
-import gamble.shop.ShopConsoleOutputter;
-import gamble.shop.ShopService;
-import gamble.shop.ShopVillageTrigger;
+import gamble.shop.*;
 import gamble.village.VillageConsoleOutputter;
 import gamble.village.VillageService;
 
 /**
  * Possible improvement: DI framework/library
  */
-public class GameFactory {
+public class GameBuilder {
+
+  private GameBuilder() {
+    throw new IllegalStateException("Not intended to be instantiated");
+  }
+
   public static ForestService create() {
     Inputter inputter = new ConsoleInputter();
 
@@ -39,8 +42,10 @@ public class GameFactory {
     VillageService villageService = new VillageService(inputter, cardService);
     villageService.addEventListener(new VillageConsoleOutputter());
 
-    ShopService shopService = new ShopService(inputter);
-    shopService.addEventListener(new ShopConsoleOutputter());
+    ShopConsoleOutputter shopConsoleOutputter = new ShopConsoleOutputter();
+    ShopInputter shopInputter = new ShopConsoleInputter(inputter, shopConsoleOutputter);
+    ShopService shopService = new ShopService(shopInputter);
+    shopService.addEventListener(shopConsoleOutputter);
 
     // Triggers a shop visit through the village visit event
     ShopVillageTrigger shopVillageTrigger = new ShopVillageTrigger(shopService);

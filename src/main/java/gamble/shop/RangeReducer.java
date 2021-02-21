@@ -1,5 +1,7 @@
 package gamble.shop;
 
+import gamble.Util;
+
 /**
  * Increases a card's minimum damage, reducing it's range
  */
@@ -13,7 +15,7 @@ public class RangeReducer implements Purchasable {
 
   @Override
   public void purchase() {
-    System.out.println("Implementing range reducer");
+    Util.print("Implementing bundle of herbs min damage increase");
   }
 
   @Override

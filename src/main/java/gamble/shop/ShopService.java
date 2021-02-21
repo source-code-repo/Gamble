@@ -1,6 +1,5 @@
 package gamble.shop;
 
-import gamble.Inputter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -8,24 +7,27 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class ShopService {
-  private List<ShopEventListener> listeners = new ArrayList<>();
+  private final List<ShopEventListener> listeners = new ArrayList<>();
   private List<Purchasable> items;
-  private final Inputter inputter;
+  private final ShopInputter shopInputter;
 
   public void visit(int matchCount) {
     // Only offer to visit the shop if there are items available
-    if(items.stream().filter(e -> e.isAvailable(matchCount)).count() == 0) {
+    if(items.stream().noneMatch(e -> e.isAvailable(matchCount))) {
       return;
     }
 
     listeners.forEach(ShopEventListener::optionToVisit);
-    if(!inputter.yesOrNo()) {
+    if(!shopInputter.shouldVisitShop()) {
       return;
     }
 
     listeners.forEach(ShopEventListener::visiting);
     listeners.forEach(e -> e.offerItems(items));
-    int selection = inputter.chooseNumber();
+
+    shopInputter
+      .selectItem(items)
+      .ifPresent(Purchasable::purchase);
   }
 
   public void addEventListener(ShopEventListener shopEventListener) {
