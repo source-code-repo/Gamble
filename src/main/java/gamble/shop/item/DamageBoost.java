@@ -1,6 +1,5 @@
 package gamble.shop.item;
 
-import gamble.Util;
 import gamble.card.Card;
 import gamble.card.CardInputter;
 import gamble.player.Player;
@@ -25,10 +24,11 @@ public class DamageBoost implements Purchasable {
 
   @Override
   public void purchase(Player player) {
-    damageBoostEventListener.selectingCard();
+    damageBoostEventListener.selectingCard(player.getCards());
     Card card = cardInputter.selectCard(player.getCards());
     card.setMinValue(card.getMinValue() + UPGRADE_AMOUNT);
     card.setMaxValue(card.getMaxValue() + UPGRADE_AMOUNT);
+    damageBoostEventListener.upgradeComplete(card);
   }
 
   @Override

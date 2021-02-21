@@ -4,6 +4,7 @@ import gamble.ConsoleInputter;
 import gamble.Inputter;
 import gamble.card.CardConsoleInputter;
 import gamble.card.CardConsoleOutputter;
+import gamble.card.CardCreator;
 import gamble.card.CardInputter;
 import gamble.player.Player;
 import gamble.shop.item.DamageBoost;
@@ -26,16 +27,22 @@ public class ShopLocalRunner {
     CardConsoleOutputter cardOut = new CardConsoleOutputter();
     CardInputter cardIn = new CardConsoleInputter(cardOut);
 
-    DamageBoostConsoleOutputter damageBoostConsoleOutputter = new DamageBoostConsoleOutputter();
+    DamageBoostConsoleOutputter damageBoostConsoleOutputter = new DamageBoostConsoleOutputter(cardOut);
     DamageBoost damageBoost = new DamageBoost(damageBoostConsoleOutputter, cardIn);
 
     shopService.setItems(List.of(
       damageBoost, new RangeReducer()
     ));
 
+
+    CardCreator cardCreator = new CardCreator();
+
     Player player = new Player();
     player.setGold(10);
+    player.setCards(cardCreator.createCards());
 
     shopService.visit(2, player);
+
+    cardOut.showPlayerCards(player.getCards());
   }
 }

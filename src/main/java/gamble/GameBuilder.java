@@ -52,7 +52,7 @@ public class GameBuilder {
     ShopService shopService = new ShopService(shopInputter);
     shopService.addEventListener(shopConsoleOutputter);
 
-    DamageBoostConsoleOutputter damageBoostConsoleOutputter = new DamageBoostConsoleOutputter();
+    DamageBoostConsoleOutputter damageBoostConsoleOutputter = new DamageBoostConsoleOutputter(cardOut);
     DamageBoost damageBoost = new DamageBoost(damageBoostConsoleOutputter, cardIn);
     shopService.setItems(List.of(damageBoost, new RangeReducer()));
 
