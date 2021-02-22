@@ -1,6 +1,6 @@
 # Dockerfile References: https://docs.docker.com/engine/reference/builder/
 
-FROM openjdk:8
+FROM openjdk:11
 
 COPY target/gamble-0.0.1-SNAPSHOT.jar ./
 

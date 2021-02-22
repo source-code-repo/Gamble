@@ -8,11 +8,13 @@ import gamble.card.CardCreator;
 import gamble.card.CardInputter;
 import gamble.player.Player;
 import gamble.shop.item.DamageBoost;
-import gamble.shop.item.DamageBoostConsoleOutputter;
+import gamble.shop.item.UpgradeConsoleOutputter;
 import gamble.shop.item.RangeReducer;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 public class ShopLocalRunner {
   /**
    * For local testing with system output
@@ -27,22 +29,21 @@ public class ShopLocalRunner {
     CardConsoleOutputter cardOut = new CardConsoleOutputter();
     CardInputter cardIn = new CardConsoleInputter(cardOut);
 
-    DamageBoostConsoleOutputter damageBoostConsoleOutputter = new DamageBoostConsoleOutputter(cardOut);
-    DamageBoost damageBoost = new DamageBoost(damageBoostConsoleOutputter, cardIn);
+    UpgradeConsoleOutputter upgradeConsoleOutputter = new UpgradeConsoleOutputter(cardOut);
+    DamageBoost damageBoost = new DamageBoost(cardIn, upgradeConsoleOutputter);
+    RangeReducer rangeReducer = new RangeReducer(cardIn, upgradeConsoleOutputter);
 
-    shopService.setItems(List.of(
-      damageBoost, new RangeReducer()
-    ));
-
+    shopService.setItems(List.of(damageBoost, rangeReducer));
 
     CardCreator cardCreator = new CardCreator();
 
     Player player = new Player();
-    player.setGold(10);
+    player.setGold(100);
     player.setCards(cardCreator.createCards());
 
-    shopService.visit(2, player);
+    shopService.visit(3, player);
 
     cardOut.showPlayerCards(player.getCards());
+    log.info("Player gold {}", player.getGold());
   }
 }

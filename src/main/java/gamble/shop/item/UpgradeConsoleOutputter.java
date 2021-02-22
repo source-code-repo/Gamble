@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class DamageBoostConsoleOutputter implements DamageBoostEventListener {
+public class UpgradeConsoleOutputter implements UpgradeEventListener {
   private final CardConsoleOutputter cardConsoleOutputter;
 
   @Override
@@ -23,5 +23,10 @@ public class DamageBoostConsoleOutputter implements DamageBoostEventListener {
       "Your card's new damage is %d-%d",
       card.getMinValue(), card.getMaxValue()
     ));
+  }
+
+  @Override
+  public void cantUpgrade(String reason) {
+    Util.print(reason);
   }
 }
