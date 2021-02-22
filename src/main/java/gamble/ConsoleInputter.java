@@ -4,8 +4,8 @@ import java.util.Scanner;
 import java.util.function.Predicate;
 
 public class ConsoleInputter implements Inputter {
-  private static final String YES_OR_NO = "(yes|no|YES|NO)";
-  private static final String YES = "(yes|YES)";
+  private static final String YES_OR_NO = "(Yes|yes|YES|No|no|NO)";
+  private static final String YES = "(yes|YES|Yes)";
   private static final String NUMBERS = "[0-9]+";
   public static final String BAD_INPUT = "Sorry, what was that? Maybe give it another try.";
 

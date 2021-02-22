@@ -41,7 +41,7 @@ public class ShopLocalRunner {
     player.setGold(100);
     player.setCards(cardCreator.createCards());
 
-    shopService.visit(3, player);
+    shopService.visit(4, player);
 
     cardOut.showPlayerCards(player.getCards());
     log.info("Player gold {}", player.getGold());

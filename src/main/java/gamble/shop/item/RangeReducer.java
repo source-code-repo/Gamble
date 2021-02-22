@@ -36,6 +36,7 @@ public class RangeReducer implements Purchasable {
     }
     card.setMinValue(card.getMinValue() + UPGRADE_AMOUNT);
     player.reduceGold(cost());
+    upgradeEventListener.upgradeComplete(card);
   }
 
   @Override

@@ -29,9 +29,9 @@ public class ForestService {
       listener.matchStarted(clanNumber, Config.REWARDS[clanNumber - 1]);
       MatchResult mr = ms.play(p, fighters);
       if (mr.isWon()) {
-        p.setMultiplier(p.getMultiplier() + 1);
         int reward = Config.REWARDS[clanNumber - 1] * p.getMultiplier();
         p.setGold(p.getGold() + reward);
+        p.setMultiplier(p.getMultiplier() + 1);
         listener.matchWon(clanNumber, reward, p.getMultiplier());
         clanNumber++;
       } else {

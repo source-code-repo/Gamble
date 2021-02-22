@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <style type="text/css">
+button {
+  height: 5em;
+  width: 5em;
+  display: inline;
+}
+
+form {
+  display: inline;
+}
 </style>
 <body>
-<pre id="output" style="height: 35em; white-space: pre-wrap;"></pre>
+<pre id="output" style="height: 40em; white-space: pre-wrap;"></pre>
 <script>
   // helper function: log message to screen
   function log(msg) {
     var output = document.getElementById('output').textContent;
     output += msg + "\n";
-    var reduced = output.substring(output.length - 650, output.length);
+    var reduced = output.substring(output.length - 600, output.length);
     document.getElementById('output').textContent = reduced;
   }
 
@@ -28,10 +37,27 @@
 </script>
 
 <div id="footerContainer">
-<form action="#" onsubmit="ws.send(document.getElementById('input').value); document.getElementById('input').value = '';">
-    <input type="textbox" id="input" autocomplete="off" />
-    <button type=submit>Submit</button>
-</form>
+  <form action="#" onsubmit="ws.send(1)">
+    <button type=submit>1</button>
+  </form>
+  <form action="#" onsubmit="ws.send(2)">
+    <button type=submit>2</button>
+  </form>
+  <form action="#" onsubmit="ws.send(3)">
+    <button type=submit>3</button>
+  </form>
+  <form action="#" onsubmit="ws.send(4)">
+    <button type=submit>4</button>
+  </form>
+  <form action="#" onsubmit="ws.send('yes')">
+    <button type=submit>yes</button>
+  </form>
+  <form action="#" onsubmit="ws.send('no')">
+    <button type=submit>no</button>
+  </form>
+  <form action="#" onsubmit="ws.send(0)">
+    <button type=submit>0</button>
+  </form>
 </div>
 </body>
 </html>

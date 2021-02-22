@@ -11,6 +11,9 @@ RUN apt-get install /websocketd-0.3.1_amd64.deb
 RUN mkdir /docs
 
 # Sample page for load balancer health checks
+COPY index.html docs/check.html
+
+# Application served from here (?)
 COPY index.html docs/index.html
 
 # Remove HIGH vulnerable curl
