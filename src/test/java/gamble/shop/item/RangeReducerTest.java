@@ -15,7 +15,8 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class RangeReducerTest {
-  @InjectMocks RangeReducer rangeReducer;
+  @InjectMocks
+  RangeReducer rangeReducer;
 
   @Mock
   Player player;
@@ -95,5 +96,18 @@ class RangeReducerTest {
     rangeReducer.purchase(player);
     // Then
     verify(player, times(1)).reduceGold(15);
+  }
+
+  @Test
+  void showUpgradeResult() {
+    // Given
+    when(cardInputter.selectCard(List.of())).thenReturn(card);
+    // Card is valid for upgrade (range not too small)
+    when(card.getMinValue()).thenReturn(2);
+    when(card.getMaxValue()).thenReturn(6);
+    // When
+    rangeReducer.purchase(player);
+    // Then
+    verify(upgradeEventListener).upgradeComplete(card);
   }
 }
