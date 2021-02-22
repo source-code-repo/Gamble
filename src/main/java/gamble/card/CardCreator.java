@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CardCreator {
   public List<Card> createCards() {
-    List<Card> cards = new ArrayList<>();
+    var cards = new ArrayList<Card>();
     cards.add(new Card(1, Util.randomBetween(4, 5), 3));
     cards.add(new Card(Util.randomBetween(2, 4), Util.randomBetween(6, 8), 3));
     cards.add(new Card(Util.randomBetween(2, 3), Util.randomBetween(5, 6), 3));

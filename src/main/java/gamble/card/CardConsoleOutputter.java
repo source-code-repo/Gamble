@@ -7,16 +7,16 @@ import java.util.List;
 public class CardConsoleOutputter implements CardEventListener {
   /**
    * Shows a player's cards
-   * @param cards
+   * @param cards Cards
    */
   public void showPlayerCards(List<Card> cards) {
-    String str = String.format("\nYou have %d cards", cards.size());
+    var str = String.format("%nYou have %d cards", cards.size());
     Util.print(str);
 
     int cardCount = 1;
-    StringBuilder sb = new StringBuilder();
+    var sb = new StringBuilder();
     for (Card pc : cards) {
-      sb.append(String.format("Card %d  %2d-%2d     Uses left  %2d/%2d\n",
+      sb.append(String.format("Card %d  %2d-%2d     Uses left  %2d/%2d%n",
         cardCount, pc.minValue, pc.maxValue, pc.uses, pc.maxUses));
 
 

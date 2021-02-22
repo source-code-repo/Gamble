@@ -1,30 +1,31 @@
 package gamble.village;
 
 import gamble.Config;
+import gamble.Inputter;
 import gamble.card.CardService;
 import gamble.player.Player;
 import gamble.village.VillageEventListener;
-import gamble.village.VillageInputter;
 import gamble.village.VillageService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class VillageServiceTest {
+@ExtendWith(MockitoExtension.class)
+class VillageServiceTest {
 
   @InjectMocks
   private VillageService villageService;
 
   @Mock
-  private VillageInputter inputMock;
+  private Inputter inputMock;
 
   // Injected into VillageService
   @Mock
@@ -33,38 +34,52 @@ public class VillageServiceTest {
   @Mock
   private VillageEventListener eventListenerMock;
 
-  @Before
+  @BeforeEach
   public void injectEventListener() {
     villageService.addEventListener(eventListenerMock);
   }
 
   @Test
-  public void multiplierReset() {
+  void multiplierReset() {
 
     // Given
     Player p = new Player();
-    p.multiplier = 11;
+    p.setMultiplier(11);
     when(inputMock.yesOrNo()).thenReturn(true);
 
     // When
-    villageService.villageVisit(p, Config.targetGold);
+    villageService.villageVisit(1, p, Config.targetGold);
 
     // Then
-    assertEquals(1, p.multiplier);
+    assertThat(1, equalTo(p.getMultiplier()));
   }
 
   @Test
-  public void testNotWon() {
+  void testNotWon() {
     // Given
     Player p = new Player();
-    p.gold = 1;
+    p.setGold(1);
     when(inputMock.yesOrNo()).thenReturn(true);
 
     // When
-    villageService.villageVisit(p, 5);
+    villageService.villageVisit(1, p, 5);
 
     // Then
     verify(eventListenerMock).notWon(5);
+  }
+
+  @Test
+  void notifyOfVillageVisit() {
+    // Given
+    Player p = new Player();
+    p.setGold(1);
+    when(inputMock.yesOrNo()).thenReturn(true);
+
+    // When
+    villageService.villageVisit(1, p, 5);
+
+    // Then
+    verify(eventListenerMock).visiting(1, p);
   }
 
   // Tricky to test winning as it exits the JVM by design

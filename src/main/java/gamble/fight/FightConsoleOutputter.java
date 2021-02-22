@@ -26,9 +26,9 @@ public class FightConsoleOutputter implements FightEventListener {
    */
   @Override
   public void roundOver() {
-    String str = String.format("\n*** You beat the fighter! ***\n");
+    String str = String.format("%n*** You beat the fighter! ***%n");
     print(str);
-    Util.pause(Config.DELAY * 3);
+    Util.pause(Config.DELAY * 3L);
   }
 
   /* (non-Javadoc)
@@ -47,7 +47,7 @@ public class FightConsoleOutputter implements FightEventListener {
     String str = String.format("%d", value);
     print(str);
 
-    Util.pause(Config.DELAY * 2);
+    Util.pause(Config.DELAY * 2L);
   }
 
   /* (non-Javadoc)
@@ -60,10 +60,10 @@ public class FightConsoleOutputter implements FightEventListener {
 
   @Override
   public void fighterShowingHp(int totalHp, int hpLeft, List<Card> cards) {
-    String str = String.format("\nFighter Health: %01d/%01d.",
+    String str = String.format("%nFighter Health: %01d/%01d.",
       totalHp - hpLeft, totalHp);
     print(str);
-    Util.pause(Config.DELAY * 2);
+    Util.pause(Config.DELAY * 2L);
   }
 
   @Override

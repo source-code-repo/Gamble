@@ -11,7 +11,7 @@ public class PlayerService {
 
   public Player setup() {
     Player p = new Player();
-    p.cards = cardCreator.createCards();
+    p.setCards(cardCreator.createCards());
     return p;
   }
 }

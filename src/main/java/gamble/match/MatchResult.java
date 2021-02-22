@@ -1,10 +1,10 @@
 package gamble.match;
 
-public class MatchResult {
-  public boolean won = false;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-  public MatchResult(boolean won) {
-    super();
-    this.won = won;
-  }
+@RequiredArgsConstructor
+@Getter
+public class MatchResult {
+  private final boolean won;
 }

@@ -3,10 +3,9 @@ package gamble.match;
 import gamble.player.Player;
 
 public interface MatchEventListener {
-
   /**
    * Player got an exact hit during this match
-   * @param p
+   * @param p Player
    */
   void exactHit(Player p);
 

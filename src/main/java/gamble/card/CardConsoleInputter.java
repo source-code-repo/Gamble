@@ -1,15 +1,14 @@
 package gamble.card;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 import java.util.Scanner;
 
+@RequiredArgsConstructor
 public class CardConsoleInputter implements CardInputter {
   private final Scanner reader = new Scanner(System.in);
   private final CardEventListener cardEventListener;
-
-  public CardConsoleInputter(CardEventListener cardEventListener) {
-    this.cardEventListener = cardEventListener;
-  }
 
   @Override
   public Card selectCard(List<Card> cards) {

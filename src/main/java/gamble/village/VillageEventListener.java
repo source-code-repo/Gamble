@@ -1,51 +1,64 @@
 package gamble.village;
 
+import gamble.player.Player;
+
+/**
+ * Notify of events that occur in the village
+ * All methods have a blank default implementation
+ * so implementors only need to extend events they
+ * are interested in.
+ */
 public interface VillageEventListener {
   /**
    * Notify that a player is deciding to visit the village
-   * @param nextReward Reward the player would have
+   *
+   * @param fightersInNextClan Number of fighters in the next clan
    */
-  void decidingToVisit(int nextReward);
+  default void decidingToVisit(int fightersInNextClan) {}
 
   /**
    * Notify that the player is travelling to the village
    */
-  void travellingToVillage();
+  default void travellingToVillage() {}
 
   /**
    * Notify that the player is visiting the village for the first time
    * VillageEventListener#visiting() will also be called
    */
-  void firstVillageVisit();
+  default void firstVillageVisit() {}
 
   /**
    * Notify that the player is visiting the village.
+   * @param clanNumber The clan number the player has beaten
+   * @param player The player
    */
-  void visiting();
+  default void visiting(int clanNumber, Player player) {}
 
   /**
    * Notify that the player's cards have been recharged
    */
-  void cardsRecharged();
+  default void cardsRecharged() {}
 
   /**
    * Notify that the player is heading back to battle
    */
-  void backToBattle();
+  default void backToBattle() {}
 
   /**
    * Notify that the player is looking at the idon
    */
-  void lookingAtIdol();
+  default void lookingAtIdol() {}
 
   /**
    * Notify that the player has not yet won the game
    * @param targetGold Gold needed to win
    */
-  void notWon(int targetGold);
+  default void notWon(int targetGold) {}
 
   /**
    * Notify that the player has won the game
    */
-  void gameWon();
+  default void gameWon() {}
+
+  default void optionToLeave() {}
 }
