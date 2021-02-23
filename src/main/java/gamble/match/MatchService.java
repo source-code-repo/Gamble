@@ -34,8 +34,8 @@ public class MatchService {
       int finalCpuCards = clanFighterCount;
       eventListeners.forEach(e -> e.roundStarted(finalRoundNum, finalCpuCards));
       Fighter fighter = fightService.createFighter(
-        Config.MIN_CPU_CARD_VALUE,
-        Config.MAX_CPU_CARD_VALUE);
+        Config.MIN_FIGHTER_HP,
+        Config.MAX_FIGHTER_HP);
 
       FightResult rr = fightService.fight(fighter, p);
 

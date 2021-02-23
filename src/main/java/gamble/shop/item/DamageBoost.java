@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class DamageBoost implements Purchasable {
-  private static final int MINIMUM_CLAN_NUMBER = 3;
+  private static final int MINIMUM_CLAN_NUMBER = 5;
   private static final int UPGRADE_AMOUNT = 3;
 
   private final CardInputter cardInputter;

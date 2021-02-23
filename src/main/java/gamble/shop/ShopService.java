@@ -17,6 +17,7 @@ public class ShopService {
   public void visit(int clansBeaten, Player player) {
     // Only offer to visit the shop if there are items available
     if(items.stream().noneMatch(e -> e.isAvailable(clansBeaten))) {
+      listeners.forEach(ShopEventListener::cantAccessYet);
       return;
     }
 

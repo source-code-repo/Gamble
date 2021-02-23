@@ -4,6 +4,7 @@ FROM openjdk:11
 
 COPY target/gamble-0.0.1-SNAPSHOT.jar ./
 
+# From https://github.com/joewalnes/websocketd/releases/tag/v0.3.1
 COPY websocketd-0.3.1_amd64.deb ./
 
 RUN apt-get install /websocketd-0.3.1_amd64.deb 

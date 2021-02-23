@@ -6,11 +6,12 @@ import gamble.player.Player;
 public class VillageConsoleOutputter implements VillageEventListener {
   @Override
   public void decidingToVisit(int fightersInNextClan) {
-    String str = String.format("A nearby village has a place you can rest and recharge your cards.\n" +
-      "If you visit the village you'll lose your multiplier.\n" +
-      "There are %d fighters in the next clan\n" +
-      "Will you trek back to the village?\n" +
-      "Type yes or no: ", fightersInNextClan);
+    String str = String.format(
+      "A nearby village has a place you can rest and recharge your cards." +
+      "If you visit the village you'll lose your multiplier.%n" +
+      "There are %d fighters in the next clan. " +
+      "Will you trek back to the village? (Yes/No)",
+      fightersInNextClan);
 
     Util.print(str);
   }
@@ -22,7 +23,7 @@ public class VillageConsoleOutputter implements VillageEventListener {
 
   @Override
   public void visiting(int clanNumber, Player player) {
-    Util.print("The tranquil village is a welcome break from the harsh forest. "
+    Util.print("The tranquil village is a welcome break from the harsh forest.\n"
       + "You are having a good time.\n");
   }
 
@@ -33,7 +34,7 @@ public class VillageConsoleOutputter implements VillageEventListener {
 
   @Override
   public void cardsRecharged() {
-    Util.print("You arrive in the village and find a mysterious old man who\n"
+    Util.print("You arrive in the village and find a mysterious old man who "
       + "passes his hand over your cards, replenishing them.\n");
   }
 
@@ -44,7 +45,8 @@ public class VillageConsoleOutputter implements VillageEventListener {
 
   @Override
   public void travellingToVillage() {
-    Util.print("You trek through a dark, dense forest. On the other side you find the village.");
+    Util.print("You trek through a dark, dense forest.\n" +
+      "On the other side you find the village.");
   }
 
   @Override
@@ -63,9 +65,9 @@ public class VillageConsoleOutputter implements VillageEventListener {
   @Override
   public void gameWon() {
     String str = "You walk purposefully towards the shop that you've been rejected from "
-      + "so many times before.\n"
-      + "You exchange your hard-won gold for the idol you've been dreaming of all this time.\n"
-      + "Literally all your dreams come true. You win!";
+      + "so many times before. "
+      + "You exchange your hard-won gold for the idol you've been dreaming of all this time. "
+      + "All your dreams come true. You win!";
     Util.print(str);
   }
 }

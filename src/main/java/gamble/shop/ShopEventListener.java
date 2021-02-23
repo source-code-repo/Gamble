@@ -10,7 +10,7 @@ public interface ShopEventListener {
 
   /**
    * Player is visiting the shops
-   * @param playersGold
+   * @param playersGold Player's gold
    */
   void visiting(int playersGold);
 
@@ -25,4 +25,9 @@ public interface ShopEventListener {
    * @param item The item the player tried to buy
    */
   void cantAffordItem(Purchasable item);
+
+  /**
+   * Shop can't be accessed yet
+   */
+  void cantAccessYet();
 }

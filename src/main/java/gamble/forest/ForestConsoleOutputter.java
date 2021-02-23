@@ -21,8 +21,8 @@ public class ForestConsoleOutputter implements ForestEventListener {
   @Override
   public void matchWon(int fighterClanNumber, int reward, int multiplier) {
     String str = String.format(
-          "Well done! You beat fighting clan #%d. "
-        + "You win %d gold (%d for the win with a %d multiplier). "
+          "Well done! You beat fighting clan #%d.%n"
+        + "You win %d gold (%d for the win with a %d multiplier).%n"
         + "Your multiplier increased to %d.",
       fighterClanNumber,
       reward, reward / (multiplier - 1), multiplier - 1,
@@ -55,11 +55,11 @@ public class ForestConsoleOutputter implements ForestEventListener {
   @Override
   public void gameStarted() {
     String str =
-        "You are a warrior tasked by the king of the realm\n"
-      + "to protect the treacherous dark forest.\n"
-      + "You take your magic cards into the forest for\n"
-      + "protection but it isn't long before you run into\n"
-      + "a clan of highly skilled fighters.\n";
+        "You are a warrior tasked by the king of the realm "
+      + "to protect the treacherous dark forest. "
+      + "You take your magic cards into the forest for "
+      + "protection but it isn't long before you run into "
+      + "a clan of highly skilled fighters.";
     Util.print(str);
     Util.pause(5000);
   }

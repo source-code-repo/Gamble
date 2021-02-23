@@ -7,11 +7,11 @@ import gamble.shop.Purchasable;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Increases a card's minimum damage, reducing it's range
+ * Reduce a card's range by increasing its minimum damage,
  */
 @RequiredArgsConstructor
 public class RangeReducer implements Purchasable {
-  private static final int MINIMUM_CLAN_NUMBER = 4;
+  private static final int MINIMUM_CLAN_NUMBER = 7;
   private static final int UPGRADE_AMOUNT = 2;
 
   private final CardInputter cardInputter;

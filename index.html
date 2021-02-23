@@ -11,15 +11,27 @@ button {
 form {
   display: inline;
 }
+
+pre {
+  height: 40em;
+  white-space: pre-wrap;
+  overflow: clip;
+}
 </style>
 <body>
-<pre id="output" style="height: 40em; white-space: pre-wrap;"></pre>
+<pre id="output"></pre>
 <script>
+  // Avoid a page reload on first user input
+  setTimeout(function() {
+    let element = document.getElementById("button0");
+    element.click();
+  }, 1000)
+
   // helper function: log message to screen
   function log(msg) {
     var output = document.getElementById('output').textContent;
     output += msg + "\n";
-    var reduced = output.substring(output.length - 600, output.length);
+    var reduced = output.substring(output.length - 800, output.length);
     document.getElementById('output').textContent = reduced;
   }
 
@@ -56,7 +68,7 @@ form {
     <button type=submit>no</button>
   </form>
   <form action="#" onsubmit="ws.send(0)">
-    <button type=submit>0</button>
+    <button type=submit id="button0">0</button>
   </form>
 </div>
 </body>
