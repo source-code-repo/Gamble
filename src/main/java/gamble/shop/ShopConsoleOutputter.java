@@ -8,14 +8,14 @@ import java.util.List;
 public class ShopConsoleOutputter implements ShopEventListener {
   @Override
   public void optionToVisit() {
-    Util.print("A travelling salesman is nearby, advertising a collection \n" +
-      "of \"rarest quality, finest trinkets\". Take a closer look?\n");
+    Util.print("A travelling salesman is nearby, advertising a collection " +
+      "of \"rarest quality, finest trinkets\". Take a closer look?");
   }
 
   @Override
   public void visiting(int playersGold) {
     Util.print(String.format(
-      "The salesman pulls back a ragged cloth doubling as a curtain%n" +
+      "The salesman pulls back a ragged cloth doubling as a curtain " +
       "on the back of his wagon and beckons you in to take a closer look.%n" +
       "You have %d gold.%n", playersGold));
   }
@@ -39,6 +39,12 @@ public class ShopConsoleOutputter implements ShopEventListener {
     Util.print(String.format(
       "The salesman pulls the item away. \"You don't have %d gold\"", item.cost()
     ));
+  }
+
+  @Override
+  public void cantAccessYet() {
+    Util.print("A travelling salesman is setting out items in a display.\n" +
+      "He isn't quite ready yet but will be soon.");
   }
 
   public void incorrectSelection() {

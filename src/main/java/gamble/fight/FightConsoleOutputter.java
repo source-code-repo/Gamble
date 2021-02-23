@@ -36,7 +36,7 @@ public class FightConsoleOutputter implements FightEventListener {
    */
   @Override
   public void playerPlayingCard(int value) {
-    System.out.print("\nYour card's value is.");
+    System.out.print("Your card's value is.");
 
     Util.pause(Config.DELAY);
     System.out.print(".");
@@ -60,7 +60,7 @@ public class FightConsoleOutputter implements FightEventListener {
 
   @Override
   public void fighterShowingHp(int totalHp, int hpLeft, List<Card> cards) {
-    String str = String.format("%nFighter Health: %01d/%01d.",
+    String str = String.format("Fighter Health: %01d/%01d.",
       totalHp - hpLeft, totalHp);
     print(str);
     Util.pause(Config.DELAY * 2L);

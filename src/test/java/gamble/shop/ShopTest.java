@@ -34,13 +34,13 @@ class ShopTest {
   @Mock
   Player player;
 
-//  private final DamageBoost damageBoost = new DamageBoost();
-//  private final RangeReducer rangeReducer = new RangeReducer();
   List<Purchasable> items;
 
   @BeforeEach
   public void setup() {
     shopService.addEventListener(shopEventListener);
+    // Can't add item1 + 2 to items on initialization as
+    // they are null, not yet initialized by @Mock
     items = List.of(item1, item2);
   }
 
@@ -148,6 +148,16 @@ class ShopTest {
     shopService.visit(10, player);
     // Then
     verify(shopEventListener, times(1)).offerItems(List.of(item1));
+  }
+
+  @Test
+  void notifyShopOpeningSoon() {
+    // Given
+    shopService.setItems(List.of(item1));
+    // When
+    shopService.visit(1, player);
+    // Then
+    verify(shopEventListener).cantAccessYet();
   }
 
   /**

@@ -10,9 +10,6 @@ public class CardConsoleOutputter implements CardEventListener {
    * @param cards Cards
    */
   public void showPlayerCards(List<Card> cards) {
-    var str = String.format("%nYou have %d cards", cards.size());
-    Util.print(str);
-
     int cardCount = 1;
     var sb = new StringBuilder();
     for (Card pc : cards) {
@@ -22,7 +19,7 @@ public class CardConsoleOutputter implements CardEventListener {
 
       cardCount++;
     }
-    Util.print(sb.toString());
+    System.out.print(sb.toString());
   }
 
   @Override
