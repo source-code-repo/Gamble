@@ -24,6 +24,12 @@ public class Util {
     pause(Config.DELAY);
   }
 
+  @SuppressWarnings("java:S106") // Allow System.out.println as this is a console app
+  public static void printNoNewLine(String str) {
+    System.out.print(str);
+    pause(Config.DELAY);
+  }
+
   @SuppressWarnings("java:S106") // Allow System.out as this is a console app
   public static void printNoDelay(String s) {
     System.out.println(s);

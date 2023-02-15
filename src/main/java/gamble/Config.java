@@ -4,7 +4,7 @@ public class Config {
   private Config() {
     throw new IllegalStateException("Utility class, not to be instantiated");
   }
-  public static final int MIN_FIGHTER_HP = 13;
+  public static final int MIN_FIGHTER_HP = 10;
   public static final int MAX_FIGHTER_HP = 15;
 
   @SuppressWarnings("java:S2386") // Accept risk of mutable global state

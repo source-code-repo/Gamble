@@ -12,7 +12,7 @@ public class Card {
   private int maxValue;
   private int maxUses;
   private int uses;
-  private Random random;
+  private Random random = new Random();
 
   public Card(int minValue, int maxValue, int maxUses) {
     this.minValue = minValue;

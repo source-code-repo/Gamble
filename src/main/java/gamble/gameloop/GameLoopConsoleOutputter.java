@@ -61,7 +61,7 @@ public class GameLoopConsoleOutputter implements GameLoopListener {
       + "protection but it isn't long before you run into "
       + "a clan of highly skilled fighters.";
     Util.print(str);
-    Util.pause(5000);
+    Util.pause(Config.DELAY * 5L);
   }
 
   @Override

@@ -32,12 +32,12 @@ public class FightConsoleOutputter implements FightEventListener {
    */
   @Override
   public void playerAttacking(int damage) {
-    Util.print("Your card's attack damage is.");
+    Util.printNoNewLine("Your card's attack damage is.");
 
     Util.pause(Config.DELAY);
-    Util.print(".");
+    Util.printNoNewLine(".");
     Util.pause(Config.DELAY);
-    Util.print(".");
+    Util.printNoNewLine(".");
     Util.pause(Config.DELAY);
 
     String str = String.format("%d", damage);
