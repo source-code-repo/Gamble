@@ -1,8 +1,8 @@
 package gamble.forest;
 
 import gamble.Inputter;
-import gamble.match.MatchResult;
-import gamble.match.MatchService;
+import gamble.match.ClanBattleResult;
+import gamble.match.ClanBattle;
 import gamble.player.Player;
 import gamble.village.VillageService;
 import org.junit.jupiter.api.Test;
@@ -16,16 +16,16 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ForestServiceTest {
+class GameLoopTest {
 
   @InjectMocks
-  private ForestService forestService;
+  private GameLoop gameLoop;
 
   @Mock
-  private ForestEventListener forestEventListener;
+  private GameLoopListener gameLoopListener;
 
   @Mock
-  private MatchService matchServiceMock;
+  private ClanBattle clanBattleMock;
 
   @Mock
   private VillageService vs;
@@ -41,13 +41,13 @@ class ForestServiceTest {
     // Given
     Player p = new Player();
     p.setMultiplier(1);
-    when(matchServiceMock.play(p, 1)).thenReturn(new MatchResult(true));
+    when(clanBattleMock.battle(p, 1)).thenReturn(new ClanBattleResult(true));
 
     // When
-    forestService.play(p, new int[]{1});
+    gameLoop.play(p, new int[]{1});
 
     // Then
-    assertThat(2, equalTo(p.getMultiplier()));
+    assertThat(p.getMultiplier(), equalTo(2));
   }
 
   @Test
@@ -56,13 +56,13 @@ class ForestServiceTest {
     // 10 Matches
     Player p = new Player();
     p.setMultiplier(1);
-    when(matchServiceMock.play(p, 1)).thenReturn(new MatchResult(true));
+    when(clanBattleMock.battle(p, 1)).thenReturn(new ClanBattleResult(true));
 
     // When
-    forestService.play(p, new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
+    gameLoop.play(p, new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
 
     // Then
-    assertThat(11, equalTo(p.getMultiplier()));
+    assertThat(p.getMultiplier(), equalTo(11));
   }
 
   /**
@@ -74,32 +74,32 @@ class ForestServiceTest {
     Player p = new Player();
     p.setMultiplier(1);
     p.setGold(11);
-    when(matchServiceMock.play(p, 1)).thenReturn(new MatchResult(false));
+    when(clanBattleMock.battle(p, 1)).thenReturn(new ClanBattleResult(false));
 
     // When
-    forestService.play(p, new int[]{1});
+    gameLoop.play(p, new int[]{1});
 
     // Then
-    assertThat(6, equalTo(p.getGold()));
-    verify(forestEventListener, times(1)).goldLost(5, 6);
+    assertThat(p.getGold(), equalTo(6));
+    verify(gameLoopListener, times(1)).goldLost(5, 6);
   }
 
   /**
-   * Lose a match with less than 10 gold = no gold lost
+   * Don't reduce a player's gold below 0 if they lose a clan battle.
    */
   @Test
-  void loseMatchNoGoldLost() {
+  void loseClanBattleNoGoldLost() {
     // Given
     Player p = new Player();
     p.setMultiplier(1);
     p.setGold(5);
-    when(matchServiceMock.play(p, 1)).thenReturn(new MatchResult(false));
+    when(clanBattleMock.battle(p, 1)).thenReturn(new ClanBattleResult(false));
 
     // When
-    forestService.play(p, new int[]{1});
+    gameLoop.play(p, new int[]{1});
 
     // Then
-    assertThat(5, equalTo(p.getGold()));
-    verify(forestEventListener, times(0)).goldLost(10, 1);
+    assertThat(p.getGold() ,equalTo(5));
+    verify(gameLoopListener, times(0)).goldLost(10, 1);
   }
 }

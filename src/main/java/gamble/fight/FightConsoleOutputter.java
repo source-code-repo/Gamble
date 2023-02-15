@@ -17,17 +17,13 @@ public class FightConsoleOutputter implements FightEventListener {
     this.cardOut = cardOut;
   }
 
-  public void print(String s) {
-    System.out.println(s);
-  }
-
   /* (non-Javadoc)
    * @see gamble.service.output.RoundOutputter#roundOver()
    */
   @Override
   public void roundOver() {
     String str = String.format("%n*** You beat the fighter! ***%n");
-    print(str);
+    Util.printNoDelay(str);
     Util.pause(Config.DELAY * 3L);
   }
 
@@ -35,17 +31,17 @@ public class FightConsoleOutputter implements FightEventListener {
    * @see gamble.service.output.RoundOutputter#playedCard(int)
    */
   @Override
-  public void playerPlayingCard(int value) {
-    System.out.print("Your card's value is.");
+  public void playerAttacking(int damage) {
+    Util.print("Your card's attack damage is.");
 
     Util.pause(Config.DELAY);
-    System.out.print(".");
+    Util.print(".");
     Util.pause(Config.DELAY);
-    System.out.print(".");
+    Util.print(".");
     Util.pause(Config.DELAY);
 
-    String str = String.format("%d", value);
-    print(str);
+    String str = String.format("%d", damage);
+    Util.printNoDelay(str);
 
     Util.pause(Config.DELAY * 2L);
   }
@@ -55,20 +51,20 @@ public class FightConsoleOutputter implements FightEventListener {
    */
   @Override
   public void chosenEmptyCard() {
-    print("\nCard has reached max uses, please select another card");
+    Util.printNoDelay("\nCard has reached max uses, please select another card");
   }
 
   @Override
   public void fighterShowingHp(int totalHp, int hpLeft, List<Card> cards) {
     String str = String.format("Fighter Health: %01d/%01d.",
       totalHp - hpLeft, totalHp);
-    print(str);
+    Util.printNoDelay(str);
     Util.pause(Config.DELAY * 2L);
   }
 
   @Override
   public void playerChoosingCard(List<Card> cards) {
     cardOut.showPlayerCards(cards);
-    print("Choose a card to play: ");
+    Util.printNoDelay("Choose a card to play: ");
   }
 }

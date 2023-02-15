@@ -10,12 +10,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Plays a round - the player has to beat one CPU card.
- */
 @RequiredArgsConstructor
-public class FightService {
-  final CardService cs;
+public class Fight {
+  final CardService cardService;
   final List<FightEventListener> eventListeners = new ArrayList<>();
   private final CardInputter cardInputter;
 
@@ -33,28 +30,31 @@ public class FightService {
   }
 
   /**
-   * Fight one fighter
+   * An individual fight between you and one fighter.
+   * You repeatedly attack the fighter using your cards.
+   * The fight is over when you win by reducing the fighter's hit points to 0.
+   * Or until you have no more cards left to use.
    *
    * @param fighter The fighter to fight
    * @param p Player
-   * @return Result, did the player win + get exact match?
+   * @return Result, did the player win? Did they win by exact match?
    */
   public FightResult fight(Fighter fighter, Player p) {
     while (true) {
-      if (!cs.movesLeft(p.getCards())) {
+      if (!cardService.hasAttacksLeft(p.getCards())) {
         return new FightResult(false, false);
       }
 
       eventListeners.forEach(e ->
         e.fighterShowingHp(fighter.getMaxHp(), fighter.getDamageTaken(), p.getCards()));
 
-      Card pc = chooseCard(p.getCards());
-      pc.uses--;
-      int value = pc.getValue();
+      var card = chooseCard(p.getCards());
+      card.setUses(card.getUses() - 1);
+      int damage = card.getAttackDamage();
 
-      eventListeners.forEach(e -> e.playerPlayingCard(value));
+      eventListeners.forEach(e -> e.playerAttacking(damage));
 
-      fighter.setDamageTaken(fighter.getDamageTaken() + value);
+      fighter.setDamageTaken(fighter.getDamageTaken() + damage);
 
       if (fighter.getDamageTaken() == fighter.getMaxHp()) {
         eventListeners.forEach(FightEventListener::roundOver);
@@ -76,9 +76,8 @@ public class FightService {
 
       card = cardInputter.selectCard(cards);
 
-      if (card.uses == 0) {
+      if (card.getUses() == 0) {
         eventListeners.forEach(FightEventListener::chosenEmptyCard);
-        cardChosen = false;
       } else {
         cardChosen = true;
       }
@@ -86,7 +85,7 @@ public class FightService {
     return card;
   }
 
-  public void addRoundEventListener(FightEventListener fightEventListener) {
+  public void addFightEventListener(FightEventListener fightEventListener) {
     eventListeners.add(fightEventListener);
   }
 }

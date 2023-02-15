@@ -14,12 +14,12 @@ public class CardConsoleOutputter implements CardEventListener {
     var sb = new StringBuilder();
     for (Card pc : cards) {
       sb.append(String.format("Card %d  %2d-%2d     Uses left  %2d/%2d%n",
-        cardCount, pc.minValue, pc.maxValue, pc.uses, pc.maxUses));
+        cardCount, pc.getMinValue(), pc.getMaxValue(), pc.getUses(), pc.getMaxUses()));
 
 
       cardCount++;
     }
-    System.out.print(sb.toString());
+    Util.print(sb.toString());
   }
 
   @Override

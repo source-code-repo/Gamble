@@ -5,12 +5,12 @@ import gamble.card.CardConsoleOutputter;
 import gamble.card.CardInputter;
 import gamble.card.CardService;
 import gamble.fight.FightConsoleOutputter;
-import gamble.fight.FightService;
-import gamble.forest.ForestConsoleOutputter;
-import gamble.forest.ForestEventListener;
-import gamble.forest.ForestService;
-import gamble.match.MatchConsoleOutputter;
-import gamble.match.MatchService;
+import gamble.fight.Fight;
+import gamble.forest.GameLoopConsoleOutputter;
+import gamble.forest.GameLoopListener;
+import gamble.forest.GameLoop;
+import gamble.match.ClanBattleConsoleOutputter;
+import gamble.match.ClanBattle;
 import gamble.shop.*;
 import gamble.shop.item.DamageBoost;
 import gamble.shop.item.UpgradeConsoleOutputter;
@@ -29,7 +29,7 @@ public class GameBuilder {
     throw new IllegalStateException("Not intended to be instantiated");
   }
 
-  public static ForestService create() {
+  public static GameLoop createGameLoop() {
     Inputter inputter = new ConsoleInputter();
 
     CardConsoleOutputter cardOut = new CardConsoleOutputter();
@@ -37,12 +37,11 @@ public class GameBuilder {
     CardService cardService = new CardService(cardIn);
     cardService.addCardEventListener(cardOut);
 
-    FightConsoleOutputter roundOut = new FightConsoleOutputter(cardOut);
-    FightService fightService = new FightService(cardService, cardIn);
-    fightService.addRoundEventListener(roundOut);
+    Fight fight = new Fight(cardService, cardIn);
+    fight.addFightEventListener(new FightConsoleOutputter(cardOut));
 
-    MatchService matchService = new MatchService(fightService, cardService);
-    matchService.addMatchEventListener(new MatchConsoleOutputter(cardOut));
+    ClanBattle clanBattle = new ClanBattle(fight, cardService);
+    clanBattle.addClanBattleEventListener(new ClanBattleConsoleOutputter(cardOut));
 
     VillageService villageService = new VillageService(inputter, cardService);
     villageService.addEventListener(new VillageConsoleOutputter());
@@ -54,15 +53,14 @@ public class GameBuilder {
 
     UpgradeConsoleOutputter upgradeConsoleOutputter = new UpgradeConsoleOutputter(cardOut);
     DamageBoost damageBoost = new DamageBoost(cardIn, upgradeConsoleOutputter);
-
     RangeReducer rangeReducer = new RangeReducer(cardIn, upgradeConsoleOutputter);
     shopService.setItems(List.of(damageBoost, rangeReducer));
 
-    // Triggers a shop visit through the village visit event
+    // Trigger a shop visit when a village visit event occurs
     ShopVillageTrigger shopVillageTrigger = new ShopVillageTrigger(shopService);
     villageService.addEventListener(shopVillageTrigger);
 
-    ForestEventListener gameOut = new ForestConsoleOutputter();
-    return new ForestService(gameOut, matchService, villageService);
+    GameLoopListener gameLoopListener = new GameLoopConsoleOutputter();
+    return new GameLoop(gameLoopListener, clanBattle, villageService);
   }
 }

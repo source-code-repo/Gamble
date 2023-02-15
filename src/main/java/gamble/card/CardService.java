@@ -11,9 +11,9 @@ public class CardService {
   private final CardInputter in;
   private final List<CardEventListener> eventListeners = new ArrayList<>();
 
-  public boolean movesLeft(List<Card> cards) {
+  public boolean hasAttacksLeft(List<Card> cards) {
     for (Card pc : cards) {
-      if (pc.uses > 0) {
+      if (pc.getUses() > 0) {
         return true;
       }
     }
@@ -26,12 +26,12 @@ public class CardService {
   public void rechargeCard(Player p) {
     eventListeners.forEach(CardEventListener::rechargingCards);
     Card card = in.selectCard(p.getCards());
-    card.uses = card.maxUses;
+    card.setUses(card.getMaxUses());
   }
 
   public void resetCardUses(List<Card> cards) {
     for (Card c : cards) {
-      c.uses = c.maxUses;
+      c.setUses(c.getMaxUses());
     }
   }
 

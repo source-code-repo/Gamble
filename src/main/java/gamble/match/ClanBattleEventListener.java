@@ -2,7 +2,7 @@ package gamble.match;
 
 import gamble.player.Player;
 
-public interface MatchEventListener {
+public interface ClanBattleEventListener {
   /**
    * Player got an exact hit during this match
    * @param p Player
@@ -10,14 +10,14 @@ public interface MatchEventListener {
   void exactHit(Player p);
 
   /**
-   * A new round of this match has started
-   * @param roundNum Round Number
+   * The next fight in this battle has started
+   * @param fightNumber Round Number
    * @param fightersLeft Number of fighters left in the clan
    */
-  void roundStarted(int roundNum, int fightersLeft);
+  void fightStarting(int fightNumber, int fightersLeft);
 
   /**
-   * Player lost the match
+   * Clan battle was lost
    */
-  void matchLost();
+  void clanBattleLost();
 }

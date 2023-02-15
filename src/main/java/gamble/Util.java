@@ -13,15 +13,18 @@ public class Util {
     try {
       Thread.sleep(waitTime);
     } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+      Thread.currentThread().interrupt();
+      throw new IllegalStateException(e);
     }
   }
 
+  @SuppressWarnings("java:S106") // Allow System.out.println as this is a console app
   public static void print(String str) {
     System.out.println(str);
     pause(Config.DELAY);
   }
 
+  @SuppressWarnings("java:S106") // Allow System.out as this is a console app
   public static void printNoDelay(String s) {
     System.out.println(s);
   }

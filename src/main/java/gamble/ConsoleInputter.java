@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 public class ConsoleInputter implements Inputter {
   private static final String YES_OR_NO = "(Yes|yes|YES|No|no|NO)";
   private static final String YES = "(yes|YES|Yes)";
-  private static final String NUMBERS = "[0-9]+";
+  private static final String NUMBERS = "[\\d]+";
   public static final String BAD_INPUT = "Sorry, what was that? Maybe give it another try.";
 
   Scanner reader = new Scanner(System.in);

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ShopConsoleInputterTest {
+class ShopConsoleInputterTest {
   @InjectMocks
   ShopConsoleInputter shopConsoleInputter;
 
@@ -42,7 +42,7 @@ public class ShopConsoleInputterTest {
   }
 
   @Test
-  public void selectItem() {
+  void selectItem() {
     // Given
     when(inputter.chooseNumber()).thenReturn(1);
     // When
@@ -53,7 +53,7 @@ public class ShopConsoleInputterTest {
   }
 
   @Test
-  public void selectItemTwo() {
+  void selectItemTwo() {
     // Given
     when(inputter.chooseNumber()).thenReturn(2);
     // When
@@ -64,7 +64,7 @@ public class ShopConsoleInputterTest {
   }
 
   @Test
-  public void zeroReturnsNothing() {
+  void zeroReturnsNothing() {
     // Given
     when(inputter.chooseNumber()).thenReturn(0);
     // When
@@ -74,7 +74,7 @@ public class ShopConsoleInputterTest {
   }
 
   @Test
-  public void incorrectSelectionPromptsAgain() {
+  void incorrectSelectionPromptsAgain() {
     // Given
     when(inputter.chooseNumber())
       .thenReturn(100)

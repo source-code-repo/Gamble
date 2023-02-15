@@ -8,10 +8,11 @@ import java.util.Random;
 @Getter
 @Setter
 public class Card {
-  public int minValue;
-  public int maxValue;
-  public int maxUses;
-  public int uses;
+  private int minValue;
+  private int maxValue;
+  private int maxUses;
+  private int uses;
+  private Random random;
 
   public Card(int minValue, int maxValue, int maxUses) {
     this.minValue = minValue;
@@ -20,8 +21,11 @@ public class Card {
     this.uses = maxUses;
   }
 
-  public int getValue() {
-    int value = new Random().nextInt(maxValue - minValue + 1);
+  /**
+   * Calculate the damage of an attack
+   */
+  public int getAttackDamage() {
+    int value = random.nextInt(maxValue - minValue + 1);
     value = value + minValue;
     return value;
   }

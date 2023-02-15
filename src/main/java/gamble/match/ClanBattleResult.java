@@ -5,6 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class MatchResult {
+public class ClanBattleResult {
   private final boolean won;
 }

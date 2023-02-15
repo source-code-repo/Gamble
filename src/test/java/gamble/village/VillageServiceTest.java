@@ -4,8 +4,6 @@ import gamble.Config;
 import gamble.Inputter;
 import gamble.card.CardService;
 import gamble.player.Player;
-import gamble.village.VillageEventListener;
-import gamble.village.VillageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,7 +46,7 @@ class VillageServiceTest {
     when(inputMock.yesOrNo()).thenReturn(true);
 
     // When
-    villageService.villageVisit(1, p, Config.targetGold);
+    villageService.villageVisit(1, p, Config.getTargetGold());
 
     // Then
     assertThat(1, equalTo(p.getMultiplier()));

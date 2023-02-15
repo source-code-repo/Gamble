@@ -3,14 +3,14 @@ package gamble.forest;
 import gamble.Config;
 import gamble.Util;
 
-public class ForestConsoleOutputter implements ForestEventListener {
+public class GameLoopConsoleOutputter implements GameLoopListener {
   @Override
-  public void matchStarted(int clanNum, int reward) {
+  public void clanBattleStarting(int clanNumber, int reward) {
     String str = String.format(
         "*******************************************************\n"
-      + "You come face to face with fighting clan #%d\n"
+      + "You come face to face with clan #%d\n"
       + "*******************************************************\n",
-      clanNum);
+      clanNumber);
 
     Util.print(str);
     str = String.format("Reward: %d gold", reward);
@@ -19,12 +19,12 @@ public class ForestConsoleOutputter implements ForestEventListener {
   }
 
   @Override
-  public void matchWon(int fighterClanNumber, int reward, int multiplier) {
+  public void clanBattleWon(int clanNumber, int reward, int multiplier) {
     String str = String.format(
-          "Well done! You beat fighting clan #%d.%n"
+          "Well done! You beat clan #%d.%n"
         + "You win %d gold (%d for the win with a %d multiplier).%n"
         + "Your multiplier increased to %d.",
-      fighterClanNumber,
+      clanNumber,
       reward, reward / (multiplier - 1), multiplier - 1,
       multiplier);
     Util.print(str);
@@ -35,10 +35,10 @@ public class ForestConsoleOutputter implements ForestEventListener {
    * @see gamble.service.output.GameOutputter#lost(int)
    */
   @Override
-  public void matchLost(int fighterClanNumber) {
+  public void clanBattleLost(int clanNumber) {
     String str = String.format(
-      "Uh oh. You've been beaten by the fighting clan #%d",
-      fighterClanNumber);
+      "Uh oh. You've been beaten by clan #%d",
+      clanNumber);
     Util.print(str);
     Util.pause(Config.DELAY * 2L);
   }
@@ -53,7 +53,7 @@ public class ForestConsoleOutputter implements ForestEventListener {
   }
 
   @Override
-  public void gameStarted() {
+  public void gameLoopStarted() {
     String str =
         "You are a warrior tasked by the king of the realm "
       + "to protect the treacherous dark forest. "
@@ -65,9 +65,9 @@ public class ForestConsoleOutputter implements ForestEventListener {
   }
 
   @Override
-  public void goldLost(int lost, int gold) {
+  public void goldLost(int goldLost, int goldLeft) {
     String str = String.format("You have lost %d gold, you now have %d%n",
-      lost, gold);
+      goldLost, goldLeft);
     Util.print(str);
   }
 }

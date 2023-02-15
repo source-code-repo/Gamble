@@ -3,19 +3,18 @@ package gamble.match;
 import gamble.Config;
 import gamble.Util;
 import gamble.card.CardConsoleOutputter;
-import gamble.card.CardService;
 import gamble.player.Player;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class MatchConsoleOutputter implements MatchEventListener {
+public class ClanBattleConsoleOutputter implements ClanBattleEventListener {
   private final CardConsoleOutputter co;
 
   /* (non-Javadoc)
    * @see gamble.service.output.MatchOutputter#gameOver()
    */
   @Override
-  public void matchLost() {
+  public void clanBattleLost() {
     Util.print("Uh oh, you're out of cards :(");
   }
 
@@ -26,10 +25,10 @@ public class MatchConsoleOutputter implements MatchEventListener {
   }
 
   @Override
-  public void roundStarted(int roundNum, int fightersLeft) {
+  public void fightStarting(int fightNumber, int fightersLeft) {
     String str = String.format("The clan send out the %s fighter. "
         + "They have %d other fighter(s) left.",
-      Util.numToName(roundNum),
+      Util.numToName(fightNumber),
       fightersLeft - 1);
     Util.print(str);
     Util.pause(Config.DELAY);
