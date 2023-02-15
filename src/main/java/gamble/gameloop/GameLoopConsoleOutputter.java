@@ -1,4 +1,4 @@
-package gamble.forest;
+package gamble.gameloop;
 
 import gamble.Config;
 import gamble.Util;

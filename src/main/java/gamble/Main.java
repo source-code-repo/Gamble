@@ -3,8 +3,8 @@ package gamble;
 import com.beust.jcommander.JCommander;
 import gamble.card.CardCreator;
 import gamble.fight.Fight;
-import gamble.forest.GameLoop;
-import gamble.match.ClanBattle;
+import gamble.gameloop.GameLoop;
+import gamble.clanbattle.ClanBattle;
 import gamble.player.Player;
 import gamble.player.PlayerBuilder;
 

@@ -1,4 +1,4 @@
-package gamble.match;
+package gamble.clanbattle;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

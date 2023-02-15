@@ -1,8 +1,8 @@
-package gamble.forest;
+package gamble.gameloop;
 
 import gamble.Config;
-import gamble.match.ClanBattleResult;
-import gamble.match.ClanBattle;
+import gamble.clanbattle.ClanBattleResult;
+import gamble.clanbattle.ClanBattle;
 import gamble.player.Player;
 import gamble.village.VillageService;
 import lombok.RequiredArgsConstructor;

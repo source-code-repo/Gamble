@@ -1,4 +1,4 @@
-package gamble.forest;
+package gamble.gameloop;
 
 public interface GameLoopListener {
   void clanBattleStarting(int clanNumber, int reward);

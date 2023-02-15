@@ -1,4 +1,4 @@
-package gamble.match;
+package gamble.clanbattle;
 
 import gamble.Config;
 import gamble.Util;
