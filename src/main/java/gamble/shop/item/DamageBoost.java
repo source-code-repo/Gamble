@@ -35,7 +35,7 @@ public class DamageBoost implements Purchasable {
   @Override
   public String description() {
     return "Sorcerer's Gem\n" +
-      "  A dull stone, semi-transparent with a faint glow from the core.\n" +
+      "  A dull stone, semi-translucent, glowing faintly from its core.\n" +
       "  Boosts a card's damage.";
   }
 
