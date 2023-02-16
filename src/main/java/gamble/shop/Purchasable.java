@@ -5,7 +5,7 @@ import gamble.player.Player;
 public interface Purchasable {
 
   /**
-   * Is the item availble for purchase?
+   * Is the item available for purchase?
    * @param clansBeaten How many clans the player has beaten
    */
   boolean isAvailable(int clansBeaten);

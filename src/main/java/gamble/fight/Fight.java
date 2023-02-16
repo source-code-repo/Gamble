@@ -2,7 +2,7 @@ package gamble.fight;
 
 import gamble.Util;
 import gamble.card.Card;
-import gamble.card.CardInputter;
+import gamble.card.CardInput;
 import gamble.card.CardService;
 import gamble.player.Player;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.List;
 public class Fight {
   final CardService cardService;
   final List<FightEventListener> eventListeners = new ArrayList<>();
-  private final CardInputter cardInputter;
+  private final CardInput cardInput;
 
   /**
    * Creates a fighter with a random HP
@@ -46,7 +46,7 @@ public class Fight {
       }
 
       eventListeners.forEach(e ->
-        e.fighterShowingHp(fighter.getMaxHp(), fighter.getDamageTaken(), p.getCards()));
+        e.fighterShowingHp(fighter.getMaxHp(), fighter.getDamageTaken()));
 
       var card = chooseCard(p.getCards());
       card.setUses(card.getUses() - 1);
@@ -74,7 +74,7 @@ public class Fight {
     while (!cardChosen) {
       eventListeners.forEach(e -> e.playerChoosingCard(cards));
 
-      card = cardInputter.selectCard(cards);
+      card = cardInput.selectCard(cards);
 
       if (card.getUses() == 0) {
         eventListeners.forEach(FightEventListener::chosenEmptyCard);

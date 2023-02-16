@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 class CardServiceTest {
 
   @Mock
-  private CardInputter inMock;
+  private CardInput inMock;
 
   @InjectMocks
   CardService cs;

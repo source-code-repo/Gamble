@@ -3,18 +3,16 @@ package gamble.gameloop;
 import gamble.Config;
 import gamble.Util;
 
-public class GameLoopConsoleOutputter implements GameLoopListener {
+public class GameLoopConsoleOutput implements GameLoopListener {
   @Override
   public void clanBattleStarting(int clanNumber, int reward) {
-    String str = String.format(
-        "*******************************************************\n"
-      + "You come face to face with clan #%d\n"
-      + "*******************************************************\n",
-      clanNumber);
+    Util.print("""
+        *******************************************************
+        You come face to face with clan #%d
+        *******************************************************"""
+      .formatted(clanNumber));
 
-    Util.print(str);
-    str = String.format("Reward: %d gold", reward);
-    Util.print(str);
+    Util.print(String.format("Reward: %d gold", reward));
     Util.pause(Config.DELAY * 3L);
   }
 
@@ -32,7 +30,7 @@ public class GameLoopConsoleOutputter implements GameLoopListener {
   }
 
   /* (non-Javadoc)
-   * @see gamble.service.output.GameOutputter#lost(int)
+   * @see gamble.service.output.GameOutput#lost(int)
    */
   @Override
   public void clanBattleLost(int clanNumber) {
@@ -44,7 +42,7 @@ public class GameLoopConsoleOutputter implements GameLoopListener {
   }
 
   /* (non-Javadoc)
-   * @see gamble.service.output.GameOutputter#gold(int)
+   * @see gamble.service.output.GameOutput#gold(int)
    */
   @Override
   public void rewardGiven(int gold) {

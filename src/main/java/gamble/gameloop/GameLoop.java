@@ -34,7 +34,7 @@ public class GameLoop {
 
       ClanBattleResult result = clanBattle.battle(p, fighters);
 
-      if (result.isWon()) {
+      if (result.won()) {
         int reward = Config.REWARDS[clanNumber - 1] * p.getMultiplier();
         p.setGold(p.getGold() + reward);
         p.setMultiplier(p.getMultiplier() + 1);

@@ -2,19 +2,19 @@ package gamble.shop.item;
 
 import gamble.Util;
 import gamble.card.Card;
-import gamble.card.CardConsoleOutputter;
+import gamble.card.CardConsoleOutput;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-public class UpgradeConsoleOutputter implements UpgradeEventListener {
-  private final CardConsoleOutputter cardConsoleOutputter;
+public class UpgradeConsoleOutput implements UpgradeEventListener {
+  private final CardConsoleOutput cardConsoleOutput;
 
   @Override
   public void selectingCard(List<Card> cards) {
     Util.print("Choose a card to upgrade:");
-    cardConsoleOutputter.showPlayerCards(cards);
+    cardConsoleOutput.showPlayerCards(cards);
   }
 
   @Override

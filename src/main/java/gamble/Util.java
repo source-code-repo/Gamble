@@ -39,7 +39,7 @@ public class Util {
    * Convert number to name e.g. 2 = second, 3 = third etc
    *
    * @param num integer number to convert
-   * @return String string representation e.g. second, third
+   * @return String representation e.g. second, third
    */
   public static String numToName(int num) {
     return Config.NUM_TO_NAME[num - 1];

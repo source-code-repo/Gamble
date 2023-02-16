@@ -27,10 +27,10 @@ import gamble.player.PlayerBuilder;
  *   they have left.
  * </p>
  * <p>
- *   The player has a set of magic cards that it uses to attack each figher with.
+ *   The player has a set of magic cards that it uses to attack each fighter with.
  * </p>
  * <p>
- *    The Outputters and Inputters provide IO with the user.
+ *    The Output and Input classes provide IO with the user.
  * </p>
  */
 public class Main {

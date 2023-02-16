@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +22,7 @@ class ShopTest {
   ShopEventListener shopEventListener;
 
   @Mock
-  ShopInputter inputter;
+  ShopInput input;
 
   @Mock
   Purchasable item1;
@@ -72,7 +71,7 @@ class ShopTest {
     // Given
     openShop();
     when(item1.isAvailable(1)).thenReturn(true);
-    when(inputter.shouldVisitShop()).thenReturn(false);
+    when(input.shouldVisitShop()).thenReturn(false);
     // When
     shopService.visit(1, player);
     // Then
@@ -84,7 +83,7 @@ class ShopTest {
     // Given
     openShop();
     when(item1.isAvailable(1)).thenReturn(true);
-    when(inputter.shouldVisitShop()).thenReturn(true);
+    when(input.shouldVisitShop()).thenReturn(true);
     // When
     shopService.visit(1, player);
     // Then
@@ -97,7 +96,7 @@ class ShopTest {
     openShop();
     when(item1.isAvailable(10)).thenReturn(true);
     when(item2.isAvailable(10)).thenReturn(true);
-    when(inputter.shouldVisitShop()).thenReturn(true); // visit shop
+    when(input.shouldVisitShop()).thenReturn(true); // visit shop
     shopService.setItems(items);
     // When
     shopService.visit(10, player);
@@ -109,8 +108,8 @@ class ShopTest {
   void purchaseItem() {
     // Given
     openShop();
-    when(inputter.shouldVisitShop()).thenReturn(true); // visit shop
-    when(inputter.selectItem(List.of(item1))).thenReturn(Optional.of(item1));
+    when(input.shouldVisitShop()).thenReturn(true); // visit shop
+    when(input.selectItem(List.of(item1))).thenReturn(Optional.of(item1));
     when(item1.isAvailable(20)).thenReturn(true);
     // When
     shopService.visit(20, player);
@@ -124,8 +123,8 @@ class ShopTest {
     shopService.setItems(items);
     when(item1.isAvailable(10)).thenReturn(true);
     when(item2.isAvailable(10)).thenReturn(true);
-    when(inputter.shouldVisitShop()).thenReturn(true);
-    when(inputter.selectItem(items))
+    when(input.shouldVisitShop()).thenReturn(true);
+    when(input.selectItem(items))
       .thenReturn(Optional.of(item1)) // first time request the damage boost we can't afford
       .thenReturn(Optional.empty()); // second time, choose to exit
     when(player.getGold()).thenReturn(1);
@@ -142,8 +141,8 @@ class ShopTest {
     shopService.setItems(List.of(item1, item2));
     when(item1.isAvailable(10)).thenReturn(true);
     when(item2.isAvailable(10)).thenReturn(false);
-    when(inputter.shouldVisitShop()).thenReturn(true);
-    when(inputter.selectItem(List.of(item1))).thenReturn(Optional.empty());
+    when(input.shouldVisitShop()).thenReturn(true);
+    when(input.selectItem(List.of(item1))).thenReturn(Optional.empty());
     // When
     shopService.visit(10, player);
     // Then

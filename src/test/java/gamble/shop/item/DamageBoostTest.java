@@ -1,7 +1,7 @@
 package gamble.shop.item;
 
 import gamble.card.Card;
-import gamble.card.CardInputter;
+import gamble.card.CardInput;
 import gamble.player.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,7 @@ class DamageBoostTest {
   Card card1, card2;
 
   @Mock
-  CardInputter cardInputter;
+  CardInput cardInput;
 
   @Mock
   UpgradeEventListener upgradeEventListener;
@@ -34,7 +34,7 @@ class DamageBoostTest {
   void applyPurchase() {
     // Given
     when(player.getCards()).thenReturn(List.of(card1, card2));
-    when(cardInputter.selectCard(List.of(card1, card2))).thenReturn(card1);
+    when(cardInput.selectCard(List.of(card1, card2))).thenReturn(card1);
     when(card1.getMinValue()).thenReturn(2);
     when(card1.getMaxValue()).thenReturn(7);
     // When

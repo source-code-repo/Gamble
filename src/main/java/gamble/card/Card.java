@@ -22,7 +22,7 @@ public class Card {
   }
 
   /**
-   * Calculate the damage of an attack
+   * Calculate the damage that an attack does
    */
   public int getAttackDamage() {
     int value = random.nextInt(maxValue - minValue + 1);

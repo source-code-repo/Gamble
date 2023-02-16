@@ -1,11 +1,11 @@
 package gamble.shop;
 
-import gamble.ConsoleInputter;
+import gamble.ConsoleInput;
 import gamble.Util;
 
 import java.util.List;
 
-public class ShopConsoleOutputter implements ShopEventListener {
+public class ShopConsoleOutput implements ShopEventListener {
   @Override
   public void optionToVisit() {
     Util.print("A travelling salesman is nearby, advertising a collection " +
@@ -48,6 +48,6 @@ public class ShopConsoleOutputter implements ShopEventListener {
   }
 
   public void incorrectSelection() {
-    Util.print(ConsoleInputter.BAD_INPUT);
+    Util.print(ConsoleInput.BAD_INPUT);
   }
 }

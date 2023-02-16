@@ -1,7 +1,7 @@
 package gamble.village;
 
 import gamble.Config;
-import gamble.Inputter;
+import gamble.Input;
 import gamble.card.CardService;
 import gamble.player.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,7 @@ class VillageServiceTest {
   private VillageService villageService;
 
   @Mock
-  private Inputter inputMock;
+  private Input inputMock;
 
   // Injected into VillageService
   @Mock

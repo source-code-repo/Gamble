@@ -3,7 +3,7 @@ package gamble.shop;
 import java.util.List;
 import java.util.Optional;
 
-public interface ShopInputter {
+public interface ShopInput {
   /**
    * Ask the player to visit the shop
    * @return Player's response

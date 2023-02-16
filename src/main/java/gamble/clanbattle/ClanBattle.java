@@ -36,14 +36,14 @@ public class ClanBattle {
 
       FightResult result = fight.fight(fighter, p);
 
-      if (!result.isWon()) {
+      if (!result.won()) {
         eventListeners.forEach(ClanBattleEventListener::clanBattleLost);
         return new ClanBattleResult(false);
       } else {
         fightNumber++;
       }
 
-      if (result.isExactHit()) {
+      if (result.exactHit()) {
         eventListeners.forEach(listener -> listener.exactHit(p));
         cardService.rechargeCard(p);
       }

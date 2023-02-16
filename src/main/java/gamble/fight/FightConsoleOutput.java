@@ -3,22 +3,22 @@ package gamble.fight;
 import gamble.Config;
 import gamble.Util;
 import gamble.card.Card;
-import gamble.card.CardConsoleOutputter;
+import gamble.card.CardConsoleOutput;
 
 import java.util.List;
 
 /**
  * UI for round output
  */
-public class FightConsoleOutputter implements FightEventListener {
-  final CardConsoleOutputter cardOut;
+public class FightConsoleOutput implements FightEventListener {
+  final CardConsoleOutput cardOut;
 
-  public FightConsoleOutputter(CardConsoleOutputter cardOut) {
+  public FightConsoleOutput(CardConsoleOutput cardOut) {
     this.cardOut = cardOut;
   }
 
   /* (non-Javadoc)
-   * @see gamble.service.output.RoundOutputter#roundOver()
+   * @see gamble.service.output.RoundOutput#roundOver()
    */
   @Override
   public void roundOver() {
@@ -28,7 +28,7 @@ public class FightConsoleOutputter implements FightEventListener {
   }
 
   /* (non-Javadoc)
-   * @see gamble.service.output.RoundOutputter#playedCard(int)
+   * @see gamble.service.output.RoundOutput#playedCard(int)
    */
   @Override
   public void playerAttacking(int damage) {
@@ -47,7 +47,7 @@ public class FightConsoleOutputter implements FightEventListener {
   }
 
   /* (non-Javadoc)
-   * @see gamble.service.output.RoundOutputter#cardUsedUp()
+   * @see gamble.service.output.RoundOutput#cardUsedUp()
    */
   @Override
   public void chosenEmptyCard() {
@@ -55,7 +55,7 @@ public class FightConsoleOutputter implements FightEventListener {
   }
 
   @Override
-  public void fighterShowingHp(int totalHp, int hpLeft, List<Card> cards) {
+  public void fighterShowingHp(int totalHp, int hpLeft) {
     String str = String.format("Fighter Health: %01d/%01d.",
       totalHp - hpLeft, totalHp);
     Util.printNoDelay(str);

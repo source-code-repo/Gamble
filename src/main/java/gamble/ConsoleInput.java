@@ -3,16 +3,16 @@ package gamble;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-public class ConsoleInputter implements Inputter {
+public class ConsoleInput implements Input {
   private static final String YES_OR_NO = "(Yes|yes|YES|No|no|NO)";
   private static final String YES = "(yes|YES|Yes)";
-  private static final String NUMBERS = "[\\d]+";
+  private static final String NUMBERS = "\\d+";
   public static final String BAD_INPUT = "Sorry, what was that? Maybe give it another try.";
 
   Scanner reader = new Scanner(System.in);
 
   /* (non-Javadoc)
-   * @see gamble.service.Inputter#yesOrNo()
+   * @see gamble.service.Input#yesOrNo()
    */
   @Override
   public boolean yesOrNo() {

@@ -2,16 +2,16 @@ package gamble.clanbattle;
 
 import gamble.Config;
 import gamble.Util;
-import gamble.card.CardConsoleOutputter;
+import gamble.card.CardConsoleOutput;
 import gamble.player.Player;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ClanBattleConsoleOutputter implements ClanBattleEventListener {
-  private final CardConsoleOutputter co;
+public class ClanBattleConsoleOutput implements ClanBattleEventListener {
+  private final CardConsoleOutput co;
 
   /* (non-Javadoc)
-   * @see gamble.service.output.MatchOutputter#gameOver()
+   * @see gamble.service.output.MatchOutput#gameOver()
    */
   @Override
   public void clanBattleLost() {

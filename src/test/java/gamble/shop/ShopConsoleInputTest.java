@@ -1,6 +1,6 @@
 package gamble.shop;
 
-import gamble.Inputter;
+import gamble.Input;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,15 +18,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ShopConsoleInputterTest {
+class ShopConsoleInputTest {
   @InjectMocks
-  ShopConsoleInputter shopConsoleInputter;
+  ShopConsoleInput shopConsoleInput;
 
   @Mock
-  Inputter inputter;
+  Input input;
 
   @Mock
-  ShopConsoleOutputter shopConsoleOutputter;
+  ShopConsoleOutput shopConsoleOutput;
 
   @Mock
   Purchasable item1;
@@ -44,9 +44,9 @@ class ShopConsoleInputterTest {
   @Test
   void selectItem() {
     // Given
-    when(inputter.chooseNumber()).thenReturn(1);
+    when(input.chooseNumber()).thenReturn(1);
     // When
-    Optional<Purchasable> purchasable = shopConsoleInputter.selectItem(items);
+    Optional<Purchasable> purchasable = shopConsoleInput.selectItem(items);
     // Then
     assertThat(purchasable.isPresent(), equalTo(true));
     assertThat(purchasable.get(), is(item1));
@@ -55,9 +55,9 @@ class ShopConsoleInputterTest {
   @Test
   void selectItemTwo() {
     // Given
-    when(inputter.chooseNumber()).thenReturn(2);
+    when(input.chooseNumber()).thenReturn(2);
     // When
-    Optional<Purchasable> purchasable = shopConsoleInputter.selectItem(items);
+    Optional<Purchasable> purchasable = shopConsoleInput.selectItem(items);
     // Then
     assertTrue(purchasable.isPresent());
     assertThat(purchasable.get(), is(item2));
@@ -66,9 +66,9 @@ class ShopConsoleInputterTest {
   @Test
   void zeroReturnsNothing() {
     // Given
-    when(inputter.chooseNumber()).thenReturn(0);
+    when(input.chooseNumber()).thenReturn(0);
     // When
-    Optional<Purchasable> purchasable = shopConsoleInputter.selectItem(items);
+    Optional<Purchasable> purchasable = shopConsoleInput.selectItem(items);
     // Then
     assertTrue(purchasable.isEmpty());
   }
@@ -76,15 +76,15 @@ class ShopConsoleInputterTest {
   @Test
   void incorrectSelectionPromptsAgain() {
     // Given
-    when(inputter.chooseNumber())
+    when(input.chooseNumber())
       .thenReturn(100)
       .thenReturn(1);
     // When
-    Optional<Purchasable> purchasable = shopConsoleInputter.selectItem(items);
+    Optional<Purchasable> purchasable = shopConsoleInput.selectItem(items);
     // Then
     assertTrue(purchasable.isPresent());
     assertThat(purchasable.get(), is(item1));
-    verify(inputter, times(2)).chooseNumber();
-    verify(shopConsoleOutputter, times(1)).incorrectSelection();
+    verify(input, times(2)).chooseNumber();
+    verify(shopConsoleOutput, times(1)).incorrectSelection();
   }
 }

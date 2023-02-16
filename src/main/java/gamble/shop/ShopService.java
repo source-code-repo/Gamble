@@ -6,13 +6,12 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class ShopService {
   private final List<ShopEventListener> listeners = new ArrayList<>();
   private List<Purchasable> items;
-  private final ShopInputter shopInputter;
+  private final ShopInput shopInput;
 
   public void visit(int clansBeaten, Player player) {
     // Only offer to visit the shop if there are items available
@@ -22,7 +21,7 @@ public class ShopService {
     }
 
     listeners.forEach(ShopEventListener::optionToVisit);
-    if(!shopInputter.shouldVisitShop()) {
+    if(!shopInput.shouldVisitShop()) {
       return;
     }
 
@@ -31,12 +30,12 @@ public class ShopService {
     var availableItems = items
       .stream()
       .filter(e -> e.isAvailable(clansBeaten))
-      .collect(Collectors.toList());
+      .toList();
 
     Optional<Purchasable> item;
     do {
       listeners.forEach(e -> e.offerItems(availableItems));
-      item = shopInputter.selectItem(availableItems);
+      item = shopInput.selectItem(availableItems);
 
       if (item.isEmpty()) {
         return;

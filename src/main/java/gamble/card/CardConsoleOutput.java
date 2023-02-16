@@ -4,7 +4,7 @@ import gamble.Util;
 
 import java.util.List;
 
-public class CardConsoleOutputter implements CardEventListener {
+public class CardConsoleOutput implements CardEventListener {
   /**
    * Shows a player's cards
    * @param cards Cards

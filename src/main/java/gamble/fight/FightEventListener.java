@@ -8,7 +8,7 @@ import java.util.List;
  * Events that occur during a round
  */
 public interface FightEventListener {
-  void fighterShowingHp(int target, int playerTotal, List<Card> cards);
+  void fighterShowingHp(int target, int playerTotal);
   void playerChoosingCard(List<Card> cards);
   void chosenEmptyCard();
   void playerAttacking(int value);

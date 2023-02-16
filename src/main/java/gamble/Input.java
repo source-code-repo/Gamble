@@ -1,6 +1,6 @@
 package gamble;
 
-public interface Inputter {
+public interface Input {
   boolean yesOrNo();
   int chooseNumber();
 }

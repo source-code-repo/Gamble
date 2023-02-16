@@ -1,7 +1,7 @@
 package gamble.shop.item;
 
 import gamble.card.Card;
-import gamble.card.CardInputter;
+import gamble.card.CardInput;
 import gamble.player.Player;
 import gamble.shop.Purchasable;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class DamageBoost implements Purchasable {
   private static final int MINIMUM_CLAN_NUMBER = 5;
   private static final int UPGRADE_AMOUNT = 3;
 
-  private final CardInputter cardInputter;
+  private final CardInput cardInput;
   private final UpgradeEventListener upgradeEventListener;
 
   @Override
@@ -25,7 +25,7 @@ public class DamageBoost implements Purchasable {
   @Override
   public void purchase(Player player) {
     upgradeEventListener.selectingCard(player.getCards());
-    Card card = cardInputter.selectCard(player.getCards());
+    Card card = cardInput.selectCard(player.getCards());
     card.setMinValue(card.getMinValue() + UPGRADE_AMOUNT);
     card.setMaxValue(card.getMaxValue() + UPGRADE_AMOUNT);
     upgradeEventListener.upgradeComplete(card);
@@ -34,9 +34,10 @@ public class DamageBoost implements Purchasable {
 
   @Override
   public String description() {
-    return "Sorcerer's Gem\n" +
-      "  A dull stone, semi-translucent, glowing faintly from its core.\n" +
-      "  Boosts a card's damage.";
+    return """
+      Sorcerer's Gem
+      A dull stone, semi-translucent, glowing faintly from its core.
+      Boosts a card's damage.""";
   }
 
   @Override

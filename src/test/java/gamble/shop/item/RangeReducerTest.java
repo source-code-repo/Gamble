@@ -1,7 +1,7 @@
 package gamble.shop.item;
 
 import gamble.card.Card;
-import gamble.card.CardInputter;
+import gamble.card.CardInput;
 import gamble.player.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ class RangeReducerTest {
   Card card;
 
   @Mock
-  CardInputter cardInputter;
+  CardInput cardInput;
 
   @Mock
   UpgradeEventListener upgradeEventListener;
@@ -34,13 +34,13 @@ class RangeReducerTest {
   void promptToSelectCard() {
     // Given
     when(player.getCards()).thenReturn(List.of(card));
-    when(cardInputter.selectCard(List.of(card))).thenReturn(card);
+    when(cardInput.selectCard(List.of(card))).thenReturn(card);
     // When
     rangeReducer.purchase(player);
     // Then
     verify(upgradeEventListener, times(1))
       .selectingCard(List.of(card));
-    verify(cardInputter, times(1))
+    verify(cardInput, times(1))
       .selectCard(List.of(card));
   }
 
@@ -51,7 +51,7 @@ class RangeReducerTest {
   void cardUpgraded() {
     // Given
     when(player.getCards()).thenReturn(List.of(card));
-    when(cardInputter.selectCard(List.of(card)))
+    when(cardInput.selectCard(List.of(card)))
       .thenReturn(card);
     // Card is valid for upgrade (range not too small)
     when(card.getMinValue()).thenReturn(3);
@@ -65,7 +65,6 @@ class RangeReducerTest {
   /**
    * Can't upgrade a card if the min value would be less
    * than two from the max
-   *
    * e.g. card with 2-5 damage can't be upgraded
    *      because it would be upgraded to 4-5
    *      which makes the game too easy.
@@ -73,7 +72,7 @@ class RangeReducerTest {
   @Test
   void errorIfCantUpgrade() {
     // Given
-    when(cardInputter.selectCard(List.of())).thenReturn(card);
+    when(cardInput.selectCard(List.of())).thenReturn(card);
     when(card.getMinValue()).thenReturn(2);
     when(card.getMaxValue()).thenReturn(5);
 
@@ -88,7 +87,7 @@ class RangeReducerTest {
   @Test
   void chargedForUpgrade() {
     // Given
-    when(cardInputter.selectCard(List.of())).thenReturn(card);
+    when(cardInput.selectCard(List.of())).thenReturn(card);
     // Card is valid for upgrade (range not too small)
     when(card.getMinValue()).thenReturn(2);
     when(card.getMaxValue()).thenReturn(6);
@@ -101,7 +100,7 @@ class RangeReducerTest {
   @Test
   void showUpgradeResult() {
     // Given
-    when(cardInputter.selectCard(List.of())).thenReturn(card);
+    when(cardInput.selectCard(List.of())).thenReturn(card);
     // Card is valid for upgrade (range not too small)
     when(card.getMinValue()).thenReturn(2);
     when(card.getMaxValue()).thenReturn(6);

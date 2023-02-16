@@ -8,7 +8,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class CardService {
-  private final CardInputter in;
+  private final CardInput in;
   private final List<CardEventListener> eventListeners = new ArrayList<>();
 
   public boolean hasAttacksLeft(List<Card> cards) {

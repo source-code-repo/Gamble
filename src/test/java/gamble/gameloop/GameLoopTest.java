@@ -1,6 +1,6 @@
 package gamble.gameloop;
 
-import gamble.Inputter;
+import gamble.Input;
 import gamble.clanbattle.ClanBattleResult;
 import gamble.clanbattle.ClanBattle;
 import gamble.player.Player;
@@ -31,7 +31,7 @@ class GameLoopTest {
   private VillageService vs;
 
   @Mock
-  private Inputter inputter;
+  private Input input;
 
   /**
    * Multiplier increases after every match won

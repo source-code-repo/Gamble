@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @RequiredArgsConstructor
-public class CardConsoleInputter implements CardInputter {
+public class CardConsoleInput implements CardInput {
   private final Scanner reader = new Scanner(System.in);
   private final CardEventListener cardEventListener;
 

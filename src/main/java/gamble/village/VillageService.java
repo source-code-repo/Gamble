@@ -1,7 +1,7 @@
 package gamble.village;
 
 import gamble.Config;
-import gamble.Inputter;
+import gamble.Input;
 import gamble.card.CardService;
 import gamble.player.Player;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VillageService {
   private final List<VillageEventListener> listeners = new ArrayList<>();
-  private final Inputter input;
+  private final Input input;
   private final CardService cardService;
 
   /**

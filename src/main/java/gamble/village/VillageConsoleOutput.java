@@ -3,7 +3,7 @@ package gamble.village;
 import gamble.Util;
 import gamble.player.Player;
 
-public class VillageConsoleOutputter implements VillageEventListener {
+public class VillageConsoleOutput implements VillageEventListener {
   @Override
   public void decidingToVisit(int fightersInNextClan) {
     String str = String.format(
@@ -23,8 +23,9 @@ public class VillageConsoleOutputter implements VillageEventListener {
 
   @Override
   public void visiting(int clanNumber, Player player) {
-    Util.print("The tranquil village is a welcome break from the harsh forest.\n"
-      + "You are having a good time.\n");
+    Util.print("""
+      The tranquil village is a welcome break from the harsh forest.
+      You are having a good time.""");
   }
 
   @Override
@@ -34,8 +35,10 @@ public class VillageConsoleOutputter implements VillageEventListener {
 
   @Override
   public void cardsRecharged() {
-    Util.print("You arrive in the village and find a mysterious old man who "
-      + "passes his hand over your cards, replenishing them.\n");
+    Util.print("""
+      You arrive in the village and find a mysterious old man who
+      passes his hand over your cards, replenishing them.
+      """);
   }
 
   @Override

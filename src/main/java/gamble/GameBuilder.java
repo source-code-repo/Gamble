@@ -1,21 +1,21 @@
 package gamble;
 
-import gamble.card.CardConsoleInputter;
-import gamble.card.CardConsoleOutputter;
-import gamble.card.CardInputter;
+import gamble.card.CardConsoleInput;
+import gamble.card.CardConsoleOutput;
+import gamble.card.CardInput;
 import gamble.card.CardService;
-import gamble.fight.FightConsoleOutputter;
+import gamble.fight.FightConsoleOutput;
 import gamble.fight.Fight;
-import gamble.gameloop.GameLoopConsoleOutputter;
+import gamble.gameloop.GameLoopConsoleOutput;
 import gamble.gameloop.GameLoopListener;
 import gamble.gameloop.GameLoop;
-import gamble.clanbattle.ClanBattleConsoleOutputter;
+import gamble.clanbattle.ClanBattleConsoleOutput;
 import gamble.clanbattle.ClanBattle;
 import gamble.shop.*;
 import gamble.shop.item.DamageBoost;
-import gamble.shop.item.UpgradeConsoleOutputter;
+import gamble.shop.item.UpgradeConsoleOutput;
 import gamble.shop.item.RangeReducer;
-import gamble.village.VillageConsoleOutputter;
+import gamble.village.VillageConsoleOutput;
 import gamble.village.VillageService;
 
 import java.util.List;
@@ -30,37 +30,37 @@ public class GameBuilder {
   }
 
   public static GameLoop createGameLoop() {
-    Inputter inputter = new ConsoleInputter();
+    Input input = new ConsoleInput();
 
-    CardConsoleOutputter cardOut = new CardConsoleOutputter();
-    CardInputter cardIn = new CardConsoleInputter(cardOut);
+    CardConsoleOutput cardOut = new CardConsoleOutput();
+    CardInput cardIn = new CardConsoleInput(cardOut);
     CardService cardService = new CardService(cardIn);
     cardService.addCardEventListener(cardOut);
 
     Fight fight = new Fight(cardService, cardIn);
-    fight.addFightEventListener(new FightConsoleOutputter(cardOut));
+    fight.addFightEventListener(new FightConsoleOutput(cardOut));
 
     ClanBattle clanBattle = new ClanBattle(fight, cardService);
-    clanBattle.addClanBattleEventListener(new ClanBattleConsoleOutputter(cardOut));
+    clanBattle.addClanBattleEventListener(new ClanBattleConsoleOutput(cardOut));
 
-    VillageService villageService = new VillageService(inputter, cardService);
-    villageService.addEventListener(new VillageConsoleOutputter());
+    VillageService villageService = new VillageService(input, cardService);
+    villageService.addEventListener(new VillageConsoleOutput());
 
-    ShopConsoleOutputter shopConsoleOutputter = new ShopConsoleOutputter();
-    ShopInputter shopInputter = new ShopConsoleInputter(inputter, shopConsoleOutputter);
-    ShopService shopService = new ShopService(shopInputter);
-    shopService.addEventListener(shopConsoleOutputter);
+    ShopConsoleOutput shopConsoleOutput = new ShopConsoleOutput();
+    ShopInput shopInput = new ShopConsoleInput(input, shopConsoleOutput);
+    ShopService shopService = new ShopService(shopInput);
+    shopService.addEventListener(shopConsoleOutput);
 
-    UpgradeConsoleOutputter upgradeConsoleOutputter = new UpgradeConsoleOutputter(cardOut);
-    DamageBoost damageBoost = new DamageBoost(cardIn, upgradeConsoleOutputter);
-    RangeReducer rangeReducer = new RangeReducer(cardIn, upgradeConsoleOutputter);
+    UpgradeConsoleOutput upgradeConsoleOutput = new UpgradeConsoleOutput(cardOut);
+    DamageBoost damageBoost = new DamageBoost(cardIn, upgradeConsoleOutput);
+    RangeReducer rangeReducer = new RangeReducer(cardIn, upgradeConsoleOutput);
     shopService.setItems(List.of(damageBoost, rangeReducer));
 
     // Trigger a shop visit when a village visit event occurs
     ShopVillageTrigger shopVillageTrigger = new ShopVillageTrigger(shopService);
     villageService.addEventListener(shopVillageTrigger);
 
-    GameLoopListener gameLoopListener = new GameLoopConsoleOutputter();
+    GameLoopListener gameLoopListener = new GameLoopConsoleOutput();
     return new GameLoop(gameLoopListener, clanBattle, villageService);
   }
 }

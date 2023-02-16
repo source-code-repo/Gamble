@@ -45,7 +45,7 @@ public interface VillageEventListener {
   default void backToBattle() {}
 
   /**
-   * Notify that the player is looking at the idon
+   * Notify that the player is looking at the idol
    */
   default void lookingAtIdol() {}
 

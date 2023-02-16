@@ -2,6 +2,6 @@ package gamble.card;
 
 import java.util.List;
 
-public interface CardInputter {
+public interface CardInput {
   Card selectCard(List<Card> cards);
 }

@@ -23,7 +23,7 @@ public class Config {
     "eleventh", "twelfth", "thirteenth", "fourteenth",
     "fifteenth"};
 
-  // How many clan battles must be won before the villlage can be visited
+  // How many clan battles must be won before the village can be visited
   public static final int VILLAGE_UNLOCKED_AFTER = 1;
 
   // Gold needed to win the game

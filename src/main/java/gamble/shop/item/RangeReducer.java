@@ -1,7 +1,7 @@
 package gamble.shop.item;
 
 import gamble.card.Card;
-import gamble.card.CardInputter;
+import gamble.card.CardInput;
 import gamble.player.Player;
 import gamble.shop.Purchasable;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class RangeReducer implements Purchasable {
   private static final int MINIMUM_CLAN_NUMBER = 7;
   private static final int UPGRADE_AMOUNT = 2;
 
-  private final CardInputter cardInputter;
+  private final CardInput cardInput;
   private final UpgradeEventListener upgradeEventListener;
 
   @Override
@@ -25,7 +25,7 @@ public class RangeReducer implements Purchasable {
   @Override
   public void purchase(Player player) {
     upgradeEventListener.selectingCard(player.getCards());
-    Card card = cardInputter.selectCard(player.getCards());
+    Card card = cardInput.selectCard(player.getCards());
     // Don't allow cards to have max-min damage less than 2 apart
     // e.g. damage 3-4 is not allowed.
     if(card.getMinValue() + UPGRADE_AMOUNT > card.getMaxValue() - 2) {
@@ -41,9 +41,10 @@ public class RangeReducer implements Purchasable {
 
   @Override
   public String description() {
-    return "Bundle of herbs\n" +
-      "  A strongly scented herb with an unusual green tinge in the sunlight.\n" +
-      "  Boosts a card's minimum damage";
+    return """
+      Bundle of herbs
+      A strongly scented herb with an unusual green tinge in the sunlight.
+      Boosts a card's minimum damage""";
   }
 
   @Override
