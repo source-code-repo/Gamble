@@ -8,13 +8,11 @@ import gamble.card.CardCreator;
 import gamble.card.CardInputter;
 import gamble.player.Player;
 import gamble.shop.item.DamageBoost;
-import gamble.shop.item.UpgradeConsoleOutputter;
 import gamble.shop.item.RangeReducer;
-import lombok.extern.slf4j.Slf4j;
+import gamble.shop.item.UpgradeConsoleOutputter;
 
 import java.util.List;
 
-@Slf4j
 public class ShopLocalRunner {
   /**
    * For local testing with system output
@@ -44,6 +42,6 @@ public class ShopLocalRunner {
     shopService.visit(4, player);
 
     cardOut.showPlayerCards(player.getCards());
-    log.info("Player gold {}", player.getGold());
+    System.out.println("Player gold " + player.getGold());
   }
 }

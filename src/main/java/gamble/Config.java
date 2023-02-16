@@ -29,7 +29,7 @@ public class Config {
   // Gold needed to win the game
   private static int targetGold = 66;
 
-  // Dramatic delay before writing each piece of text.
+  // Dramatic delay when printing text
   public static final int DELAY = 400;
 
   public static int getTargetGold() {
